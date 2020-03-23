@@ -517,6 +517,7 @@ void MainWindow::checkFiles(void)
  */
 void MainWindow::checkOutputFolder(const QString p_outputFolder)
 {
+  qDebug() << "MainWindow::checkOutputFolder => p_outputFolder = " << p_outputFolder;
   if(p_outputFolder.isEmpty())
   {
     ui->pushButton_OpenOutputLogs->setEnabled(false);
@@ -525,15 +526,15 @@ void MainWindow::checkOutputFolder(const QString p_outputFolder)
   else
   {
     QDir l_outputFolder(p_outputFolder);
+    qDebug() << "MainWindow::checkOutputFolder => l_outputFolder.exists() = " << l_outputFolder.exists();
+    ui->pushButton_LaunchChecks->setEnabled(true);
     if(l_outputFolder.exists())
     {
       ui->pushButton_OpenOutputLogs->setEnabled(true);
-      ui->pushButton_LaunchChecks->setEnabled(true);
     }
     else
     {
       ui->pushButton_OpenOutputLogs->setEnabled(false);
-      ui->pushButton_LaunchChecks->setEnabled(false);
     }
   }
 }
