@@ -1,6 +1,9 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file alias="AKKA_Logo.png">images/AKKA_Logo.png</file>
-    <file alias="Thales_Logo.png">images/Thales_Logo.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file alias="AKKA_Logo.png">images/AKKA_Logo.png</file>
+        <file alias="Thales_Logo.png">images/Thales_Logo.png</file>
+    </qresource>
+    <qresource prefix="/configuration">
+        <file alias="ConfigFile">config/config.ini</file>
+    </qresource>
 </RCC>

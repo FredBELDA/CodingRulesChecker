@@ -137,6 +137,8 @@
     </property>
     <addaction name="actionOuvrir_la_configuration"/>
     <addaction name="actionEnregistrer_la_configuration"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuitter"/>
    </widget>
    <widget class="QMenu" name="menuAide">
     <property name="title">
@@ -165,6 +167,11 @@
   <action name="actionA_propos">
    <property name="text">
     <string>A propos</string>
+   </property>
+  </action>
+  <action name="actionQuitter">
+   <property name="text">
+    <string>Quitter</string>
    </property>
   </action>
  </widget>

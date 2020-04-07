@@ -4,9 +4,8 @@
 #include <QDirIterator>
 #include <QFileDialog>
 #include <QFile>
+#include <QSettings>
 #include <QTextStream>
-
-#include <string.h>
 
 #include "cveriffile.h"
 #include "cppveriffile.h"
@@ -28,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
   initWidgets();
   connectWidgets();
   initVariables();
+  // Load config file
+  loadConfigurationFile(false);
 }
 
 MainWindow::~MainWindow()
@@ -150,6 +151,7 @@ void MainWindow::connectWidgets(void)
   // File menu
   QObject::connect(ui->actionOuvrir_la_configuration, SIGNAL(triggered(bool)), this, SLOT(loadConfigurationFile(bool)));
   QObject::connect(ui->actionEnregistrer_la_configuration, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFile(bool)));
+  QObject::connect(ui->actionQuitter, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFileAndQuit(bool)));
   // Help menu
   QObject::connect(ui->actionA_propos, SIGNAL(triggered(bool)), this, SLOT(displayAbout(bool)));
 
@@ -201,7 +203,7 @@ void MainWindow::fillInputFolder(void)
   l_dialog.setViewMode(QFileDialog::Detail);
   l_path = QFileDialog::getExistingDirectory(this,
                                              INPUT_FOLDER_TO_CHECK,
-                                             QDir::currentPath(),
+                                             ui->lineEdit_inputFolder->text().isEmpty() ? QDir::currentPath() : ui->lineEdit_inputFolder->text(),
                                              QFileDialog::ShowDirsOnly
                                              );
 
@@ -228,7 +230,7 @@ void MainWindow::fillOutputLogs(void)
   l_dialog.setViewMode(QFileDialog::Detail);
   l_path = QFileDialog::getExistingDirectory(this,
                                              OUTPUT_FOLDER_TO_CHECK,
-                                             QDir::currentPath(),
+                                             ui->lineEdit_outputLogs->text().isEmpty() ? QDir::currentPath() : ui->lineEdit_outputLogs->text(),
                                              QFileDialog::ShowDirsOnly
                                              );
 
@@ -749,12 +751,45 @@ void MainWindow::displayAbout(const bool p_isChecked)
 
 void MainWindow::loadConfigurationFile(const bool p_isChecked)
 {
-  // TODO FBE
   qDebug() << "MainWindow::loadConfigurationFile(void) => p_isChecked=" << p_isChecked;
+
+  //QSettings l_settings(":/ConfigFile.ini", QSettings::IniFormat);
+  QSettings l_settings("config/config.ini", QSettings::IniFormat);
+  l_settings.beginGroup("Config");
+  QString l_inputFolder = l_settings.value("inputFolder").toString();
+  if(!l_inputFolder.isEmpty())
+  {
+    ui->lineEdit_inputFolder->setText(l_inputFolder);
+  }
+  QString l_outputLogsFolder = l_settings.value("reportFolder").toString();
+  if(!l_outputLogsFolder.isEmpty())
+  {
+    ui->lineEdit_outputLogs->setText(l_outputLogsFolder);
+  }
+  l_settings.endGroup();
 }
 
 void MainWindow::saveConfigurationFile(const bool p_isChecked)
 {
-  // TODO FBE
   qDebug() << "MainWindow::saveConfigurationFile(void) => p_isChecked=" << p_isChecked;
+
+  if(!ui->lineEdit_inputFolder->text().isEmpty())
+  {
+    QSettings l_settings("config/config.ini", QSettings::IniFormat);
+    l_settings.beginGroup("Config");
+    l_settings.setValue("inputFolder", ui->lineEdit_inputFolder->text());
+    l_settings.setValue("reportFolder", ui->lineEdit_outputLogs->text());
+    l_settings.endGroup();
+  }
+}
+
+void MainWindow::saveConfigurationFileAndQuit(const bool p_isChecked)
+{
+  saveConfigurationFile(p_isChecked);
+  QApplication::quit();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+  saveConfigurationFile(false);
 }

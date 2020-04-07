@@ -37,6 +37,7 @@ public slots:
   // slots for menubar
   void loadConfigurationFile(const bool p_isChecked);
   void saveConfigurationFile(const bool p_isChecked);
+  void saveConfigurationFileAndQuit(const bool p_isChecked);
   void displayAbout(const bool p_isChecked);
   // slots to determine which popup to display
   void displayNextRule(const QString p_popupTitle);
@@ -45,6 +46,9 @@ signals:
   void inputFolderChoiceDone(QString);
   void filesListed(QStringList);
   void launchCheckFiles(void);
+
+protected:
+  void closeEvent(QCloseEvent *event) override;
 
 private:
   Ui::MainWindow *ui;
