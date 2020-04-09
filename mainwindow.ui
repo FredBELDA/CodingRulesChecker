@@ -128,7 +128,7 @@
      <x>0</x>
      <y>0</y>
      <width>675</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -137,7 +137,6 @@
     </property>
     <addaction name="actionOuvrir_la_configuration"/>
     <addaction name="actionEnregistrer_la_configuration"/>
-    <addaction name="separator"/>
     <addaction name="actionQuitter"/>
    </widget>
    <widget class="QMenu" name="menuAide">
@@ -146,7 +145,14 @@
     </property>
     <addaction name="actionA_propos"/>
    </widget>
+   <widget class="QMenu" name="menuConfiguration">
+    <property name="title">
+     <string>Configuration</string>
+    </property>
+    <addaction name="actionParametrage_des_regles_de_codage"/>
+   </widget>
    <addaction name="menuFichier"/>
+   <addaction name="menuConfiguration"/>
    <addaction name="menuAide"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
@@ -172,6 +178,11 @@
   <action name="actionQuitter">
    <property name="text">
     <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionParametrage_des_regles_de_codage">
+   <property name="text">
+    <string>Paramétrage des règles de codage</string>
    </property>
   </action>
  </widget>

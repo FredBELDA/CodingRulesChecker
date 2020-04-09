@@ -1,3 +1,4 @@
+#include <QCloseEvent>
 #include <QDate>
 #include <QDebug>
 #include <QDir>
@@ -17,6 +18,8 @@
 #include "commonelements.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
+#include "aboutdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -78,6 +81,11 @@ MainWindow::~MainWindow()
     delete m_todoRuleDialog;
     m_todoRuleDialog = nullptr;
   }
+  if(nullptr != m_ruleChoiceDialog)
+  {
+    delete m_ruleChoiceDialog;
+    m_ruleChoiceDialog = nullptr;
+  }
 }
 
 /**
@@ -109,6 +117,16 @@ void MainWindow::windowParameter(QMainWindow *p_mainWindow)
  */
 void MainWindow::initWidgets(void)
 {
+  // Initialisation des textes du menu
+  ui->actionOuvrir_la_configuration->setText(OPEN_CONFIGURATION_FILE);
+  ui->actionEnregistrer_la_configuration->setText(SAVE_CONFIGURATION_FILE);
+  ui->actionQuitter->setText(EXIT);
+
+  ui->actionParametrage_des_regles_de_codage->setText(CODING_RULES_PARAMETERS);
+
+  ui->actionA_propos->setText(ABOUT);
+
+  // Initialisation de la fenêtre principale
   ui->label_inputPath->setText(INPUT_LABEL_TEXT);
   ui->label_outputLogs->setText(OUTPUT_LABEL_TEXT);
   ui->label_mergeAllReports->setText(CHECKBOX_MERGE_REPORTS);
@@ -133,6 +151,9 @@ void MainWindow::initWidgets(void)
   ui->pushButton_browseInputFolder->setText(BROWSE_FOLDER);
   ui->pushButton_browserOutputLogs->setText(BROWSE_FOLDER);
   ui->pushButton_LaunchChecks->setText(LAUNCH_CHECK);
+
+  // Création de la popup RuleChoiceDialog
+  m_ruleChoiceDialog = new RuleChoiceDialog(this);
 }
 
 /**
@@ -152,6 +173,8 @@ void MainWindow::connectWidgets(void)
   QObject::connect(ui->actionOuvrir_la_configuration, SIGNAL(triggered(bool)), this, SLOT(loadConfigurationFile(bool)));
   QObject::connect(ui->actionEnregistrer_la_configuration, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFile(bool)));
   QObject::connect(ui->actionQuitter, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFileAndQuit(bool)));
+  // Configuration menu
+  QObject::connect(ui->actionParametrage_des_regles_de_codage, SIGNAL(triggered(bool)), this, SLOT(manageCodingRules(bool)));
   // Help menu
   QObject::connect(ui->actionA_propos, SIGNAL(triggered(bool)), this, SLOT(displayAbout(bool)));
 
@@ -733,11 +756,19 @@ void MainWindow::displayNextRule(const QString p_popupTitle)
   }
 }
 
+/**
+ * @brief MainWindow::launchCppCheck
+ * Launch cppCheck for C and Cpp projects
+ */
 void MainWindow::launchCppCheck(void)
 {
   Utils::launchCppCheck(ui->lineEdit_inputFolder->text());
 }
 
+/**
+ * @brief MainWindow::launchCheckStyle
+ * Launch checkStyle for Java projects
+ */
 void MainWindow::launchCheckStyle(void)
 {
   Utils::launchCheckStyle(ui->lineEdit_inputFolder->text());
@@ -745,51 +776,149 @@ void MainWindow::launchCheckStyle(void)
 
 void MainWindow::displayAbout(const bool p_isChecked)
 {
-  // TODO FBE : do an about popup
   qDebug() << "MainWindow::displayAbout(void) => p_isChecked=" << p_isChecked;
+
+  AboutDialog *l_aboutDialog = new AboutDialog(this);
+  if(nullptr != l_aboutDialog)
+  {
+    l_aboutDialog->show();
+  }
 }
 
+/**
+ * @brief MainWindow::loadConfigurationFile
+ * Load info into HMI from config file
+ *
+ * @param p_isChecked
+ */
 void MainWindow::loadConfigurationFile(const bool p_isChecked)
 {
-  qDebug() << "MainWindow::loadConfigurationFile(void) => p_isChecked=" << p_isChecked;
+  qDebug() << "MainWindow::loadConfigurationFile(void) => p_isChecked = " << p_isChecked;
 
   //QSettings l_settings(":/ConfigFile.ini", QSettings::IniFormat);
   QSettings l_settings("config/config.ini", QSettings::IniFormat);
-  l_settings.beginGroup("Config");
-  QString l_inputFolder = l_settings.value("inputFolder").toString();
+  l_settings.beginGroup(CONFIG_HMI);
+  QString l_inputFolder = l_settings.value(INPUT_FOLDER_CONFIGURATION).toString();
   if(!l_inputFolder.isEmpty())
   {
     ui->lineEdit_inputFolder->setText(l_inputFolder);
   }
-  QString l_outputLogsFolder = l_settings.value("reportFolder").toString();
+  QString l_outputLogsFolder = l_settings.value(REPORT_FOLDER_CONFIGURATION).toString();
   if(!l_outputLogsFolder.isEmpty())
   {
     ui->lineEdit_outputLogs->setText(l_outputLogsFolder);
   }
   l_settings.endGroup();
+
+  l_settings.beginGroup(CONFIG_RULES);
+  // Common rules
+  bool l_accoladeCheckBoxState = l_settings.value(VERIFY_ACCOLADE_CONFIGURATION).toBool();
+  bool l_magicNumberCheckBoxState = l_settings.value(VERIFY_MAGIC_NUMBER_CONFIGURATION).toBool();
+  bool l_camelCaseCheckBoxState = l_settings.value(VERIFY_CAMEL_CASE_CONFIGURATION).toBool();
+  bool l_conditionCheckBoxState = l_settings.value(VERIFY_CONDITION_CONFIGURATION).toBool();
+  bool l_orphanFunctionCheckBoxState = l_settings.value(VERIFY_ORPHAN_FUNCTION_CONFIGURATION).toBool();
+  bool l_pointerCheckBoxState = l_settings.value(VERIFY_POINTER_CONFIGURATION).toBool();
+  bool l_toDoCheckBoxState = l_settings.value(VERIFY_TODO_CONFIGURATION).toBool();
+
+  // C specific rules
+  bool l_hFileForCCheckBoxState = l_settings.value(VERIFY_H_FILE_FOR_C).toBool();
+
+  // Cpp specific rules
+  bool l_hFileForCppCheckBoxState = l_settings.value(VERIFY_H_FILE_FOR_CPP).toBool();
+  if(nullptr != m_ruleChoiceDialog)
+  {
+    m_ruleChoiceDialog->setAccoladeCheckBoxState(l_accoladeCheckBoxState);
+    m_ruleChoiceDialog->setMagicNumberCheckBoxState(l_magicNumberCheckBoxState);
+    m_ruleChoiceDialog->setCamelCaseCheckBoxState(l_camelCaseCheckBoxState);
+    m_ruleChoiceDialog->setConditionCheckBoxState(l_conditionCheckBoxState);
+    m_ruleChoiceDialog->setOrphanFunctionCheckBoxState(l_orphanFunctionCheckBoxState);
+    m_ruleChoiceDialog->setPointerCheckBoxState(l_pointerCheckBoxState);
+    m_ruleChoiceDialog->setToDoCheckBoxState(l_toDoCheckBoxState);
+
+    m_ruleChoiceDialog->setHFileForCCheckBoxState(l_hFileForCCheckBoxState);
+
+    m_ruleChoiceDialog->setHFileForCppCheckBoxState(l_hFileForCppCheckBoxState);
+  }
+  l_settings.endGroup();
 }
 
+/**
+ * @brief MainWindow::saveConfigurationFile
+ * Save information from HMI to config file
+ *
+ * @param p_isChecked
+ */
 void MainWindow::saveConfigurationFile(const bool p_isChecked)
 {
-  qDebug() << "MainWindow::saveConfigurationFile(void) => p_isChecked=" << p_isChecked;
+  qDebug() << "MainWindow::saveConfigurationFile(void) => p_isChecked = " << p_isChecked;
 
   if(!ui->lineEdit_inputFolder->text().isEmpty())
   {
     QSettings l_settings("config/config.ini", QSettings::IniFormat);
-    l_settings.beginGroup("Config");
-    l_settings.setValue("inputFolder", ui->lineEdit_inputFolder->text());
-    l_settings.setValue("reportFolder", ui->lineEdit_outputLogs->text());
+    l_settings.beginGroup(CONFIG_HMI);
+    l_settings.setValue(INPUT_FOLDER_CONFIGURATION, ui->lineEdit_inputFolder->text());
+    l_settings.setValue(REPORT_FOLDER_CONFIGURATION, ui->lineEdit_outputLogs->text());
+    l_settings.endGroup();
+
+    l_settings.beginGroup(CONFIG_RULES);
+    if(nullptr != m_ruleChoiceDialog)
+    {
+      // Common rules
+      l_settings.setValue(VERIFY_ACCOLADE_CONFIGURATION, m_ruleChoiceDialog->getAccoladeCheckBoxState());
+      l_settings.setValue(VERIFY_MAGIC_NUMBER_CONFIGURATION, m_ruleChoiceDialog->getMagicNumberCheckBoxState());
+      l_settings.setValue(VERIFY_CAMEL_CASE_CONFIGURATION, m_ruleChoiceDialog->getCamelCaseCheckBoxState());
+      l_settings.setValue(VERIFY_CONDITION_CONFIGURATION, m_ruleChoiceDialog->getConditionCheckBoxState());
+      l_settings.setValue(VERIFY_ORPHAN_FUNCTION_CONFIGURATION, m_ruleChoiceDialog->getOrphanFunctionCheckBoxState());
+      l_settings.setValue(VERIFY_POINTER_CONFIGURATION, m_ruleChoiceDialog->getPointerCheckBoxState());
+      l_settings.setValue(VERIFY_TODO_CONFIGURATION, m_ruleChoiceDialog->getToDoCheckBoxState());
+
+      // C specific rules
+      l_settings.setValue(VERIFY_H_FILE_FOR_C, m_ruleChoiceDialog->getHFileForCCheckBoxState());
+
+      // Cpp specific rules
+      l_settings.setValue(VERIFY_H_FILE_FOR_CPP, m_ruleChoiceDialog->getHFileForCppCheckBoxState());
+    }
+    else
+    {
+      qDebug() << "m_ruleChoiceDialog is null !";
+    }
     l_settings.endGroup();
   }
 }
 
+/**
+ * @brief MainWindow::saveConfigurationFileAndQuit
+ * Call saveConfigurationFile to save IHM modification and quit application
+ *
+ * @param p_isChecked
+ */
 void MainWindow::saveConfigurationFileAndQuit(const bool p_isChecked)
 {
   saveConfigurationFile(p_isChecked);
   QApplication::quit();
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+/**
+ * @brief MainWindow::closeEvent
+ * Catch close event from close button and Menu->Quitter
+ *
+ * @param event
+ */
+void MainWindow::closeEvent(QCloseEvent *p_event)
 {
+  p_event->accept();
   saveConfigurationFile(false);
+}
+
+void MainWindow::manageCodingRules(const bool p_isChecked)
+{
+  qDebug() << "MainWindow::manageCodingRules => p_isChecked = " << p_isChecked;
+  if(nullptr != m_ruleChoiceDialog)
+  {
+    m_ruleChoiceDialog->show();
+  }
+  else
+  {
+    qDebug() << "MainWindow::manageCodingRules => m_ruleChoiceDialog is null !";
+  }
 }

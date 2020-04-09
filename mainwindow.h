@@ -5,6 +5,7 @@
 #include <QMainWindow>
 
 #include "ruledialog.h"
+#include "rulechoicedialog.h"
 
 #define MAINWINDOW_HEIGHT 310
 #define MAINWINDOW_WIDTH 675
@@ -38,6 +39,7 @@ public slots:
   void loadConfigurationFile(const bool p_isChecked);
   void saveConfigurationFile(const bool p_isChecked);
   void saveConfigurationFileAndQuit(const bool p_isChecked);
+  void manageCodingRules(const bool p_isChecked);
   void displayAbout(const bool p_isChecked);
   // slots to determine which popup to display
   void displayNextRule(const QString p_popupTitle);
@@ -48,7 +50,7 @@ signals:
   void launchCheckFiles(void);
 
 protected:
-  void closeEvent(QCloseEvent *event) override;
+  void closeEvent(QCloseEvent *p_event) override;
 
 private:
   Ui::MainWindow *ui;
@@ -60,6 +62,8 @@ private:
   RuleDialog *m_orphanFunctionsRuleDialog;
   RuleDialog *m_pointerRuleDialog;
   RuleDialog *m_todoRuleDialog;
+  RuleChoiceDialog *m_ruleChoiceDialog;
+
   QStringList m_cFiles;
   QStringList m_cppFiles;
   QStringList m_hFiles;

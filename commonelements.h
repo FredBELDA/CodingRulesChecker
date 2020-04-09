@@ -1,6 +1,35 @@
 #ifndef COMMONELEMENTS_H
 #define COMMONELEMENTS_H
 
+// Menu Fichier
+#define OPEN_CONFIGURATION_FILE "Ouvrir la configuration"
+#define SAVE_CONFIGURATION_FILE "Sauvegarder la configuration"
+#define EXIT "Quitter"
+
+// Menu Configuration
+#define CODING_RULES_PARAMETERS "Paramétrage des règles de codage"
+
+// Menu Aide
+#define ABOUT "à propos"
+
+// Configuration File
+#define CONFIG_HMI "ConfigHMI"
+#define INPUT_FOLDER_CONFIGURATION "inputFolder"
+#define REPORT_FOLDER_CONFIGURATION "reportFolder"
+
+#define CONFIG_RULES "ConfigRules"
+#define VERIFY_ACCOLADE_CONFIGURATION "verifAccolade"
+#define VERIFY_MAGIC_NUMBER_CONFIGURATION "verifMagicNumber"
+#define VERIFY_CAMEL_CASE_CONFIGURATION "verifCamelCase"
+#define VERIFY_CONDITION_CONFIGURATION "verifCondition"
+#define VERIFY_ORPHAN_FUNCTION_CONFIGURATION "verifOrphanFunction"
+#define VERIFY_POINTER_CONFIGURATION "verifPointer"
+#define VERIFY_TODO_CONFIGURATION "verifToDo"
+
+#define VERIFY_H_FILE_FOR_C "verifHFileForC"
+#define VERIFY_H_FILE_FOR_CPP "verifHFileForCpp"
+
+// Main panel
 #define INPUT_LABEL_TEXT "Veuillez renseigner le répertoire à analyser :"
 #define INPUT_FOLDER_TO_CHECK "Sélectionner le répertoire à analyser"
 #define OUTPUT_LABEL_TEXT "Veuillez renseigner le répertoire de destination des logs :"
@@ -26,6 +55,7 @@
 #define CANNOT_CREATE_FOLDER "Impossible de créer le répertoire !"
 
 #define VALIDATE "Valider"
+#define CANCEL "Annuler"
 
 #define REPORT_HEADER_FILE "Fichier;Numéro de ligne;ligne;Problème rencontré"
 #define CODEC_FOR_EXCEL_FILE "ISO 8859-1"

@@ -38,8 +38,8 @@ void RuleDialog::windowParameter(QWidget *p_widget)
   if(nullptr != p_widget)
   {
     p_widget->setWindowTitle(m_popupTitle);
-    p_widget->resize(POPUP_WIDTH, POPUP_HEIGHT);
-    p_widget->setFixedSize(QSize(POPUP_WIDTH, POPUP_HEIGHT));
+    p_widget->resize(RULE_POPUP_WIDTH, RULE_POPUP_HEIGHT);
+    p_widget->setFixedSize(QSize(RULE_POPUP_WIDTH, RULE_POPUP_HEIGHT));
   }
   else
   {
