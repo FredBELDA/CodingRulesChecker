@@ -41,6 +41,8 @@ void RuleDialog::windowParameter(QWidget *p_widget)
     p_widget->setWindowTitle(m_popupTitle);
     p_widget->resize(RULE_POPUP_WIDTH, RULE_POPUP_HEIGHT);
     p_widget->setFixedSize(QSize(RULE_POPUP_WIDTH, RULE_POPUP_HEIGHT));
+
+    ui->verticalLayout->setGeometry(QRect(10, 10, RULE_POPUP_VERTICAL_LAYOUT_WIDTH, RULE_POPUP_VERTICAL_LAYOUT_HEIGHT));
   }
   else
   {

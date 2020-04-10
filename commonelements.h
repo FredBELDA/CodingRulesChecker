@@ -161,4 +161,7 @@
 pour le compte de Thales TSIS, dans leurs projets internes.\n\n \
 Ce projet a été réalisé avec le framework Qt5.7"
 
+// Coding rule parameter popup
+#define RULE_CHOICE_POPUP_TITLE "Configuration des règles à analyser"
+
 #endif // COMMONELEMENTS_H

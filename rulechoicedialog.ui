@@ -22,7 +22,7 @@
      <height>341</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_4">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLabel" name="label_CommonRules">
       <property name="text">
@@ -109,7 +109,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_C">
        <attribute name="title">
@@ -124,7 +124,7 @@
           <height>121</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
+        <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
@@ -194,8 +194,6 @@
     </item>
    </layout>
   </widget>
-  <zorder>verticalLayoutWidget_4</zorder>
-  <zorder>tabWidget</zorder>
  </widget>
  <resources/>
  <connections/>
