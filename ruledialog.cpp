@@ -16,6 +16,7 @@ RuleDialog::RuleDialog(QWidget *p_parent,
   windowParameter(this);
   initWidgets();
   connectWidgets();
+  applyStyle();
 }
 
 RuleDialog::~RuleDialog()
@@ -63,6 +64,44 @@ void RuleDialog::connectWidgets(void)
 {
   connect(ui->pushButton_Valider, SIGNAL(clicked()), this, SLOT(accept()));
   connect(ui->pushButton_Valider, SIGNAL(clicked()), this, SLOT(emitSignal()));
+}
+
+/**
+ * @brief RuleDialog::applyStyle
+ * Apply different style on widget (label and button)
+ */
+void RuleDialog::applyStyle(void)
+{
+  //Apply font on labels
+  applyFontsOnLabels();
+  // Apply font on pushButton
+  applyFontsOnButtons();
+}
+
+/**
+ * @brief RuleDialog::applyFontsOnLabels
+ * Apply font on all labels for this popup
+ */
+void RuleDialog::applyFontsOnLabels(void)
+{
+  QFont l_fontEnonce;
+  l_fontEnonce.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
+
+  ui->label_Rule->setFont(l_fontEnonce);
+}
+
+/**
+ * @brief RuleDialog::applyFontsOnButtons
+ * Apply font on all buttons for this popup
+ */
+void RuleDialog::applyFontsOnButtons(void)
+{
+  QFont l_fontQPushButton;
+  l_fontQPushButton.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontQPushButton.setPointSize(PUSHBUTTON_FONT_SIZE);
+
+  ui->pushButton_Valider->setFont(l_fontQPushButton);
 }
 
 /**

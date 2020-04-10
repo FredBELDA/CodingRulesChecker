@@ -12,6 +12,7 @@ RuleChoiceDialog::RuleChoiceDialog(QWidget *p_parent) :
   windowParameter(this);
   initWidgets();
   connectWidgets();
+  applyStyle();
 }
 
 RuleChoiceDialog::~RuleChoiceDialog()
@@ -51,6 +52,9 @@ void RuleChoiceDialog::initWidgets(void)
 {
   ui->pushButton_Valider->setText(VALIDATE);
   ui->pushButton_Annuler->setText(CANCEL);
+
+  // Force display the first tab
+  ui->tabWidget->setCurrentIndex(0);
 }
 
 /**
@@ -60,6 +64,88 @@ void RuleChoiceDialog::connectWidgets(void)
 {
   connect(ui->pushButton_Valider, SIGNAL(clicked()), this, SLOT(accept()));
   connect(ui->pushButton_Annuler, SIGNAL(clicked()), this, SLOT(reject()));
+}
+
+/**
+ * @brief RuleChoiceDialog::applyStyle
+ * Apply different style on widget (label and button)
+ */
+void RuleChoiceDialog::applyStyle(void)
+{
+  //Apply font on labels
+  applyFontsOnLabels();
+  // Apply font on pushButton
+  applyFontsOnButtons();
+  // Apply font on checkbox
+  applyFontsOnCheckboxes();
+  // Apply font on tabs
+  applyFontsOnTabs();
+}
+
+/**
+ * @brief RuleChoiceDialog::applyFontsOnLabels
+ * Apply font on all tabs for this popup
+ */
+void RuleChoiceDialog::applyFontsOnTabs(void)
+{
+  QFont l_fontTab;
+  l_fontTab.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontTab.setPointSize(TAB_FONT_SIZE);
+
+  ui->tab_C->setFont(l_fontTab);
+  ui->tab_Cpp->setFont(l_fontTab);
+  ui->tab_Java->setFont(l_fontTab);
+}
+
+/**
+ * @brief RuleChoiceDialog::applyFontsOnLabels
+ * Apply font on all labels for this popup
+ */
+void RuleChoiceDialog::applyFontsOnLabels(void)
+{
+  QFont l_fontEnonce;
+  l_fontEnonce.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
+  l_fontEnonce.setBold(true);
+
+  ui->label_CommonRules->setFont(l_fontEnonce);
+  ui->label_SpecificRules->setFont(l_fontEnonce);
+}
+
+/**
+ * @brief RuleChoiceDialog::applyFontsOnButtons
+ * Apply font on all buttons for this popup
+ */
+void RuleChoiceDialog::applyFontsOnButtons(void)
+{
+  QFont l_fontQPushButton;
+  l_fontQPushButton.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontQPushButton.setPointSize(PUSHBUTTON_FONT_SIZE);
+
+  ui->pushButton_Valider->setFont(l_fontQPushButton);
+  ui->pushButton_Annuler->setFont(l_fontQPushButton);
+}
+
+/**
+ * @brief RuleChoiceDialog::applyFontsOnLabels
+ * Apply font on all checkboxes for this popup
+ */
+void RuleChoiceDialog::applyFontsOnCheckboxes(void)
+{
+  QFont l_fontQCheckbox;
+  l_fontQCheckbox.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontQCheckbox.setPointSize(CHECKBOX_FONT_SIZE);
+
+  ui->checkBox_AccoladeVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_CamelCaseVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_ConditionVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_MagicNumberVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_OrphanFunctionsVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_PointerVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_ToDoVerification->setFont(l_fontQCheckbox);
+
+  ui->checkBox_HFileVerificationForC->setFont(l_fontQCheckbox);
+  ui->checkBox_HFileVerificationForCpp->setFont(l_fontQCheckbox);
 }
 
 bool RuleChoiceDialog::getAccoladeCheckBoxState(void)

@@ -12,6 +12,7 @@ AboutDialog::AboutDialog(QWidget *p_parent) :
   windowParameter(this);
   initWidgets();
   connectWidgets();
+  applyStyle();
 }
 
 AboutDialog::~AboutDialog()
@@ -60,4 +61,42 @@ void AboutDialog::initWidgets(void)
 void AboutDialog::connectWidgets(void)
 {
   connect(ui->pushButton_Valider, SIGNAL(clicked()), this, SLOT(accept()));
+}
+
+/**
+ * @brief AboutDialog::applyStyle
+ * Apply different style on widget (label and button)
+ */
+void AboutDialog::applyStyle(void)
+{
+  //Apply font on labels
+  applyFontsOnLabels();
+  // Apply font on pushButton
+  applyFontsOnButtons();
+}
+
+/**
+ * @brief AboutDialog::applyFontsOnLabels
+ * Apply font on all labels for this popup
+ */
+void AboutDialog::applyFontsOnLabels(void)
+{
+  QFont l_fontEnonce;
+  l_fontEnonce.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
+
+  ui->label_About->setFont(l_fontEnonce);
+}
+
+/**
+ * @brief AboutDialog::applyFontsOnButtons
+ * Apply font on all buttons for this popup
+ */
+void AboutDialog::applyFontsOnButtons(void)
+{
+  QFont l_fontQPushButton;
+  l_fontQPushButton.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontQPushButton.setPointSize(PUSHBUTTON_FONT_SIZE);
+
+  ui->pushButton_Valider->setFont(l_fontQPushButton);
 }

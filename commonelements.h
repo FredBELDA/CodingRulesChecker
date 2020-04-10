@@ -1,15 +1,28 @@
 #ifndef COMMONELEMENTS_H
 #define COMMONELEMENTS_H
 
+//Font management
+#define FONT_DECLARATION "Arial"
+#define MENU_FONT_SIZE 12
+#define ENONCE_FONT_SIZE 12
+#define TAB_FONT_SIZE 10
+#define LINEEDIT_FONT_SIZE 10
+#define PUSHBUTTON_FONT_SIZE 10
+#define CHECKBOX_FONT_SIZE 10
+#define LABEL_COLOR "QLabel { color : #1e3687; }"
+
 // Menu Fichier
+#define FILE_MENU "Fichier"
 #define OPEN_CONFIGURATION_FILE "Ouvrir la configuration"
 #define SAVE_CONFIGURATION_FILE "Sauvegarder la configuration"
 #define EXIT "Quitter"
 
 // Menu Configuration
+#define CONFIGURATION_MENU "Configuration"
 #define CODING_RULES_PARAMETERS "Paramétrage des règles de codage"
 
 // Menu Aide
+#define HELP_MENU "Aide"
 #define ABOUT "à propos"
 
 // Configuration File
@@ -28,6 +41,9 @@
 
 #define VERIFY_H_FILE_FOR_C "verifHFileForC"
 #define VERIFY_H_FILE_FOR_CPP "verifHFileForCpp"
+
+// Fenêtre principale
+#define WINDOW_TITLE "Coding rules checker"
 
 // Main panel
 #define INPUT_LABEL_TEXT "Veuillez renseigner le répertoire à analyser :"
@@ -54,9 +70,11 @@
 #define NUMBER_OF_NOT_MANAGED_FILES "Nombre de fichier non geres : "
 #define CANNOT_CREATE_FOLDER "Impossible de créer le répertoire !"
 
+// Buttons
 #define VALIDATE "Valider"
 #define CANCEL "Annuler"
 
+// Reports
 #define REPORT_HEADER_FILE "Fichier;Numéro de ligne;ligne;Problème rencontré"
 #define CODEC_FOR_EXCEL_FILE "ISO 8859-1"
 #define NB_MIN_ELTS 2
@@ -71,6 +89,10 @@
 #define POINTER_FILE_NAME "Pointer.csv"
 #define ORPHAN_FUNCTIONS_FILE_NAME "OrphanFunctions.csv"
 #define CONDITIONS_FILE_NAME "Conditions.csv"
+
+// Errors
+#define INPUT_FOLDER_DOES_NOT_EXISTS "Le répertoire d'entrée du projet n'existe pas !"
+#define OUTPUT_FOLDER_DOES_NOT_EXISTS "Le répertoire de logs n'existe pas, il sera créé automatiquement !"
 
 // TODO complete rules contains
 #define ACCOLADE_RULE_POPUP_TITLE "Règle de codage concernant les accolades"
@@ -132,5 +154,11 @@
 
 #define CPP_CHECK_PATH "\"C:/Program Files/Cppcheck/cppcheckgui.exe\""
 #define EXPLORER_CMD "explorer.exe"
+
+// About popup
+#define ABOUT_POPUP_TITLE "Au sujet de"
+#define ABOUT_POPUP_CONTAINT "Le projet CodingRulesChecker a été déveoppé dans le but\nd'assurer une conformité des livraisons\n \
+pour le compte de Thales TSIS, dans leurs projets internes.\n\n \
+Ce projet a été réalisé avec le framework Qt5.7"
 
 #endif // COMMONELEMENTS_H

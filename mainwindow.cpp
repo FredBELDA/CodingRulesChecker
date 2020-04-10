@@ -5,6 +5,7 @@
 #include <QDirIterator>
 #include <QFileDialog>
 #include <QFile>
+#include <QIcon>
 #include <QSettings>
 #include <QTextStream>
 
@@ -30,8 +31,9 @@ MainWindow::MainWindow(QWidget *parent) :
   initWidgets();
   connectWidgets();
   initVariables();
+  applyStyle();
   // Load config file
-  loadConfigurationFile(false);
+  loadConfigurationFile();
 }
 
 MainWindow::~MainWindow()
@@ -97,7 +99,9 @@ void MainWindow::windowParameter(QMainWindow *p_mainWindow)
 {
   if(nullptr != p_mainWindow)
   {
+    QIcon l_applicationIcon(":/images/CodingRulesChecker_Logo.png");
     p_mainWindow->setWindowTitle(WINDOW_TITLE);
+    p_mainWindow->setWindowIcon(l_applicationIcon);
     p_mainWindow->resize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
     p_mainWindow->setFixedSize(QSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT));
 
@@ -118,12 +122,15 @@ void MainWindow::windowParameter(QMainWindow *p_mainWindow)
 void MainWindow::initWidgets(void)
 {
   // Initialisation des textes du menu
+  ui->menuFichier->setTitle(FILE_MENU);
   ui->actionOuvrir_la_configuration->setText(OPEN_CONFIGURATION_FILE);
   ui->actionEnregistrer_la_configuration->setText(SAVE_CONFIGURATION_FILE);
   ui->actionQuitter->setText(EXIT);
 
+  ui->menuConfiguration->setTitle(CONFIGURATION_MENU);
   ui->actionParametrage_des_regles_de_codage->setText(CODING_RULES_PARAMETERS);
 
+  ui->menuAide->setTitle(HELP_MENU);
   ui->actionA_propos->setText(ABOUT);
 
   // Initialisation de la fenêtre principale
@@ -132,7 +139,7 @@ void MainWindow::initWidgets(void)
   ui->label_mergeAllReports->setText(CHECKBOX_MERGE_REPORTS);
   ui->label_logoAKKA->setText("");
   ui->label_logoThales->setText("");
-  QPixmap l_logo_AKKA(":/AKKA_Logo.png");
+  QPixmap l_logo_AKKA(":/images/AKKA_Logo.png");
   int l_logo_AKKA_Width = ui->label_logoAKKA->width();
   int l_logo_AKKA_Height = ui->label_logoAKKA->height();
   ui->label_logoAKKA->setPixmap(l_logo_AKKA.scaled(l_logo_AKKA_Width,
@@ -140,7 +147,7 @@ void MainWindow::initWidgets(void)
                                                    Qt::KeepAspectRatio)
                                 );
   ui->label_logoAKKA->setAlignment(Qt::AlignCenter);
-  QPixmap l_logo_Thales(":/Thales_Logo.png");
+  QPixmap l_logo_Thales(":/images/Thales_Logo.png");
   int l_logo_Thales_Width = ui->label_logoThales->width();
   int l_logo_Thales_Height = ui->label_logoThales->height();
   ui->label_logoThales->setPixmap(l_logo_Thales.scaled(l_logo_Thales_Width,
@@ -164,20 +171,22 @@ void MainWindow::initWidgets(void)
  */
 void MainWindow::connectWidgets(void)
 {
+  // Widget connexion
   QObject::connect(ui->pushButton_browseInputFolder, SIGNAL(clicked()), this, SLOT(fillInputFolder()));
   QObject::connect(ui->pushButton_browserOutputLogs, SIGNAL(clicked()), this, SLOT(fillOutputLogs()));
   QObject::connect(ui->pushButton_LaunchChecks, SIGNAL(clicked()), this, SLOT(parseFolder()));
   QObject::connect(ui->pushButton_OpenOutputLogs, SIGNAL(clicked()), this, SLOT(openFolder()));
+  QObject::connect(ui->lineEdit_inputFolder, SIGNAL(textChanged(QString)), this, SLOT(checkInputFolder(QString)));
   QObject::connect(ui->lineEdit_outputLogs, SIGNAL(textChanged(QString)), this, SLOT(checkOutputFolder(QString)));
-  // File menu
-  QObject::connect(ui->actionOuvrir_la_configuration, SIGNAL(triggered(bool)), this, SLOT(loadConfigurationFile(bool)));
-  QObject::connect(ui->actionEnregistrer_la_configuration, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFile(bool)));
-  QObject::connect(ui->actionQuitter, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFileAndQuit(bool)));
-  // Configuration menu
-  QObject::connect(ui->actionParametrage_des_regles_de_codage, SIGNAL(triggered(bool)), this, SLOT(manageCodingRules(bool)));
-  // Help menu
-  QObject::connect(ui->actionA_propos, SIGNAL(triggered(bool)), this, SLOT(displayAbout(bool)));
-
+  // File menu connexion
+  QObject::connect(ui->actionOuvrir_la_configuration, SIGNAL(triggered(bool)), this, SLOT(loadConfigurationFile()));
+  QObject::connect(ui->actionEnregistrer_la_configuration, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFile()));
+  QObject::connect(ui->actionQuitter, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFileAndQuit()));
+  // Configuration menu connexion
+  QObject::connect(ui->actionParametrage_des_regles_de_codage, SIGNAL(triggered(bool)), this, SLOT(manageCodingRules()));
+  // Help menu connexion
+  QObject::connect(ui->actionA_propos, SIGNAL(triggered(bool)), this, SLOT(displayAbout()));
+  // Signal connexion
   QObject::connect(this, SIGNAL(filesListed(QStringList)), this, SLOT(sortFiles(QStringList)));
   QObject::connect(this, SIGNAL(launchCheckFiles()), this, SLOT(checkFiles()));  
 }
@@ -210,6 +219,22 @@ void MainWindow::initVariables(void)
   m_todoRuleDialog = nullptr;
 
   checkOutputFolder(ui->lineEdit_outputLogs->text());
+}
+
+/**
+ * @brief MainWindow::applyStyle
+ * Apply different style on widget (label and button)
+ */
+void MainWindow::applyStyle(void)
+{
+  //Apply font on labels
+  applyFontsOnLabels();
+  // Apply font on pushButton
+  applyFontsOnButtons();
+  // Apply font on LineEdit
+  applyFontsOnLineEdits();
+  // Apply font on menu
+  applyFontsOnMenu();
 }
 
 /**
@@ -387,151 +412,243 @@ void MainWindow::sortFiles(QStringList p_list)
  */
 void MainWindow::checkFiles(void)
 {
-  foreach (QString l_cFile, m_cFiles)
+  if(nullptr != m_ruleChoiceDialog)
   {
-    CVerifFile *l_cVerifFile = new CVerifFile(l_cFile, ui->lineEdit_outputLogs->text());
-    if(nullptr != l_cVerifFile)
+    foreach (QString l_cFile, m_cFiles)
     {
-      // Check for accolade problem into code
-      l_cVerifFile->verifyAccolade();
-      // Set a boolean to display the popup if rule is not respected
-      m_displayAccoladeRule |= l_cVerifFile->hasAccoladeProblem();
-      // Check for camel case problem into code
-      l_cVerifFile->verifyCamelCase();
-      // Set a boolean to display the popup if rule is not respected
-      m_displayCamelCaseRule |= l_cVerifFile->hasCamelCaseProblem();
-      // Check for H file presence
-      l_cVerifFile->verifyHFile(m_hFiles);
-      // Set a boolean to display the popup if rule is not respected
-      m_displayHRule |= l_cVerifFile->hasHFileProblem();
-      // Check for magic number problem into code
-      l_cVerifFile->verifyMagicNumber();
-      // Set a boolean to display the popup if rule is not respected
-      m_displayMagicNumberRule |= l_cVerifFile->hasMagicNumberProblem();
-      // Check for TODO problem into code
-      l_cVerifFile->verifyTODO();
-      m_displayTODORule |= l_cVerifFile->hasTODOProblem();
-    }
-    else
-    {
-      qDebug() << "l_cVerifFile is not created !";
-    }
-  }
-
-  foreach (QString l_cppFile, m_cppFiles)
-  {
-    CppVerifFile *l_cppVerifFile = new CppVerifFile(l_cppFile, ui->lineEdit_outputLogs->text());
-    if(nullptr != l_cppVerifFile)
-    {
-      // Check for accolade problem into code
-      l_cppVerifFile->verifyAccolade();
-      // Set a boolean to display the popup if rule is not respected
-      m_displayAccoladeRule |= l_cppVerifFile->hasAccoladeProblem();
-      // Check for camel case problem into code
-      l_cppVerifFile->verifyCamelCase();
-      // Set a boolean to display the popup if rule is not respected
-      m_displayCamelCaseRule |= l_cppVerifFile->hasCamelCaseProblem();
-      // Check for H file presence
-      l_cppVerifFile->verifyHFile(m_hFiles);
-      // Set a boolean to display the popup if rule is not respected
-      m_displayHRule |= l_cppVerifFile->hasHFileProblem();
-      // Check for magic number problem into code
-      l_cppVerifFile->verifyMagicNumber();
-      // Set a boolean to display the popup if rule is not respected
-      m_displayMagicNumberRule |= l_cppVerifFile->hasMagicNumberProblem();
-      // Check for TODO problem into code
-      l_cppVerifFile->verifyTODO();
-      // Set a boolean to display the popup if rule is not respected
-      m_displayTODORule |= l_cppVerifFile->hasTODOProblem();
-    }
-    else
-    {
-      qDebug() << "l_cppVerifFile is not created !";
-    }
-  }
-
-  foreach (QString l_javaFile, m_javaFiles)
-  {
-    JavaVerifFile *l_javaVerifFile = new JavaVerifFile(l_javaFile, ui->lineEdit_outputLogs->text());
-    if(nullptr != l_javaVerifFile)
-    {
-      // Check for accolade problem into code
-      l_javaVerifFile->verifyAccolade();
-      // Set a boolean to display the popup if rule is not respected
-      m_displayAccoladeRule |= l_javaVerifFile->hasAccoladeProblem();
-      // Check for camel case problem into code
-      l_javaVerifFile->verifyCamelCase();
-      // Set a boolean to display the popup if rule is not respected
-      m_displayCamelCaseRule |= l_javaVerifFile->hasCamelCaseProblem();
-      // Check for magic number problem into code
-      l_javaVerifFile->verifyMagicNumber();
-      m_displayMagicNumberRule |= l_javaVerifFile->hasMagicNumberProblem();
-      // Check for TODO problem into code
-      l_javaVerifFile->verifyTODO();
-      // Set a boolean to display the popup if rule is not respected
-      m_displayTODORule |= l_javaVerifFile->hasTODOProblem();
-    }
-    else
-    {
-      qDebug() << "l_javaVerifFile is not created !";
-    }
-  }
-
-  foreach (QString l_iniFile, m_iniFiles)
-  {
-    IniVerifFile *l_iniVerifFile = new IniVerifFile(l_iniFile, ui->lineEdit_outputLogs->text());
-    if(nullptr != l_iniVerifFile)
-    {
-      l_iniVerifFile->isIniFile();
-    }
-    else
-    {
-      qDebug() << "l_iniVerifFile is not created !";
-    }
-  }
-
-  // Launch cppCheck if c or cpp files
-  if(!m_cFiles.isEmpty() || !m_cppFiles.isEmpty())
-  {
-    foreach (QString l_hFile, m_hFiles)
-    {
-      HVerifFile *l_hVerifFile = new HVerifFile(l_hFile, ui->lineEdit_outputLogs->text());
-      if(nullptr != l_hVerifFile)
+      CVerifFile *l_cVerifFile = new CVerifFile(l_cFile, ui->lineEdit_outputLogs->text());
+      if(nullptr != l_cVerifFile)
       {
-        l_hVerifFile->verifyAccolade();
-        l_hVerifFile->verifyCamelCase();
-        l_hVerifFile->verifyMagicNumber();
-        l_hVerifFile->verifyTODO();
+        if(m_ruleChoiceDialog->getAccoladeCheckBoxState())
+        {
+          // Check for accolade problem into code
+          l_cVerifFile->verifyAccolade();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayAccoladeRule |= l_cVerifFile->hasAccoladeProblem();
+        }
+        if(m_ruleChoiceDialog->getCamelCaseCheckBoxState())
+        {
+          // Check for camel case problem into code
+          l_cVerifFile->verifyCamelCase();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayCamelCaseRule |= l_cVerifFile->hasCamelCaseProblem();
+        }
+        if(m_ruleChoiceDialog->getHFileForCCheckBoxState())
+        {
+          // Check for H file presence
+          l_cVerifFile->verifyHFile(m_hFiles);
+          // Set a boolean to display the popup if rule is not respected
+          m_displayHRule |= l_cVerifFile->hasHFileProblem();
+        }
+        if(m_ruleChoiceDialog->getMagicNumberCheckBoxState())
+        {
+          // Check for magic number problem into code
+          l_cVerifFile->verifyMagicNumber();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayMagicNumberRule |= l_cVerifFile->hasMagicNumberProblem();
+        }
+        if(m_ruleChoiceDialog->getToDoCheckBoxState())
+        {
+          // Check for TODO problem into code
+          l_cVerifFile->verifyTODO();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayTODORule |= l_cVerifFile->hasTODOProblem();
+        }
+        // TODO FBE : Add pointer check
       }
       else
       {
-        qDebug() << "l_hVerifFile is not created !";
+        qDebug() << "l_cVerifFile is not created !";
       }
     }
+
+    foreach (QString l_cppFile, m_cppFiles)
+    {
+      CppVerifFile *l_cppVerifFile = new CppVerifFile(l_cppFile, ui->lineEdit_outputLogs->text());
+      if(nullptr != l_cppVerifFile)
+      {
+        if(m_ruleChoiceDialog->getAccoladeCheckBoxState())
+        {
+          // Check for accolade problem into code
+          l_cppVerifFile->verifyAccolade();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayAccoladeRule |= l_cppVerifFile->hasAccoladeProblem();
+        }
+        if(m_ruleChoiceDialog->getCamelCaseCheckBoxState())
+        {
+          // Check for camel case problem into code
+          l_cppVerifFile->verifyCamelCase();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayCamelCaseRule |= l_cppVerifFile->hasCamelCaseProblem();
+        }
+        if(m_ruleChoiceDialog->getHFileForCppCheckBoxState())
+        {
+          // Check for H file presence
+          l_cppVerifFile->verifyHFile(m_hFiles);
+          // Set a boolean to display the popup if rule is not respected
+          m_displayHRule |= l_cppVerifFile->hasHFileProblem();
+        }
+        if(m_ruleChoiceDialog->getMagicNumberCheckBoxState())
+        {
+          // Check for magic number problem into code
+          l_cppVerifFile->verifyMagicNumber();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayMagicNumberRule |= l_cppVerifFile->hasMagicNumberProblem();
+        }
+        if(m_ruleChoiceDialog->getToDoCheckBoxState())
+        {
+          // Check for TODO problem into code
+          l_cppVerifFile->verifyTODO();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayTODORule |= l_cppVerifFile->hasTODOProblem();
+        }
+        // TODO FBE : Add pointer check
+      }
+      else
+      {
+        qDebug() << "l_cppVerifFile is not created !";
+      }
+    }
+
+    foreach (QString l_javaFile, m_javaFiles)
+    {
+      JavaVerifFile *l_javaVerifFile = new JavaVerifFile(l_javaFile, ui->lineEdit_outputLogs->text());
+      if(nullptr != l_javaVerifFile)
+      {
+        if(m_ruleChoiceDialog->getAccoladeCheckBoxState())
+        {
+          // Check for accolade problem into code
+          l_javaVerifFile->verifyAccolade();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayAccoladeRule |= l_javaVerifFile->hasAccoladeProblem();
+        }
+        if(m_ruleChoiceDialog->getCamelCaseCheckBoxState())
+        {
+          // Check for camel case problem into code
+          l_javaVerifFile->verifyCamelCase();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayCamelCaseRule |= l_javaVerifFile->hasCamelCaseProblem();
+        }
+        if(m_ruleChoiceDialog->getMagicNumberCheckBoxState())
+        {
+          // Check for magic number problem into code
+          l_javaVerifFile->verifyMagicNumber();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayMagicNumberRule |= l_javaVerifFile->hasMagicNumberProblem();
+        }
+        if(m_ruleChoiceDialog->getToDoCheckBoxState())
+        {
+          // Check for TODO problem into code
+          l_javaVerifFile->verifyTODO();
+          // Set a boolean to display the popup if rule is not respected
+          m_displayTODORule |= l_javaVerifFile->hasTODOProblem();
+        }
+        // TODO FBE : Add pointer check
+      }
+      else
+      {
+        qDebug() << "l_javaVerifFile is not created !";
+      }
+    }
+
+    foreach (QString l_iniFile, m_iniFiles)
+    {
+      IniVerifFile *l_iniVerifFile = new IniVerifFile(l_iniFile, ui->lineEdit_outputLogs->text());
+      if(nullptr != l_iniVerifFile)
+      {
+        l_iniVerifFile->isIniFile();
+      }
+      else
+      {
+        qDebug() << "l_iniVerifFile is not created !";
+      }
+    }
+
+    // Launch cppCheck if c or cpp files
+    if(!m_cFiles.isEmpty() || !m_cppFiles.isEmpty())
+    {
+      foreach (QString l_hFile, m_hFiles)
+      {
+        HVerifFile *l_hVerifFile = new HVerifFile(l_hFile, ui->lineEdit_outputLogs->text());
+        if(nullptr != l_hVerifFile)
+        {
+          if(m_ruleChoiceDialog->getAccoladeCheckBoxState())
+          {
+            l_hVerifFile->verifyAccolade();
+          }
+          if(m_ruleChoiceDialog->getCamelCaseCheckBoxState())
+          {
+            l_hVerifFile->verifyCamelCase();
+          }
+          if(m_ruleChoiceDialog->getMagicNumberCheckBoxState())
+          {
+            l_hVerifFile->verifyMagicNumber();
+          }
+          if(m_ruleChoiceDialog->getToDoCheckBoxState())
+          {
+            l_hVerifFile->verifyTODO();
+          }
+        }
+        else
+        {
+          qDebug() << "l_hVerifFile is not created !";
+        }
+      }
+    }
+
+    displayFirstRule();
+
+    if(ui->checkBox_MergeAllReports->isChecked())
+    {
+      // QTextStream object creation from QFile object
+      QTextStream l_flux(m_mergedReport);
+      // We fix codec before writting
+      l_flux.setCodec(CODEC_FOR_EXCEL_FILE);
+      // Write info into file
+      l_flux << NUMBER_OF_C_FILES << m_cFiles.size() << endl;
+      l_flux << NUMBER_OF_CPP_FILES << m_cppFiles.size() << endl;
+      l_flux << NUMBER_OF_H_FILES << m_hFiles.size() << endl;
+      l_flux << NUMBER_OF_JAVA_FILES << m_javaFiles.size() << endl;
+      l_flux << NUMBER_OF_INI_FILES << m_iniFiles.size() << endl;
+      l_flux << NUMBER_OF_NOT_MANAGED_FILES << m_otherFiles.size() << endl;
+
+      // We close the global report
+      m_mergedReport->close();
+    }
+
+    // Check for output folder logs creation
+    checkOutputFolder(ui->lineEdit_outputLogs->text());
   }
-
-  displayFirstRule();
-
-  if(ui->checkBox_MergeAllReports->isChecked())
+  else
   {
-    // QTextStream object creation from QFile object
-    QTextStream l_flux(m_mergedReport);
-    // We fix codec before writting
-    l_flux.setCodec(CODEC_FOR_EXCEL_FILE);
-    // Write info into file
-    l_flux << NUMBER_OF_C_FILES << m_cFiles.size() << endl;
-    l_flux << NUMBER_OF_CPP_FILES << m_cppFiles.size() << endl;
-    l_flux << NUMBER_OF_H_FILES << m_hFiles.size() << endl;
-    l_flux << NUMBER_OF_JAVA_FILES << m_javaFiles.size() << endl;
-    l_flux << NUMBER_OF_INI_FILES << m_iniFiles.size() << endl;
-    l_flux << NUMBER_OF_NOT_MANAGED_FILES << m_otherFiles.size() << endl;
-
-    // We close the global report
-    m_mergedReport->close();
+    qDebug() << "MainWindow::checkFiles => m_ruleChoiceDialog is null";
   }
+}
 
-  // Check for output folder logs creation
-  checkOutputFolder(ui->lineEdit_outputLogs->text());
+/**
+ * @brief MainWindow::checkInputFolder
+ * Each time you modify the input folder path, we check if the input folder exists
+ * A tooltip appears and we disable the launchButton when input folder does not exist
+ *
+ * @param p_inputFolder : the input folder path changed into widget
+ */
+void MainWindow::checkInputFolder(const QString p_inputFolder)
+{
+  QPalette l_palette = ui->lineEdit_inputFolder->palette();
+  QDir l_inputFolder(p_inputFolder);
+  if(l_inputFolder.exists())
+  {
+    l_palette.setColor(QPalette::Text, QColor(0,0,0));
+    ui->lineEdit_inputFolder->setToolTip("");
+    ui->pushButton_LaunchChecks->setEnabled(true);
+  }
+  else
+  {
+    l_palette.setColor(QPalette::Text, QColor(255,0,0));
+    ui->lineEdit_inputFolder->setToolTip(INPUT_FOLDER_DOES_NOT_EXISTS);
+    ui->pushButton_LaunchChecks->setEnabled(false);
+  }
+  ui->lineEdit_inputFolder->setPalette(l_palette);
 }
 
 /**
@@ -542,26 +659,31 @@ void MainWindow::checkFiles(void)
  */
 void MainWindow::checkOutputFolder(const QString p_outputFolder)
 {
-  qDebug() << "MainWindow::checkOutputFolder => p_outputFolder = " << p_outputFolder;
+  QPalette l_palette = ui->lineEdit_outputLogs->palette();
   if(p_outputFolder.isEmpty())
   {
     ui->pushButton_OpenOutputLogs->setEnabled(false);
     ui->pushButton_LaunchChecks->setEnabled(false);
+    l_palette.setColor(QPalette::Text, QColor(255,0,0));
   }
   else
   {
     QDir l_outputFolder(p_outputFolder);
-    qDebug() << "MainWindow::checkOutputFolder => l_outputFolder.exists() = " << l_outputFolder.exists();
     ui->pushButton_LaunchChecks->setEnabled(true);
     if(l_outputFolder.exists())
     {
       ui->pushButton_OpenOutputLogs->setEnabled(true);
+      l_palette.setColor(QPalette::Text, QColor(0,0,0));
+      ui->lineEdit_outputLogs->setToolTip("");
     }
     else
     {
       ui->pushButton_OpenOutputLogs->setEnabled(false);
+      l_palette.setColor(QPalette::Text, QColor(255,0,0));
+      ui->lineEdit_outputLogs->setToolTip(OUTPUT_FOLDER_DOES_NOT_EXISTS);
     }
   }
+  ui->lineEdit_outputLogs->setPalette(l_palette);
 }
 
 void MainWindow::displayAccoladePopupRule(void)
@@ -569,7 +691,9 @@ void MainWindow::displayAccoladePopupRule(void)
   // Check for m_display boolean to display popup with rules
   if(m_displayAccoladeRule)
   {
-    m_accoladeRuleDialog = new RuleDialog(this, ACCOLADE_RULE_POPUP_TITLE, ACCOLADE_RULE_POPUP);
+    m_accoladeRuleDialog = new RuleDialog(this,
+                                          ACCOLADE_RULE_POPUP_TITLE,
+                                          ACCOLADE_RULE_POPUP);
     if(nullptr != m_accoladeRuleDialog)
     {
       QObject::connect(m_accoladeRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
@@ -588,7 +712,9 @@ void MainWindow::displayCamelCaseRule(void)
 {
   if(m_displayCamelCaseRule)
   {
-    m_camelCaseRuleDialog = new RuleDialog(this, CAMEL_CASE_RULE_POPUP_TITLE, CAMEL_CASE_RULE_POPUP);
+    m_camelCaseRuleDialog = new RuleDialog(this,
+                                           CAMEL_CASE_RULE_POPUP_TITLE,
+                                           CAMEL_CASE_RULE_POPUP);
     if(nullptr != m_camelCaseRuleDialog)
     {
       QObject::connect(m_camelCaseRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
@@ -607,7 +733,9 @@ void MainWindow::displayMagicNumberRule(void)
 {
   if(m_displayMagicNumberRule)
   {
-    m_magicNumberRuleDialog = new RuleDialog(this, MAGIC_NUMBER_RULE_POPUP_TITLE, MAGIC_NUMBER_RULE_POPUP);
+    m_magicNumberRuleDialog = new RuleDialog(this,
+                                             MAGIC_NUMBER_RULE_POPUP_TITLE,
+                                             MAGIC_NUMBER_RULE_POPUP);
     if(nullptr != m_magicNumberRuleDialog)
     {
       QObject::connect(m_magicNumberRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
@@ -626,7 +754,9 @@ void MainWindow::displayTODORule(void)
 {
   if(m_displayTODORule)
   {
-    m_todoRuleDialog = new RuleDialog(this, TODO_RULE_POPUP_TITLE, TODO_RULE_POPUP);
+    m_todoRuleDialog = new RuleDialog(this,
+                                      TODO_RULE_POPUP_TITLE,
+                                      TODO_RULE_POPUP);
     if(nullptr != m_todoRuleDialog)
     {
       QObject::connect(m_todoRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
@@ -645,7 +775,9 @@ void MainWindow::displayHRule(void)
 {
   if(m_displayHRule)
   {
-    m_hFileRuleDialog = new RuleDialog(this, H_RULE_POPUP_TITLE, H_RULE_POPUP);
+    m_hFileRuleDialog = new RuleDialog(this,
+                                       H_RULE_POPUP_TITLE,
+                                       H_RULE_POPUP);
     if(nullptr != m_hFileRuleDialog)
     {
       QObject::connect(m_hFileRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
@@ -774,10 +906,12 @@ void MainWindow::launchCheckStyle(void)
   Utils::launchCheckStyle(ui->lineEdit_inputFolder->text());
 }
 
-void MainWindow::displayAbout(const bool p_isChecked)
+/**
+ * @brief MainWindow::displayAbout
+ * Display about popup
+ */
+void MainWindow::displayAbout(void)
 {
-  qDebug() << "MainWindow::displayAbout(void) => p_isChecked=" << p_isChecked;
-
   AboutDialog *l_aboutDialog = new AboutDialog(this);
   if(nullptr != l_aboutDialog)
   {
@@ -788,13 +922,9 @@ void MainWindow::displayAbout(const bool p_isChecked)
 /**
  * @brief MainWindow::loadConfigurationFile
  * Load info into HMI from config file
- *
- * @param p_isChecked
  */
-void MainWindow::loadConfigurationFile(const bool p_isChecked)
+void MainWindow::loadConfigurationFile(void)
 {
-  qDebug() << "MainWindow::loadConfigurationFile(void) => p_isChecked = " << p_isChecked;
-
   //QSettings l_settings(":/ConfigFile.ini", QSettings::IniFormat);
   QSettings l_settings("config/config.ini", QSettings::IniFormat);
   l_settings.beginGroup(CONFIG_HMI);
@@ -845,13 +975,9 @@ void MainWindow::loadConfigurationFile(const bool p_isChecked)
 /**
  * @brief MainWindow::saveConfigurationFile
  * Save information from HMI to config file
- *
- * @param p_isChecked
  */
-void MainWindow::saveConfigurationFile(const bool p_isChecked)
+void MainWindow::saveConfigurationFile(void)
 {
-  qDebug() << "MainWindow::saveConfigurationFile(void) => p_isChecked = " << p_isChecked;
-
   if(!ui->lineEdit_inputFolder->text().isEmpty())
   {
     QSettings l_settings("config/config.ini", QSettings::IniFormat);
@@ -889,12 +1015,10 @@ void MainWindow::saveConfigurationFile(const bool p_isChecked)
 /**
  * @brief MainWindow::saveConfigurationFileAndQuit
  * Call saveConfigurationFile to save IHM modification and quit application
- *
- * @param p_isChecked
  */
-void MainWindow::saveConfigurationFileAndQuit(const bool p_isChecked)
+void MainWindow::saveConfigurationFileAndQuit(void)
 {
-  saveConfigurationFile(p_isChecked);
+  saveConfigurationFile();
   QApplication::quit();
 }
 
@@ -902,17 +1026,20 @@ void MainWindow::saveConfigurationFileAndQuit(const bool p_isChecked)
  * @brief MainWindow::closeEvent
  * Catch close event from close button and Menu->Quitter
  *
- * @param event
+ * @param p_event
  */
 void MainWindow::closeEvent(QCloseEvent *p_event)
 {
   p_event->accept();
-  saveConfigurationFile(false);
+  saveConfigurationFile();
 }
 
-void MainWindow::manageCodingRules(const bool p_isChecked)
+/**
+ * @brief MainWindow::manageCodingRules
+ * Display the Coding rules popup, to permit choice on rules to check
+ */
+void MainWindow::manageCodingRules(void)
 {
-  qDebug() << "MainWindow::manageCodingRules => p_isChecked = " << p_isChecked;
   if(nullptr != m_ruleChoiceDialog)
   {
     m_ruleChoiceDialog->show();
@@ -921,4 +1048,73 @@ void MainWindow::manageCodingRules(const bool p_isChecked)
   {
     qDebug() << "MainWindow::manageCodingRules => m_ruleChoiceDialog is null !";
   }
+}
+
+/**
+ * @brief MainWindow::applyFontsOnMenu
+ * Apply font on menu for this main window
+ */
+void MainWindow::applyFontsOnMenu(void)
+{
+  QFont l_fontMenu;
+  l_fontMenu.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontMenu.setPointSize(MENU_FONT_SIZE);
+
+  ui->menuFichier->setFont(l_fontMenu);
+  ui->menuConfiguration->setFont(l_fontMenu);
+  ui->menuAide->setFont(l_fontMenu);
+  ui->actionEnregistrer_la_configuration->setFont(l_fontMenu);
+  ui->actionOuvrir_la_configuration->setFont(l_fontMenu);
+  ui->actionQuitter->setFont(l_fontMenu);
+  ui->actionParametrage_des_regles_de_codage->setFont(l_fontMenu);
+  ui->actionA_propos->setFont(l_fontMenu);
+}
+
+/**
+ * @brief MainWindow::applyFontsOnLabels
+ * Apply font on all labels for this main window
+ */
+void MainWindow::applyFontsOnLabels(void)
+{
+  QFont l_fontEnonce;
+  l_fontEnonce.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
+  l_fontEnonce.setBold(true);
+
+  ui->label_inputPath->setFont(l_fontEnonce);
+  ui->label_outputLogs->setFont(l_fontEnonce);
+  ui->label_mergeAllReports->setFont(l_fontEnonce);
+  ui->label_inputPath->setStyleSheet(LABEL_COLOR);
+  ui->label_outputLogs->setStyleSheet(LABEL_COLOR);
+  ui->label_mergeAllReports->setStyleSheet(LABEL_COLOR);
+}
+
+/**
+ * @brief MainWindow::applyFontsOnButtons
+ * Apply font on all buttons for this main window
+ */
+void MainWindow::applyFontsOnButtons(void)
+{
+  QFont l_fontQPushButton;
+  l_fontQPushButton.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontQPushButton.setPointSize(PUSHBUTTON_FONT_SIZE);
+
+  ui->pushButton_browseInputFolder->setFont(l_fontQPushButton);
+  ui->pushButton_browserOutputLogs->setFont(l_fontQPushButton);
+  ui->pushButton_OpenOutputLogs->setFont(l_fontQPushButton);
+  ui->pushButton_LaunchChecks->setFont(l_fontQPushButton);
+}
+
+/**
+ * @brief MainWindow::applyFontsOnLineEdits
+ * Apply font on lineEdit for this main window
+ */
+void MainWindow::applyFontsOnLineEdits(void)
+{
+  QFont l_fontQLineEdit;
+  l_fontQLineEdit.setFamily(QStringLiteral(FONT_DECLARATION));
+  l_fontQLineEdit.setPointSize(LINEEDIT_FONT_SIZE);
+
+  ui->lineEdit_inputFolder->setFont(l_fontQLineEdit);
+  ui->lineEdit_outputLogs->setFont(l_fontQLineEdit);
 }

@@ -36,6 +36,9 @@ private:
   void windowParameter(QWidget *p_widget);
   void initWidgets(void);
   void connectWidgets(void);
+  void applyStyle(void);
+  void applyFontsOnLabels(void);
+  void applyFontsOnButtons(void);
 
   Ui::RuleDialog *ui;
   QString m_popupTitle;

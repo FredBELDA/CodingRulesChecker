@@ -9,7 +9,6 @@
 
 #define MAINWINDOW_HEIGHT 310
 #define MAINWINDOW_WIDTH 675
-#define WINDOW_TITLE "Coding rules checker"
 
 #define MAIN_VERTICAL_LAYOUT_HEIGHT MAINWINDOW_HEIGHT - 80
 #define MAIN_VERTICAL_LAYOUT_WIDTH MAINWINDOW_WIDTH - 30
@@ -34,13 +33,14 @@ public slots:
   void openFolder(void);
   void sortFiles(QStringList p_list);
   void checkFiles(void);
+  void checkInputFolder(const QString p_inputFolder);
   void checkOutputFolder(const QString p_outputFolder);
   // slots for menubar
-  void loadConfigurationFile(const bool p_isChecked);
-  void saveConfigurationFile(const bool p_isChecked);
-  void saveConfigurationFileAndQuit(const bool p_isChecked);
-  void manageCodingRules(const bool p_isChecked);
-  void displayAbout(const bool p_isChecked);
+  void loadConfigurationFile(void);
+  void saveConfigurationFile(void);
+  void saveConfigurationFileAndQuit(void);
+  void manageCodingRules(void);
+  void displayAbout(void);
   // slots to determine which popup to display
   void displayNextRule(const QString p_popupTitle);
 
@@ -85,6 +85,11 @@ private:
   void windowParameter(QMainWindow *p_mainWindow);
   void connectWidgets(void);
   void initVariables(void);
+  void applyStyle(void);
+  void applyFontsOnMenu(void);
+  void applyFontsOnLabels(void);
+  void applyFontsOnButtons(void);
+  void applyFontsOnLineEdits(void);
 
   void displayFirstRule(void);
   void displayAccoladePopupRule(void);

@@ -6,8 +6,8 @@
 #define RULE_CHOICE_POPUP_HEIGHT 530
 #define RULE_CHOICE_POPUP_WIDTH 847
 
-#define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_POPUP_HEIGHT - 80
-#define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_POPUP_WIDTH - 30
+#define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_CHOICE_POPUP_HEIGHT - 80
+#define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_CHOICE_POPUP_WIDTH - 30
 
 #define RULE_CHOICE_POPUP_TITLE "Configuration des règles à analyser"
 
@@ -49,6 +49,11 @@ private:
   void windowParameter(QWidget *p_widget);
   void initWidgets(void);
   void connectWidgets(void);
+  void applyStyle(void);
+  void applyFontsOnLabels(void);
+  void applyFontsOnButtons(void);
+  void applyFontsOnCheckboxes(void);
+  void applyFontsOnTabs(void);
 
   Ui::RuleChoiceDialog *ui;
 };
