@@ -1,8 +1,11 @@
 #ifndef COMMONELEMENTS_H
 #define COMMONELEMENTS_H
 
+#include <QString>
+
 // Version
 #define VERSION "1.0"
+#define RELEASE_DATE "2020/04/11"
 
 // Font management
 #define FONT_DECLARATION "Arial"
@@ -187,9 +190,11 @@
 
 // About popup
 #define ABOUT_POPUP_TITLE "Au sujet de"
-#define ABOUT_POPUP_CONTAINT "Le projet CodingRulesChecker a été déveoppé dans le but\nd'assurer une conformité des livraisons\n \
-pour le compte de Thales TSIS, dans leurs projets internes.\n\n \
-Ce projet a été réalisé avec le framework Qt5.7"
+#define ABOUT_POPUP_CONTAINT "CodingRulesChecker " + QString(VERSION) + " du " + \
+QString(RELEASE_DATE) + "\na été déveoppé dans le but d'assurer une conformité des\n \
+livraisons pour le compte de Thales TSIS, dans leurs \n \
+projets internes.\n\n \
+Ce projet a été réalisé avec le framework Qt" + QT_VERSION_STR
 
 // Coding rule parameter popup
 #define RULE_CHOICE_POPUP_TITLE "Configuration des règles à analyser"
