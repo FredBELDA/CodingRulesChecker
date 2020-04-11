@@ -9,6 +9,8 @@
 #include <QSettings>
 #include <QTextStream>
 
+#include "abstractveriffiles.h"
+
 #include "cveriffile.h"
 #include "cppveriffile.h"
 #include "hveriffile.h"
@@ -429,20 +431,7 @@ void MainWindow::checkFiles(void)
       CVerifFile *l_cVerifFile = new CVerifFile(l_cFile, ui->lineEdit_outputLogs->text());
       if(nullptr != l_cVerifFile)
       {
-        if(m_ruleChoiceDialog->getAccoladeCheckBoxState())
-        {
-          // Check for accolade problem into code
-          l_cVerifFile->verifyAccolade();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayAccoladeRule |= l_cVerifFile->hasAccoladeProblem();
-        }
-        if(m_ruleChoiceDialog->getCamelCaseCheckBoxState())
-        {
-          // Check for camel case problem into code
-          l_cVerifFile->verifyCamelCase();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayCamelCaseRule |= l_cVerifFile->hasCamelCaseProblem();
-        }
+        launchCommonCheck(l_cVerifFile);
         if(m_ruleChoiceDialog->getHFileForCCheckBoxState())
         {
           // Check for H file presence
@@ -450,21 +439,6 @@ void MainWindow::checkFiles(void)
           // Set a boolean to display the popup if rule is not respected
           m_displayHRule |= l_cVerifFile->hasHFileProblem();
         }
-        if(m_ruleChoiceDialog->getMagicNumberCheckBoxState())
-        {
-          // Check for magic number problem into code
-          l_cVerifFile->verifyMagicNumber();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayMagicNumberRule |= l_cVerifFile->hasMagicNumberProblem();
-        }
-        if(m_ruleChoiceDialog->getToDoCheckBoxState())
-        {
-          // Check for TODO problem into code
-          l_cVerifFile->verifyTODO();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayTODORule |= l_cVerifFile->hasTODOProblem();
-        }
-        // TODO FBE : Add pointer check
       }
       else
       {
@@ -477,20 +451,7 @@ void MainWindow::checkFiles(void)
       CppVerifFile *l_cppVerifFile = new CppVerifFile(l_cppFile, ui->lineEdit_outputLogs->text());
       if(nullptr != l_cppVerifFile)
       {
-        if(m_ruleChoiceDialog->getAccoladeCheckBoxState())
-        {
-          // Check for accolade problem into code
-          l_cppVerifFile->verifyAccolade();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayAccoladeRule |= l_cppVerifFile->hasAccoladeProblem();
-        }
-        if(m_ruleChoiceDialog->getCamelCaseCheckBoxState())
-        {
-          // Check for camel case problem into code
-          l_cppVerifFile->verifyCamelCase();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayCamelCaseRule |= l_cppVerifFile->hasCamelCaseProblem();
-        }
+        launchCommonCheck(l_cppVerifFile);
         if(m_ruleChoiceDialog->getHFileForCppCheckBoxState())
         {
           // Check for H file presence
@@ -498,21 +459,6 @@ void MainWindow::checkFiles(void)
           // Set a boolean to display the popup if rule is not respected
           m_displayHRule |= l_cppVerifFile->hasHFileProblem();
         }
-        if(m_ruleChoiceDialog->getMagicNumberCheckBoxState())
-        {
-          // Check for magic number problem into code
-          l_cppVerifFile->verifyMagicNumber();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayMagicNumberRule |= l_cppVerifFile->hasMagicNumberProblem();
-        }
-        if(m_ruleChoiceDialog->getToDoCheckBoxState())
-        {
-          // Check for TODO problem into code
-          l_cppVerifFile->verifyTODO();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayTODORule |= l_cppVerifFile->hasTODOProblem();
-        }
-        // TODO FBE : Add pointer check
       }
       else
       {
@@ -525,35 +471,7 @@ void MainWindow::checkFiles(void)
       JavaVerifFile *l_javaVerifFile = new JavaVerifFile(l_javaFile, ui->lineEdit_outputLogs->text());
       if(nullptr != l_javaVerifFile)
       {
-        if(m_ruleChoiceDialog->getAccoladeCheckBoxState())
-        {
-          // Check for accolade problem into code
-          l_javaVerifFile->verifyAccolade();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayAccoladeRule |= l_javaVerifFile->hasAccoladeProblem();
-        }
-        if(m_ruleChoiceDialog->getCamelCaseCheckBoxState())
-        {
-          // Check for camel case problem into code
-          l_javaVerifFile->verifyCamelCase();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayCamelCaseRule |= l_javaVerifFile->hasCamelCaseProblem();
-        }
-        if(m_ruleChoiceDialog->getMagicNumberCheckBoxState())
-        {
-          // Check for magic number problem into code
-          l_javaVerifFile->verifyMagicNumber();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayMagicNumberRule |= l_javaVerifFile->hasMagicNumberProblem();
-        }
-        if(m_ruleChoiceDialog->getToDoCheckBoxState())
-        {
-          // Check for TODO problem into code
-          l_javaVerifFile->verifyTODO();
-          // Set a boolean to display the popup if rule is not respected
-          m_displayTODORule |= l_javaVerifFile->hasTODOProblem();
-        }
-        // TODO FBE : Add pointer check
+        launchCommonCheck(l_javaVerifFile);
       }
       else
       {
@@ -582,22 +500,7 @@ void MainWindow::checkFiles(void)
         HVerifFile *l_hVerifFile = new HVerifFile(l_hFile, ui->lineEdit_outputLogs->text());
         if(nullptr != l_hVerifFile)
         {
-          if(m_ruleChoiceDialog->getAccoladeCheckBoxState())
-          {
-            l_hVerifFile->verifyAccolade();
-          }
-          if(m_ruleChoiceDialog->getCamelCaseCheckBoxState())
-          {
-            l_hVerifFile->verifyCamelCase();
-          }
-          if(m_ruleChoiceDialog->getMagicNumberCheckBoxState())
-          {
-            l_hVerifFile->verifyMagicNumber();
-          }
-          if(m_ruleChoiceDialog->getToDoCheckBoxState())
-          {
-            l_hVerifFile->verifyTODO();
-          }
+          launchCommonCheck(l_hVerifFile);
         }
         else
         {
@@ -633,6 +536,39 @@ void MainWindow::checkFiles(void)
   {
     qDebug() << "MainWindow::checkFiles => m_ruleChoiceDialog is null";
   }
+}
+
+void MainWindow::launchCommonCheck(AbstractVerifFiles *p_verifFile)
+{
+  if(m_ruleChoiceDialog->getAccoladeCheckBoxState())
+  {
+    // Check for accolade problem into code
+    p_verifFile->verifyAccolade();
+    // Set a boolean to display the popup if rule is not respected
+    m_displayAccoladeRule |= p_verifFile->hasAccoladeProblem();
+  }
+  if(m_ruleChoiceDialog->getCamelCaseCheckBoxState())
+  {
+    // Check for camel case problem into code
+    p_verifFile->verifyCamelCase();
+    // Set a boolean to display the popup if rule is not respected
+    m_displayCamelCaseRule |= p_verifFile->hasCamelCaseProblem();
+  }
+  if(m_ruleChoiceDialog->getMagicNumberCheckBoxState())
+  {
+    // Check for magic number problem into code
+    p_verifFile->verifyMagicNumber();
+    // Set a boolean to display the popup if rule is not respected
+    m_displayMagicNumberRule |= p_verifFile->hasMagicNumberProblem();
+  }
+  if(m_ruleChoiceDialog->getToDoCheckBoxState())
+  {
+    // Check for TODO problem into code
+    p_verifFile->verifyTODO();
+    // Set a boolean to display the popup if rule is not respected
+    m_displayTODORule |= p_verifFile->hasTODOProblem();
+  }
+  // TODO FBE : Add pointer check
 }
 
 /**

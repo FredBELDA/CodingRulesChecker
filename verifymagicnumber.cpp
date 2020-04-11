@@ -30,6 +30,9 @@ void VerifyMagicNumber::checkForMagicNumber(void)
       {
         l_line = l_in.readLine();
         l_line = l_line.trimmed();
+        // Replace all spaces by one space ('\t', '\n', '\v', '\f', '\r', and ' ')
+        // Example : "QDir    l_currentSRSWorkspace" => "QDir l_currentSRSWorkspace"
+        l_line = l_line.simplified();
         QStringList l_declaration = Utils::scanForLine(l_line);
         if(!l_declaration.isEmpty())
         {
@@ -37,11 +40,18 @@ void VerifyMagicNumber::checkForMagicNumber(void)
           QString l_value = l_declaration.at(1);
           bool l_ok;
           l_value = l_value.trimmed();
+          qDebug() << "VerifyMagicNumber::checkForMagicNumber => l_decl = "
+                   << l_decl << " l_value = " << l_value;
           l_value = l_value.mid(0, l_value.indexOf(SEARCH_FOR_SEMICOLON));
+          qDebug() << "l_value = " << l_value;
+          // We check the value is 10 base value
           l_value.toInt(&l_ok, 10);
+          qDebug() << "base 10 ok => " << l_ok;
           if(!l_ok)
           {
+            // We check the value is 16 base value
             l_value.toInt(&l_ok, 16);
+            qDebug() << "base 16 ok => " << l_ok;
             if(!l_ok)
             {
               if(l_value.compare(FALSE_VALUE, Qt::CaseInsensitive) || l_value.compare(TRUE_VALUE, Qt::CaseInsensitive))
@@ -55,18 +65,25 @@ void VerifyMagicNumber::checkForMagicNumber(void)
             }
             else
             {
+              // Check if the initialize value is 0, we admit it, otherwise, we detect a magic number
+              if(0 != l_value.toInt(0,16))
+              {
+                m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
+                                  l_decl + " = " + l_value + FILE_SEPARATOR +
+                                  IS_MAGIC_NUMBER + "\n");
+              }
+            }
+          }
+          else
+          {
+            // Check if the initialize value is 0, we admit it, otherwise, we detect a magic number
+            if(0 != l_value.toInt(0,10))
+            {
               m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
                                 l_decl + " = " + l_value + FILE_SEPARATOR +
                                 IS_MAGIC_NUMBER + "\n");
             }
           }
-          else
-          {
-            m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
-                              l_decl + " = " + l_value + FILE_SEPARATOR +
-                              IS_MAGIC_NUMBER + "\n");
-          }
-          qDebug() << "VerifyMagicNumber::checkForMagicNumber => l_value = " << l_value;
         }
         l_lineNumber += 1;
       }

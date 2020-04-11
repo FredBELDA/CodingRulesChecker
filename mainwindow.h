@@ -4,6 +4,8 @@
 #include <QFile>
 #include <QMainWindow>
 
+#include "abstractveriffiles.h"
+
 #include "ruledialog.h"
 #include "rulechoicedialog.h"
 
@@ -94,6 +96,8 @@ private:
 
   void launchCppCheck(void);
   void launchCheckStyle(void);
+
+  void launchCommonCheck(AbstractVerifFiles *p_verifFile);
 };
 
 #endif // MAINWINDOW_H

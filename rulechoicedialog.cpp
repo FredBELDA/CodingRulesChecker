@@ -56,6 +56,7 @@ void RuleChoiceDialog::windowParameter(QWidget *p_widget)
  */
 void RuleChoiceDialog::initWidgets(void)
 {
+  ui->label_Separator->setText("");
   ui->pushButton_Valider->setText(VALIDATE);
   ui->pushButton_Annuler->setText(CANCEL);
 
@@ -118,6 +119,8 @@ void RuleChoiceDialog::applyFontsOnLabels(void)
   ui->label_SpecificRules->setFont(l_fontEnonce);
   ui->label_CommonRules->setStyleSheet(LABEL_COLOR);
   ui->label_SpecificRules->setStyleSheet(LABEL_COLOR);
+
+  ui->label_Separator->setStyleSheet(LABEL_SEPARATOR);
 }
 
 /**

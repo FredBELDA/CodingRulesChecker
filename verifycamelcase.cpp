@@ -30,6 +30,9 @@ void VerifyCamelCase::checkForCamelCase(void)
       {
         l_line = l_in.readLine();
         l_line = l_line.trimmed();
+        // Replace all spaces by one space ('\t', '\n', '\v', '\f', '\r', and ' ')
+        // Example : "QDir    l_currentSRSWorkspace" => "QDir l_currentSRSWorkspace"
+        l_line = l_line.simplified();
         QStringList l_declaration = Utils::scanForLine(l_line);
         if(!l_declaration.isEmpty())
         {
@@ -51,10 +54,10 @@ void VerifyCamelCase::checkForCamelCase(void)
               {
                 foreach(QString l_variableElt, l_variableDeclaration)
                 {
-                  QStringList l_variable = l_variableElt.split(SEARCH_FOR_SPACE);
-                  if(!l_variable.isEmpty())
+                  QStringList l_variables = l_variableElt.split(SEARCH_FOR_SPACE);
+                  if(!l_variables.isEmpty())
                   {
-                    foreach(QString l_variableName, l_variable)
+                    foreach(QString l_variableName, l_variables)
                     {
                       qDebug() << "foreach : l_variableName = " << l_variableName;
                       if(l_variableName.contains(CONST_DECLARATION)    ||
@@ -146,6 +149,7 @@ void VerifyCamelCase::checkForCamelCase(void)
               }
             }
           }
+          qDebug() << "----------------------------------";
         }
         l_lineNumber += 1;
       }

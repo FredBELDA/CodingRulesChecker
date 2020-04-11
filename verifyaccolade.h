@@ -11,8 +11,7 @@
 #define ELSE_INSTRUCTION "else"
 #define ELIF_INSTRUCTION "elif"
 #define FOREACH_INSTRUCTION "foreach"
-#define OPENED_PARENTHESIS "("
-#define CLOSED_PARENTHESIS ")"
+
 #define OPENED_ACCOLADE "{"
 #define CLOSED_ACCOLADE "}"
 

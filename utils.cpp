@@ -65,29 +65,29 @@ QStringList Utils::scanForLine(const QString p_line)
   if(NB_MIN_ELTS <= l_list.size())
   {
     l_declaration = l_list.at(0);
-    QStringList l_list2 = l_declaration.split(SEARCH_FOR_SPACE);
-    if(!l_list2.isEmpty())
+    QStringList l_variables = l_declaration.split(SEARCH_FOR_SPACE);
+    if(!l_variables.isEmpty())
     {
-      foreach(QString l_elt, l_list2)
+      foreach(QString l_variableName, l_variables)
       {
-        if(l_elt.contains(UINT_DECLARATION)   ||
-           l_elt.contains(INT_DECLARATION)    ||
-           l_elt.contains(DOUBLE_DECLARATION) ||
-           l_elt.contains(SHORT_DECLARATION)  ||
-           l_elt.contains(FLOAT_DECLARATION)  ||
-           l_elt.contains(BOOL_DECLARATION)   ||
-           l_elt.contains(CHAR_DECLARATION)   ||
-           l_elt.contains(LONG_DECLARATION)   ||
-           (l_elt.contains(UINT_DECLARATION)   && l_elt.contains(POINTEUR_DECLARATION)) ||
-           (l_elt.contains(INT_DECLARATION)    && l_elt.contains(POINTEUR_DECLARATION)) ||
-           (l_elt.contains(DOUBLE_DECLARATION) && l_elt.contains(POINTEUR_DECLARATION)) ||
-           (l_elt.contains(SHORT_DECLARATION)  && l_elt.contains(POINTEUR_DECLARATION)) ||
-           (l_elt.contains(FLOAT_DECLARATION)  && l_elt.contains(POINTEUR_DECLARATION)) ||
-           (l_elt.contains(BOOL_DECLARATION)   && l_elt.contains(POINTEUR_DECLARATION)) ||
-           (l_elt.contains(CHAR_DECLARATION)   && l_elt.contains(POINTEUR_DECLARATION)) ||
-           (l_elt.contains(LONG_DECLARATION)   && l_elt.contains(POINTEUR_DECLARATION)) ||
+        if(l_variableName.contains(UINT_DECLARATION)   ||
+           l_variableName.contains(INT_DECLARATION)    ||
+           l_variableName.contains(DOUBLE_DECLARATION) ||
+           l_variableName.contains(SHORT_DECLARATION)  ||
+           l_variableName.contains(FLOAT_DECLARATION)  ||
+           l_variableName.contains(BOOL_DECLARATION)   ||
+           l_variableName.contains(CHAR_DECLARATION)   ||
+           l_variableName.contains(LONG_DECLARATION)   ||
+           (l_variableName.contains(UINT_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
+           (l_variableName.contains(INT_DECLARATION)    && l_variableName.contains(POINTEUR_DECLARATION)) ||
+           (l_variableName.contains(DOUBLE_DECLARATION) && l_variableName.contains(POINTEUR_DECLARATION)) ||
+           (l_variableName.contains(SHORT_DECLARATION)  && l_variableName.contains(POINTEUR_DECLARATION)) ||
+           (l_variableName.contains(FLOAT_DECLARATION)  && l_variableName.contains(POINTEUR_DECLARATION)) ||
+           (l_variableName.contains(BOOL_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
+           (l_variableName.contains(CHAR_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
+           (l_variableName.contains(LONG_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
            // For Qt object
-           (l_elt.startsWith("Q") && l_elt.at(1).isUpper())
+           (l_variableName.startsWith("Q") && l_variableName.at(1).isUpper())
           )
         {
           l_returnValue.append(l_list);

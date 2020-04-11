@@ -16,6 +16,13 @@
 #define PUSHBUTTON_FONT_SIZE 10
 #define CHECKBOX_FONT_SIZE 10
 #define LABEL_COLOR "QLabel { color : #1e3687; }"
+#define LABEL_SEPARATOR "QLabel { background: qlineargradient( x1:0 y1:0, x2:1 y2:0," \
+                                  "stop:0 #BBBBBB, \
+                                   stop:0.3 #999999, \
+                                   stop:0.5 #333333, \
+                                   stop:0.7 #999999, \
+                                   stop:1 #BBBBBB); \
+                                }"
 
 // Window size
 #define X_SHIFT 5
@@ -34,7 +41,7 @@
 #define ABOUT_POPUP_VERTICAL_LAYOUT_HEIGHT ABOUT_POPUP_HEIGHT - HEIGHT_MARGING
 #define ABOUT_POPUP_VERTICAL_LAYOUT_WIDTH ABOUT_POPUP_WIDTH - WIDTH_MARGING
 
-#define RULE_CHOICE_POPUP_HEIGHT 370
+#define RULE_CHOICE_POPUP_HEIGHT 390
 #define RULE_CHOICE_POPUP_WIDTH 847
 #define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_CHOICE_POPUP_HEIGHT - HEIGHT_MARGING
 #define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_CHOICE_POPUP_WIDTH - WIDTH_MARGING
@@ -56,7 +63,7 @@
 
 // Menu Aide
 #define HELP_MENU "Aide"
-#define ABOUT "à propos"
+#define ABOUT "A propos"
 
 // Configuration File
 #define CONFIG_HMI "ConfigHMI"
@@ -155,6 +162,7 @@
 #define SEARCH_FOR_UNDERSCORE "_"
 #define SEARCH_FOR_OPENED_PARENTHESIS "("
 #define SEARCH_FOR_CLOSED_PARENTHESIS ")"
+#define SEARCH_FOR_QUOTATION_MARKS "\""
 
 #define CONST_DECLARATION "const"
 #define INT_DECLARATION "int"
@@ -179,7 +187,7 @@
 #define DOES_NOT_CONTAINS_H_FILE "ne dispose pas de son fichier h !"
 #define DOES_NOT_RESPECT_CAMEL_CASE_SYNTAX "Ne repect pas la synthaxe camelCase !"
 #define DOES_NOT_RESPECT_PERIMETER_SYNTAX "Ne repect pas la synthaxe de périmètre de la variable !"
-#define ACCOLADE_IS_NOT_ONLY "L'accolade ne se trouve pas tout seul sur une ligne : Veuillez faire un retour charriot !"
+#define ACCOLADE_IS_NOT_ALONE "L'accolade ne se trouve pas tout seul sur une ligne : Veuillez faire un retour charriot !"
 #define TODO_MUST_SUPPRESS "Les TODO doivent être enlever du code !"
 #define IS_MAGIC_NUMBER "Est un magic number, il faut le remplacer par un define ou un enum !"
 
