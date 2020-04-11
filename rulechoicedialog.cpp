@@ -38,7 +38,11 @@ void RuleChoiceDialog::windowParameter(QWidget *p_widget)
     p_widget->resize(RULE_CHOICE_POPUP_WIDTH, RULE_CHOICE_POPUP_HEIGHT);
     p_widget->setFixedSize(QSize(RULE_CHOICE_POPUP_WIDTH, RULE_CHOICE_POPUP_HEIGHT));
 
-    ui->verticalLayout->setGeometry(QRect(10, 10, RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH, RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT));
+    ui->verticalLayout->setGeometry(QRect(X_SHIFT,
+                                          Y_SHIFT,
+                                          RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH,
+                                          RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT)
+                                    );
   }
   else
   {

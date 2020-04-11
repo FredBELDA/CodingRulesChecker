@@ -7,12 +7,6 @@
 #include "ruledialog.h"
 #include "rulechoicedialog.h"
 
-#define MAINWINDOW_HEIGHT 310
-#define MAINWINDOW_WIDTH 675
-
-#define MAIN_VERTICAL_LAYOUT_HEIGHT MAINWINDOW_HEIGHT - 80
-#define MAIN_VERTICAL_LAYOUT_WIDTH MAINWINDOW_WIDTH - 30
-
 namespace Ui
 {
   class MainWindow;

@@ -38,7 +38,11 @@ void AboutDialog::windowParameter(QWidget *p_widget)
     p_widget->resize(ABOUT_POPUP_WIDTH, ABOUT_POPUP_HEIGHT);
     p_widget->setFixedSize(QSize(ABOUT_POPUP_WIDTH, ABOUT_POPUP_HEIGHT));
 
-    ui->verticalLayout->setGeometry(QRect(10, 10, ABOUT_POPUP_VERTICAL_LAYOUT_WIDTH, ABOUT_POPUP_VERTICAL_LAYOUT_HEIGHT));
+    ui->verticalLayout->setGeometry(QRect(X_SHIFT,
+                                          Y_SHIFT,
+                                          ABOUT_POPUP_VERTICAL_LAYOUT_WIDTH,
+                                          ABOUT_POPUP_VERTICAL_LAYOUT_HEIGHT)
+                                    );
   }
   else
   {

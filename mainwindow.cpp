@@ -105,7 +105,11 @@ void MainWindow::windowParameter(QMainWindow *p_mainWindow)
     p_mainWindow->resize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
     p_mainWindow->setFixedSize(QSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT));
 
-    ui->verticalLayoutWidget->setGeometry(QRect(10, 10, MAIN_VERTICAL_LAYOUT_WIDTH, MAIN_VERTICAL_LAYOUT_HEIGHT));
+    ui->verticalLayoutWidget->setGeometry(QRect(X_SHIFT,
+                                                Y_SHIFT,
+                                                MAIN_VERTICAL_LAYOUT_WIDTH,
+                                                MAIN_VERTICAL_LAYOUT_HEIGHT)
+                                          );
   }
   else
   {
@@ -121,6 +125,9 @@ void MainWindow::windowParameter(QMainWindow *p_mainWindow)
  */
 void MainWindow::initWidgets(void)
 {
+  QString l_version = "V ";
+  l_version.append(VERSION);
+
   // Initialisation des textes du menu
   ui->menuFichier->setTitle(FILE_MENU);
   ui->actionOuvrir_la_configuration->setText(OPEN_CONFIGURATION_FILE);
@@ -158,6 +165,9 @@ void MainWindow::initWidgets(void)
   ui->pushButton_browseInputFolder->setText(BROWSE_FOLDER);
   ui->pushButton_browserOutputLogs->setText(BROWSE_FOLDER);
   ui->pushButton_LaunchChecks->setText(LAUNCH_CHECK);
+
+  ui->label_Version->setText(l_version);
+  ui->label_Version->setAlignment(Qt::AlignRight);
 
   // Création de la popup RuleChoiceDialog
   m_ruleChoiceDialog = new RuleChoiceDialog(this);

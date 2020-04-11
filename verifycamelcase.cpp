@@ -42,6 +42,9 @@ void VerifyCamelCase::checkForCamelCase(void)
               )
             {
               l_elt = l_elt.trimmed();
+              // Replace all spaces by one space ('\t', '\n', '\v', '\f', '\r', and ' ')
+              // Example : "QDir    l_currentSRSWorkspace" => "QDir l_currentSRSWorkspace"
+              l_elt = l_elt.simplified();
               qDebug() << "l_elt = " << l_elt;
               QStringList l_variableDeclaration = l_elt.split(SEARCH_FOR_COMMA);
               if(!l_variableDeclaration.isEmpty())
@@ -53,6 +56,7 @@ void VerifyCamelCase::checkForCamelCase(void)
                   {
                     foreach(QString l_variableName, l_variable)
                     {
+                      qDebug() << "foreach : l_variableName = " << l_variableName;
                       if(l_variableName.contains(CONST_DECLARATION)    ||
                          l_variableName.contains(POINTEUR_DECLARATION) ||
                          l_variableName.contains(UNSIGNED_DECLARATION) ||
@@ -79,9 +83,10 @@ void VerifyCamelCase::checkForCamelCase(void)
                       }
                       else
                       {
-                        qDebug() << "l_variableName = " << l_variableName;
+                        qDebug() << "else check for declaration : l_variableName = " << l_variableName;
                         QChar l_firstCharacter = '\0';
                         QStringList l_splitDeclaration = l_variableName.split(SEARCH_FOR_UNDERSCORE);
+                        qDebug() << "Split l_variableName on _ => size = " << l_splitDeclaration.size();
                         if(1 == l_splitDeclaration.size())
                         {
                           QString l_variableComplementaryDeclaration = l_splitDeclaration.at(0);

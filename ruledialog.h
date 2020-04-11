@@ -3,12 +3,6 @@
 
 #include <QDialog>
 
-#define RULE_POPUP_HEIGHT 310
-#define RULE_POPUP_WIDTH 675
-
-#define RULE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_POPUP_HEIGHT - 80
-#define RULE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_POPUP_WIDTH - 30
-
 namespace Ui
 {
   class RuleDialog;

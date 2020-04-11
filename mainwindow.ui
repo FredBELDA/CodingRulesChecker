@@ -116,6 +116,16 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QLabel" name="label_Version">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="text">
+        <string>V </string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
