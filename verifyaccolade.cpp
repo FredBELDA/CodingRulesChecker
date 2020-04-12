@@ -58,7 +58,6 @@ void VerifyAccolade::checkForAccolade(void)
               {
                 l_afterOpenedAccolade = true;
               }
-              l_i++;
             }
             qDebug() << "VerifyAccolade::checkForAccolade => l_line = " << l_line;
             qDebug() << "l_beforeOpenedAccolade = " << l_beforeOpenedAccolade;
@@ -93,7 +92,6 @@ void VerifyAccolade::checkForAccolade(void)
               {
                 l_afterClosedAccolade = true;
               }
-              l_i++;
             }
             qDebug() << "VerifyAccolade::checkForAccolade => l_line = " << l_line;
             qDebug() << "l_beforeClosedAccolade = " << l_beforeClosedAccolade;
