@@ -1,5 +1,6 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/images">
+        <file alias="CodingRulesChecker_Logo.png">images/CodingRulesChecker_Logo.png</file>
         <file alias="AKKA_Logo.png">images/AKKA_Logo.png</file>
         <file alias="Thales_Logo.png">images/Thales_Logo.png</file>
     </qresource>
