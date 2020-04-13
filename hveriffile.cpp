@@ -12,7 +12,7 @@ HVerifFile::HVerifFile(const QString p_fileToAnalyse, const QString p_outputLogs
   m_outputLogsPath = p_outputLogsPath;
 }
 
-QStringList HVerifFile::getPointerDeclaration(void)
+QStringList HVerifFile::getPointerDeclarationList(void)
 {
   QStringList l_returnValue = QStringList();
   if(!m_fileToAnalyse.isEmpty())
@@ -57,8 +57,11 @@ QStringList HVerifFile::getPointerDeclaration(void)
           l_lineNumber += 1;
       }
     }
-
     l_file.close();
+  }
+  else
+  {
+    qDebug() << "m_reportFileName is empty !";
   }
 
   return l_returnValue;

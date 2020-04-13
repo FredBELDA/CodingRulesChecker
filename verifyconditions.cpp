@@ -1,3 +1,7 @@
+#include <QDebug>
+#include <QFile>
+#include <QTextStream>
+
 #include "commonelements.h"
 #include "verifyconditions.h"
 
@@ -9,5 +13,40 @@ VerifyConditions::VerifyConditions(const QString p_fileToAnalyse, const QString 
 
 void VerifyConditions::checkForConditions(void)
 {
-
+  if(!m_fileToAnalyse.isEmpty())
+  {
+    QFile l_file(m_fileToAnalyse);
+    if(!l_file.open(QFile::ReadOnly | QFile::Text))
+    {
+      qDebug() << CANNOT_OPENED_FILE << l_file.fileName() << FOR_READING;
+    }
+    else
+    {
+      QTextStream l_in(&l_file);
+      QString l_line;
+      int l_lineNumber = 1;
+      while(! l_in.atEnd())
+      {
+          l_line = l_in.readLine();
+          l_line = l_line.trimmed();
+          // Replace all spaces by one space ('\t', '\n', '\v', '\f', '\r', and ' ')
+          // Example : "QDir    l_currentSRSWorkspace" => "QDir l_currentSRSWorkspace"
+          l_line = l_line.simplified();
+          if(l_line.contains(IF_INSTRUCTION) || l_line.contains(ELIF_INSTRUCTION) || l_line.contains(WHILE_INSTRUCTION))
+          {
+            // TODO
+          }
+          if(l_line.contains(FOR_INSTRUCTION))
+          {
+            // TODO
+          }
+          l_lineNumber += 1;
+      }
+      l_file.close();
+    }
+  }
+  else
+  {
+    qDebug() << "m_reportFileName is empty !";
+  }
 }

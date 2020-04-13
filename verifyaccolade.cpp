@@ -40,11 +40,11 @@ void VerifyAccolade::checkForAccolade(void)
           l_afterOpenedAccolade = false;
           l_beforeClosedAccolade = false;
           l_afterClosedAccolade = false;
-          if(l_line.contains(OPENED_ACCOLADE))
+          if(l_line.contains(SEARCH_FOR_OPENED_ACCOLADE))
           {
             // First, we detect if it is into expression, like regexp
             // This expression is surrounded by quotes
-            int l_indexOfOpenedAccolade = l_line.indexOf(OPENED_ACCOLADE);
+            int l_indexOfOpenedAccolade = l_line.indexOf(SEARCH_FOR_OPENED_ACCOLADE);
             int l_indexOfQString = 0;
             for (int l_i = 0; l_i < l_line.count(SEARCH_FOR_QUOTATION_MARKS); ++l_i)
             {
@@ -64,9 +64,9 @@ void VerifyAccolade::checkForAccolade(void)
             qDebug() << "l_afterOpenedAccolade = " << l_afterOpenedAccolade;
             if(!l_beforeOpenedAccolade && !l_afterOpenedAccolade)
             {
-              qDebug() << "start with accolade = " << l_line.startsWith(OPENED_ACCOLADE);
+              qDebug() << "start with accolade = " << l_line.startsWith(SEARCH_FOR_OPENED_ACCOLADE);
               // It is not an expression, we check if it start with opened accolade
-              if(!l_line.startsWith(OPENED_ACCOLADE))
+              if(!l_line.startsWith(SEARCH_FOR_OPENED_ACCOLADE))
               {
                 m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
                                   l_line + FILE_SEPARATOR +
@@ -74,11 +74,11 @@ void VerifyAccolade::checkForAccolade(void)
               }
             }
           }
-          if(l_line.contains(CLOSED_ACCOLADE))
+          if(l_line.contains(SEARCH_FOR_CLOSED_ACCOLADE))
           {
             // First, we detect if it is into expression, like regexp
             // This expression is surrounded by quotes
-            int l_indexOfClosedAccolade = l_line.indexOf(CLOSED_ACCOLADE);
+            int l_indexOfClosedAccolade = l_line.indexOf(SEARCH_FOR_CLOSED_ACCOLADE);
             int l_indexOfQString = 0;
             for (int l_i = 0; l_i < l_line.count(SEARCH_FOR_QUOTATION_MARKS); ++l_i)
             {
@@ -98,9 +98,9 @@ void VerifyAccolade::checkForAccolade(void)
             qDebug() << "l_afterClosedAccolade = " << l_afterClosedAccolade;
             if(!l_beforeClosedAccolade && !l_afterClosedAccolade)
             {
-              qDebug() << "start with accolade = " << l_line.startsWith(CLOSED_ACCOLADE);
+              qDebug() << "start with accolade = " << l_line.startsWith(SEARCH_FOR_CLOSED_ACCOLADE);
               // It is not an expression, we check if it start with closed accolade
-              if(! l_line.startsWith(CLOSED_ACCOLADE))/* && l_line.contains(SEARCH_FOR_QUOTATION_MARKS))*/
+              if(! l_line.startsWith(SEARCH_FOR_CLOSED_ACCOLADE))
               {
                 m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
                                   l_line + FILE_SEPARATOR +

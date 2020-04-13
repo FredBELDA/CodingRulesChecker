@@ -437,7 +437,7 @@ void MainWindow::checkFiles(void)
         if(nullptr != l_hVerifFile)
         {
           launchCommonCheck(l_hVerifFile);
-          QStringList l_pointerDeclaration = l_hVerifFile->getPointerDeclaration();
+          QStringList l_pointerDeclaration = l_hVerifFile->getPointerDeclarationList();
           if(!l_pointerDeclaration.isEmpty())
           {
             m_pointerDeclaration.append(l_pointerDeclaration);
