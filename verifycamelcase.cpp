@@ -61,7 +61,7 @@ void VerifyCamelCase::checkForCamelCase(void)
                     {
                       qDebug() << "foreach : l_variableName = " << l_variableName;
                       if(l_variableName.contains(CONST_DECLARATION)    ||
-                         l_variableName.contains(POINTEUR_DECLARATION) ||
+                         l_variableName.contains(POINTER_DECLARATION) ||
                          l_variableName.contains(UNSIGNED_DECLARATION) ||
                          l_variableName.contains(UINT_DECLARATION)     ||
                          l_variableName.contains(INT_DECLARATION)      ||
@@ -71,14 +71,14 @@ void VerifyCamelCase::checkForCamelCase(void)
                          l_variableName.contains(BOOL_DECLARATION)     ||
                          l_variableName.contains(CHAR_DECLARATION)     ||
                          l_variableName.contains(LONG_DECLARATION)     ||
-                         (l_variableName.contains(UINT_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
-                         (l_variableName.contains(INT_DECLARATION)    && l_variableName.contains(POINTEUR_DECLARATION)) ||
-                         (l_variableName.contains(DOUBLE_DECLARATION) && l_variableName.contains(POINTEUR_DECLARATION)) ||
-                         (l_variableName.contains(SHORT_DECLARATION)  && l_variableName.contains(POINTEUR_DECLARATION)) ||
-                         (l_variableName.contains(FLOAT_DECLARATION)  && l_variableName.contains(POINTEUR_DECLARATION)) ||
-                         (l_variableName.contains(BOOL_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
-                         (l_variableName.contains(CHAR_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
-                         (l_variableName.contains(LONG_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
+                         (l_variableName.contains(UINT_DECLARATION)   && l_variableName.contains(POINTER_DECLARATION)) ||
+                         (l_variableName.contains(INT_DECLARATION)    && l_variableName.contains(POINTER_DECLARATION)) ||
+                         (l_variableName.contains(DOUBLE_DECLARATION) && l_variableName.contains(POINTER_DECLARATION)) ||
+                         (l_variableName.contains(SHORT_DECLARATION)  && l_variableName.contains(POINTER_DECLARATION)) ||
+                         (l_variableName.contains(FLOAT_DECLARATION)  && l_variableName.contains(POINTER_DECLARATION)) ||
+                         (l_variableName.contains(BOOL_DECLARATION)   && l_variableName.contains(POINTER_DECLARATION)) ||
+                         (l_variableName.contains(CHAR_DECLARATION)   && l_variableName.contains(POINTER_DECLARATION)) ||
+                         (l_variableName.contains(LONG_DECLARATION)   && l_variableName.contains(POINTER_DECLARATION)) ||
                          // For Qt object
                          (l_variableName.startsWith("Q") && l_variableName.at(1).isUpper()))
                       {

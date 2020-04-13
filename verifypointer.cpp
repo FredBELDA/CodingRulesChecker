@@ -12,7 +12,7 @@ VerifyPointer::VerifyPointer(const QString p_fileToAnalyse, const QString p_outp
   m_reportFile = p_outputLogsPath + POINTER_FILE_NAME;
 }
 
-void VerifyPointer::checkForPointer(void)
+void VerifyPointer::checkForPointer(const QStringList p_pointerDeclaration)
 {
   if(!m_fileToAnalyse.isEmpty())
   {
@@ -30,7 +30,8 @@ void VerifyPointer::checkForPointer(void)
       {
         l_line = l_in.readLine();
         l_line = l_line.trimmed();
-        // TODO
+        l_line = l_line.simplified();
+        // TODO FBE
 
         l_lineNumber += 1;
       }

@@ -176,7 +176,7 @@
 #define LONG_DECLARATION "long"
 #define IFSTREAM_DECLARATION "ifstream"
 #define OFSTREAM_DECLARATION "ofstream"
-#define POINTEUR_DECLARATION "*"
+#define POINTER_DECLARATION "*"
 
 #define FALSE_VALUE "false"
 #define TRUE_VALUE "true"

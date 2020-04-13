@@ -57,6 +57,17 @@ void Utils::launchCheckStyle(const QString p_pathToCheck)
   qDebug() << "Utils::launchCheckStyle " << p_pathToCheck;
 }
 
+bool Utils::isComment(const QString p_line)
+{
+  bool l_returnValue = false;
+  if(p_line.startsWith("/*") || p_line.startsWith("*") || p_line.endsWith("*/") || p_line.startsWith("//"))
+  {
+    l_returnValue = true;
+  }
+
+  return l_returnValue;
+}
+
 QStringList Utils::scanForLine(const QString p_line)
 {
   QStringList l_returnValue;
@@ -78,14 +89,14 @@ QStringList Utils::scanForLine(const QString p_line)
            l_variableName.contains(BOOL_DECLARATION)   ||
            l_variableName.contains(CHAR_DECLARATION)   ||
            l_variableName.contains(LONG_DECLARATION)   ||
-           (l_variableName.contains(UINT_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
-           (l_variableName.contains(INT_DECLARATION)    && l_variableName.contains(POINTEUR_DECLARATION)) ||
-           (l_variableName.contains(DOUBLE_DECLARATION) && l_variableName.contains(POINTEUR_DECLARATION)) ||
-           (l_variableName.contains(SHORT_DECLARATION)  && l_variableName.contains(POINTEUR_DECLARATION)) ||
-           (l_variableName.contains(FLOAT_DECLARATION)  && l_variableName.contains(POINTEUR_DECLARATION)) ||
-           (l_variableName.contains(BOOL_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
-           (l_variableName.contains(CHAR_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
-           (l_variableName.contains(LONG_DECLARATION)   && l_variableName.contains(POINTEUR_DECLARATION)) ||
+           (l_variableName.contains(UINT_DECLARATION)   && l_variableName.contains(POINTER_DECLARATION)) ||
+           (l_variableName.contains(INT_DECLARATION)    && l_variableName.contains(POINTER_DECLARATION)) ||
+           (l_variableName.contains(DOUBLE_DECLARATION) && l_variableName.contains(POINTER_DECLARATION)) ||
+           (l_variableName.contains(SHORT_DECLARATION)  && l_variableName.contains(POINTER_DECLARATION)) ||
+           (l_variableName.contains(FLOAT_DECLARATION)  && l_variableName.contains(POINTER_DECLARATION)) ||
+           (l_variableName.contains(BOOL_DECLARATION)   && l_variableName.contains(POINTER_DECLARATION)) ||
+           (l_variableName.contains(CHAR_DECLARATION)   && l_variableName.contains(POINTER_DECLARATION)) ||
+           (l_variableName.contains(LONG_DECLARATION)   && l_variableName.contains(POINTER_DECLARATION)) ||
            // For Qt object
            (l_variableName.startsWith("Q") && l_variableName.at(1).isUpper())
           )
@@ -93,6 +104,47 @@ QStringList Utils::scanForLine(const QString p_line)
           l_returnValue.append(l_list);
         }
       }
+    }
+  }
+  return l_returnValue;
+}
+
+QStringList Utils::scanForPointerDeclaration(const QString p_line)
+{
+  QStringList l_returnValue;
+  bool l_isDeclaration = false;
+  bool l_isPointer = false;
+  QStringList l_variables = p_line.split(SEARCH_FOR_SPACE);
+  if(!l_variables.isEmpty())
+  {
+    foreach(QString l_variableName, l_variables)
+    {
+      // We check one element of line is a declaration
+      if((l_variableName.contains(UINT_DECLARATION))  ||
+         (l_variableName.contains(INT_DECLARATION))   ||
+         (l_variableName.contains(DOUBLE_DECLARATION))||
+         (l_variableName.contains(SHORT_DECLARATION)) ||
+         (l_variableName.contains(FLOAT_DECLARATION)) ||
+         (l_variableName.contains(BOOL_DECLARATION))  ||
+         (l_variableName.contains(CHAR_DECLARATION))  ||
+         (l_variableName.contains(LONG_DECLARATION))  ||
+         // For Qt object
+         (l_variableName.startsWith("Q") && l_variableName.at(1).isUpper())
+        )
+      {
+        l_isDeclaration = true;
+      }
+      // We check one element of line is a pointer
+      // char* toto or char *toto or char * toto
+      if(l_variableName.contains(POINTER_DECLARATION))
+      {
+        l_isPointer = true;
+      }
+    }
+    if(l_isPointer && l_isDeclaration)
+    {
+      qDebug() << "Utils::scanForPointerDeclaration => p_line = " << p_line;
+      l_returnValue.append(p_line);
     }
   }
   return l_returnValue;

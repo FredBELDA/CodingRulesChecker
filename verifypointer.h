@@ -8,7 +8,7 @@ class VerifyPointer : public AbstractVerifFileRules
 public:
   VerifyPointer(const QString p_fileToAnalyse, const QString p_outputLogsPath);
 
-  void checkForPointer(void);
+  void checkForPointer(const QStringList p_pointerDeclaration);
 };
 
 #endif // VERIFYPOINTER_H

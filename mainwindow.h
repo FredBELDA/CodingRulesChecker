@@ -66,6 +66,9 @@ private:
   QStringList m_javaFiles;
   QStringList m_iniFiles;
   QStringList m_otherFiles;
+
+  QStringList m_pointerDeclaration;
+
   QFile *m_mergedReport;
 
   bool m_displayAccoladeRule;

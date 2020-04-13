@@ -212,6 +212,8 @@ void MainWindow::initVariables(void)
   m_iniFiles.clear();
   m_otherFiles.clear();
 
+  m_pointerDeclaration.clear();
+
   m_displayAccoladeRule = false;
   m_displayCamelCaseRule = false;
   m_displayConditionsRule = false;
@@ -426,6 +428,28 @@ void MainWindow::checkFiles(void)
 {
   if(nullptr != m_ruleChoiceDialog)
   {
+    // Launch cppCheck if c or cpp files
+    if(!m_cFiles.isEmpty() || !m_cppFiles.isEmpty())
+    {
+      foreach (QString l_hFile, m_hFiles)
+      {
+        HVerifFile *l_hVerifFile = new HVerifFile(l_hFile, ui->lineEdit_outputLogs->text());
+        if(nullptr != l_hVerifFile)
+        {
+          launchCommonCheck(l_hVerifFile);
+          QStringList l_pointerDeclaration = l_hVerifFile->getPointerDeclaration();
+          if(!l_pointerDeclaration.isEmpty())
+          {
+            m_pointerDeclaration.append(l_pointerDeclaration);
+          }
+        }
+        else
+        {
+          qDebug() << "l_hVerifFile is not created !";
+        }
+      }
+    }
+
     foreach (QString l_cFile, m_cFiles)
     {
       CVerifFile *l_cVerifFile = new CVerifFile(l_cFile, ui->lineEdit_outputLogs->text());
@@ -489,23 +513,6 @@ void MainWindow::checkFiles(void)
       else
       {
         qDebug() << "l_iniVerifFile is not created !";
-      }
-    }
-
-    // Launch cppCheck if c or cpp files
-    if(!m_cFiles.isEmpty() || !m_cppFiles.isEmpty())
-    {
-      foreach (QString l_hFile, m_hFiles)
-      {
-        HVerifFile *l_hVerifFile = new HVerifFile(l_hFile, ui->lineEdit_outputLogs->text());
-        if(nullptr != l_hVerifFile)
-        {
-          launchCommonCheck(l_hVerifFile);
-        }
-        else
-        {
-          qDebug() << "l_hVerifFile is not created !";
-        }
       }
     }
 
