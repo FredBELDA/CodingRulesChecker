@@ -46,7 +46,7 @@
 #define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_CHOICE_POPUP_HEIGHT - HEIGHT_MARGING
 #define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_CHOICE_POPUP_WIDTH - WIDTH_MARGING
 
-#define RULE_POPUP_HEIGHT 330
+#define RULE_POPUP_HEIGHT 600
 #define RULE_POPUP_WIDTH 700
 #define RULE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_POPUP_HEIGHT - HEIGHT_MARGING
 #define RULE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_POPUP_WIDTH - WIDTH_MARGING
@@ -155,7 +155,8 @@ Que veut dire 2 ? Pourquoi ? \n \
 Est-ce un exigence du client ?\nUne constante arbitiraire ?\nValeur prise sur un coup de tête ?\n\n \
 Définir un define avec #define NB_ELT_TO_PARSE 2 est plus parlant.\n \
 Le relecteur comprendra de quoi vous parlez !\n\n \
-De plus en centralisant vos constantes dans un fichier .h, vous permettra de gagner du temps lors des modifications de valeurs."
+De plus en centralisant vos constantes dans un fichier .h, vous permettra de gagner du temps\n \
+lors des modifications de valeurs."
 #define CAMEL_CASE_RULE_POPUP_TITLE "Règle de codage concernant la déclaration de variables en CamelCase"
 #define CAMEL_CASE_RULE_POPUP ""
 #define POINTER_RULE_POPUP_TITLE "Règle de codage concernant les pointeurs"

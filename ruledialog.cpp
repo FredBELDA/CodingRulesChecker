@@ -61,6 +61,8 @@ void RuleDialog::windowParameter(QWidget *p_widget)
 void RuleDialog::initWidgets(void)
 {
   ui->pushButton_Valider->setText(VALIDATE);
+  ui->label_Rule->setAlignment(Qt::AlignCenter);
+  ui->label_Rule->setText(m_popupRule);
 }
 
 /**
