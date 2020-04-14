@@ -490,6 +490,13 @@ void MainWindow::checkFiles(void)
           // Set a boolean to display the popup if rule is not respected
           m_displayHRule |= l_cppVerifFile->hasHFileProblem();
         }
+        if(m_ruleChoiceDialog->getPointerCheckBoxState())
+        {
+          // Check for TODO problem into code
+          l_cppVerifFile->verifyPointers(m_pointerDeclaration);
+          // Set a boolean to display the popup if rule is not respected
+          m_displayPointerRule |= l_cppVerifFile->hasPointersProblem();
+        }
       }
       else
       {

@@ -92,19 +92,22 @@ void AbstractVerifFiles::verifyToDo(void)
 
 void AbstractVerifFiles::verifyPointers(const QStringList p_pointerDeclaration)
 {
-  VerifyPointer *verifPointer = new VerifyPointer(m_fileToAnalyse, m_outputLogsPath);
-  if(nullptr != verifPointer)
+  if(!p_pointerDeclaration.isEmpty())
   {
-    verifPointer->checkForPointer(p_pointerDeclaration);
-    verifPointer->generateReport();
+    VerifyPointer *verifPointer = new VerifyPointer(m_fileToAnalyse, m_outputLogsPath);
+    if(nullptr != verifPointer)
+    {
+      verifPointer->checkForPointer(p_pointerDeclaration);
+      verifPointer->generateReport();
 
-    if(0 == verifPointer->getNbError())
-    {
-      m_pointersProblem = false;
-    }
-    else
-    {
-      m_pointersProblem = true;
+      if(0 == verifPointer->getNbError())
+      {
+        m_pointersProblem = false;
+      }
+      else
+      {
+        m_pointersProblem = true;
+      }
     }
   }
 }

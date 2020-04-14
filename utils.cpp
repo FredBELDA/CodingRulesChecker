@@ -68,7 +68,36 @@ bool Utils::isComment(const QString p_line)
   return l_returnValue;
 }
 
-QStringList Utils::scanForLine(const QString p_line)
+bool Utils::isImport(const QString p_line)
+{
+  bool l_returnValue = false;
+  if(p_line.startsWith("#include"))
+  {
+    l_returnValue = true;
+  }
+
+  return l_returnValue;
+}
+
+bool Utils::isDigit(const QString p_line)
+{
+  bool l_ok;
+  // We check the value is 10 base value
+  int l_value = p_line.toInt(&l_ok, 10);
+  if(!l_ok)
+  {
+    // We check the value is 16 base value
+    l_value = p_line.toInt(&l_ok, 16);
+  }
+
+  if(0 == l_value)
+  {
+    l_ok = false;
+  }
+  return l_ok;
+}
+
+QStringList Utils::scanForVariableDeclaration(const QString p_line)
 {
   QStringList l_returnValue;
   QStringList l_list = p_line.split(SEARCH_FOR_EQUALS);
@@ -147,5 +176,37 @@ QStringList Utils::scanForPointerDeclaration(const QString p_line)
       l_returnValue.append(p_line);
     }
   }
+  return l_returnValue;
+}
+
+bool Utils::scanForMagicNumber(const QString p_line)
+{
+  bool l_returnValue = false;
+  if(!Utils::isImport(p_line) && !Utils::isComment(p_line))
+  {
+    QStringList l_variables = p_line.split(SEARCH_FOR_SEMICOLON);
+    if(!l_variables.isEmpty())
+    {
+      foreach(QString l_variableName, l_variables)
+      {
+        QStringList l_rightValue = l_variableName.split(SEARCH_FOR_EQUALS);
+        if(NB_MIN_ELTS <= l_rightValue.size())
+        {
+          l_returnValue = Utils::isDigit(l_rightValue.at(1));
+        }
+        l_rightValue = l_variableName.split(SEARCH_FOR_INFERIOR);
+        if(NB_MIN_ELTS <= l_rightValue.size())
+        {
+          l_returnValue = Utils::isDigit(l_rightValue.at(1));
+        }
+        l_rightValue = l_variableName.split(SEARCH_FOR_SUPERIOR);
+        if(NB_MIN_ELTS <= l_rightValue.size())
+        {
+          l_returnValue = Utils::isDigit(l_rightValue.at(1));
+        }
+      }
+    }
+  }
+
   return l_returnValue;
 }

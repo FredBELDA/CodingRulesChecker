@@ -33,7 +33,7 @@ void VerifyCamelCase::checkForCamelCase(void)
         // Replace all spaces by one space ('\t', '\n', '\v', '\f', '\r', and ' ')
         // Example : "QDir    l_currentSRSWorkspace" => "QDir l_currentSRSWorkspace"
         l_line = l_line.simplified();
-        QStringList l_declaration = Utils::scanForLine(l_line);
+        QStringList l_declaration = Utils::scanForVariableDeclaration(l_line);
         if(!l_declaration.isEmpty())
         {
           foreach(QString l_elt, l_declaration)

@@ -142,7 +142,20 @@
 #define H_RULE_POPUP_TITLE "Règle de codage concernant les fichiers H"
 #define H_RULE_POPUP ""
 #define MAGIC_NUMBER_RULE_POPUP_TITLE "Règle de codage concernant les Magic Number"
-#define MAGIC_NUMBER_RULE_POPUP ""
+#define MAGIC_NUMBER_RULE_POPUP "Les magic number sont à proscrire d'un code.\n\n \
+Il vaut mieux créer une constante ou un define dans un fichier .h, et ensuite l'appeler\n \
+La constante ou le define, a le mérite de porter un nommage\ncompréhensible de tout le monde.\n\n \
+Exemple :\n \
+if(i == 2)\n \
+{\n \
+  printf(\"%d\", i); \n \
+}\n \
+\n \
+Que veut dire 2 ? Pourquoi ? \n \
+Est-ce un exigence du client ?\nUne constante arbitiraire ?\nValeur prise sur un coup de tête ?\n\n \
+Définir un define avec #define NB_ELT_TO_PARSE 2 est plus parlant.\n \
+Le relecteur comprendra de quoi vous parlez !\n\n \
+De plus en centralisant vos constantes dans un fichier .h, vous permettra de gagner du temps lors des modifications de valeurs."
 #define CAMEL_CASE_RULE_POPUP_TITLE "Règle de codage concernant la déclaration de variables en CamelCase"
 #define CAMEL_CASE_RULE_POPUP ""
 #define POINTER_RULE_POPUP_TITLE "Règle de codage concernant les pointeurs"
@@ -165,6 +178,8 @@
 #define SEARCH_FOR_QUOTATION_MARKS "\""
 #define SEARCH_FOR_OPENED_ACCOLADE "{"
 #define SEARCH_FOR_CLOSED_ACCOLADE "}"
+#define SEARCH_FOR_INFERIOR "<"
+#define SEARCH_FOR_SUPERIOR ">"
 
 #define FOR_INSTRUCTION "for"
 #define WHILE_INSTRUCTION "while"
