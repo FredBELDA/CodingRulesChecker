@@ -702,7 +702,9 @@ void MainWindow::displayMagicNumberRule(void)
   {
     m_magicNumberRuleDialog = new RuleDialog(this,
                                              MAGIC_NUMBER_RULE_POPUP_TITLE,
-                                             MAGIC_NUMBER_RULE_POPUP);
+                                             MAGIC_NUMBER_RULE_POPUP,
+                                             MAGIC_NUMBER_RULE_EXAMPLE,
+                                             MAGIC_NUMBER_RULE_EXPLANATION);
     if(nullptr != m_magicNumberRuleDialog)
     {
       QObject::connect(m_magicNumberRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));

@@ -16,6 +16,7 @@
 #define PUSHBUTTON_FONT_SIZE 10
 #define CHECKBOX_FONT_SIZE 10
 #define LABEL_COLOR "QLabel { color : #1e3687; }"
+#define LABEL_EXAMPLE "QLabel { font-style: italic; color : #FF0000; }"
 #define LABEL_SEPARATOR "QLabel { background: qlineargradient( x1:0 y1:0, x2:1 y2:0," \
                                   "stop:0 #BBBBBB, \
                                    stop:0.3 #999999, \
@@ -144,14 +145,12 @@
 #define MAGIC_NUMBER_RULE_POPUP_TITLE "Règle de codage concernant les Magic Number"
 #define MAGIC_NUMBER_RULE_POPUP "Les magic number sont à proscrire d'un code.\n\n \
 Il vaut mieux créer une constante ou un define dans un fichier .h, et ensuite l'appeler\n \
-La constante ou le define, a le mérite de porter un nommage\ncompréhensible de tout le monde.\n\n \
-Exemple :\n \
-if(i == 2)\n \
+La constante ou le define, a le mérite de porter un nommage\ncompréhensible de tout le monde.\n\n"
+#define MAGIC_NUMBER_RULE_EXAMPLE "if(i == 2)\n \
 {\n \
-  printf(\"%d\", i); \n \
-}\n \
-\n \
-Que veut dire 2 ? Pourquoi ? \n \
+  printf(\"%d\", i);\n \
+}"
+#define MAGIC_NUMBER_RULE_EXPLANATION "Que veut dire 2 ? Pourquoi ? \n \
 Est-ce un exigence du client ?\nUne constante arbitiraire ?\nValeur prise sur un coup de tête ?\n\n \
 Définir un define avec #define NB_ELT_TO_PARSE 2 est plus parlant.\n \
 Le relecteur comprendra de quoi vous parlez !\n\n \

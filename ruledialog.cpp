@@ -6,12 +6,16 @@
 
 RuleDialog::RuleDialog(QWidget *p_parent,
                        const QString p_windowTitle,
-                       const QString p_rule) :
+                       const QString p_rule,
+                       const QString p_example,
+                       const QString p_explanation) :
   QDialog(p_parent),
   ui(new Ui::RuleDialog)
 {
   m_popupTitle = p_windowTitle;
   m_popupRule = p_rule;
+  m_popupExample = p_example;
+  m_popupExplanation = p_explanation;
   ui->setupUi(this);
   windowParameter(this);
   initWidgets();
@@ -63,6 +67,9 @@ void RuleDialog::initWidgets(void)
   ui->pushButton_Valider->setText(VALIDATE);
   ui->label_Rule->setAlignment(Qt::AlignCenter);
   ui->label_Rule->setText(m_popupRule);
+  ui->label_Example->setText(m_popupExample);
+  ui->label_Explanation->setAlignment(Qt::AlignCenter);
+  ui->label_Explanation->setText(m_popupExplanation);
 }
 
 /**
@@ -97,6 +104,9 @@ void RuleDialog::applyFontsOnLabels(void)
   l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
 
   ui->label_Rule->setFont(l_fontEnonce);
+  ui->label_Example->setFont(l_fontEnonce);
+  ui->label_Example->setStyleSheet(LABEL_EXAMPLE);
+  ui->label_Explanation->setFont(l_fontEnonce);
 }
 
 /**

@@ -15,7 +15,9 @@ class RuleDialog : public QDialog
 public:
   explicit RuleDialog(QWidget *p_parent = nullptr,
                       const QString p_windowTitle = QString(""),
-                      const QString p_rule = QString(""));
+                      const QString p_rule = QString(""),
+                      const QString p_example = QString(""),
+                      const QString p_explanation = QString(""));
   ~RuleDialog();
 
   void setRule(const QString p_rule);
@@ -37,6 +39,8 @@ private:
   Ui::RuleDialog *ui;
   QString m_popupTitle;
   QString m_popupRule;
+  QString m_popupExample;
+  QString m_popupExplanation;
 };
 
 #endif // RULEDIALOG_H
