@@ -12,12 +12,14 @@ public:
   void verifyAccolade(void);
   void verifyMagicNumber(void);
   void verifyCamelCase(void);
-  void verifyTODO(void);
+  void verifyToDo(void);
+  void verifyPointers(const QStringList p_pointerDeclaration);
 
   bool hasAccoladeProblem(void);
   bool hasMagicNumberProblem(void);
   bool hasCamelCaseProblem(void);
-  bool hasTODOProblem(void);
+  bool hasToDoProblem(void);
+  bool hasPointersProblem(void);
 
 protected:
   QString m_fileToAnalyse;
@@ -26,7 +28,8 @@ protected:
   bool m_accoladeProblemNumber;
   bool m_magicNumberProblem;
   bool m_camelCaseProblem;
-  bool m_TODOProblem;
+  bool m_todoProblem;
+  bool m_pointersProblem;
 };
 
 #endif // ABSTRACTVERIFFILES_H

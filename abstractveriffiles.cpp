@@ -3,13 +3,15 @@
 #include "verifytodo.h"
 #include "verifymagicnumber.h"
 #include "verifycamelcase.h"
+#include "verifypointer.h"
 
 AbstractVerifFiles::AbstractVerifFiles()
 {
   m_accoladeProblemNumber = false;
   m_magicNumberProblem = false;
   m_camelCaseProblem = false;
-  m_TODOProblem = false;
+  m_todoProblem = false;
+  m_pointersProblem = false;
 }
 
 void AbstractVerifFiles::verifyAccolade(void)
@@ -69,7 +71,7 @@ void AbstractVerifFiles::verifyCamelCase(void)
   }
 }
 
-void AbstractVerifFiles::verifyTODO(void)
+void AbstractVerifFiles::verifyToDo(void)
 {
   VerifyToDo *verifToDo = new VerifyToDo(m_fileToAnalyse, m_outputLogsPath);
   if(nullptr != verifToDo)
@@ -79,11 +81,30 @@ void AbstractVerifFiles::verifyTODO(void)
 
     if(0 == verifToDo->getNbError())
     {
-      m_TODOProblem = false;
+      m_todoProblem = false;
     }
     else
     {
-      m_TODOProblem = true;
+      m_todoProblem = true;
+    }
+  }
+}
+
+void AbstractVerifFiles::verifyPointers(const QStringList p_pointerDeclaration)
+{
+  VerifyPointer *verifPointer = new VerifyPointer(m_fileToAnalyse, m_outputLogsPath);
+  if(nullptr != verifPointer)
+  {
+    verifPointer->checkForPointer(p_pointerDeclaration);
+    verifPointer->generateReport();
+
+    if(0 == verifPointer->getNbError())
+    {
+      m_pointersProblem = false;
+    }
+    else
+    {
+      m_pointersProblem = true;
     }
   }
 }
@@ -103,7 +124,12 @@ bool AbstractVerifFiles::hasCamelCaseProblem(void)
   return m_camelCaseProblem;
 }
 
-bool AbstractVerifFiles::hasTODOProblem(void)
+bool AbstractVerifFiles::hasToDoProblem(void)
 {
-  return m_TODOProblem;
+  return m_todoProblem;
+}
+
+bool AbstractVerifFiles::hasPointersProblem(void)
+{
+  return m_pointersProblem;
 }

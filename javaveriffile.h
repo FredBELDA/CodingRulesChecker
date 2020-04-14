@@ -7,8 +7,6 @@ class JavaVerifFile : public AbstractVerifFiles
 {
 public:
   JavaVerifFile(const QString p_fileToAnalyse, const QString p_outputLogsPath);
-
-  void launchCheckStyle(void);
 };
 
 #endif // JAVAVERIFFILE_H

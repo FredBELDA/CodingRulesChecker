@@ -12,7 +12,7 @@ public:
   bool hasHFileProblem(void);
 
 protected:
-  bool m_HFileProblem;
+  bool m_hFileProblem;
 };
 
 #endif // ABSTRACTCFAMILYVERIFFILES_H

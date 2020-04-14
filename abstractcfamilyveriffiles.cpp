@@ -3,7 +3,7 @@
 
 AbstractCFamilyVerifFiles::AbstractCFamilyVerifFiles()
 {
-  m_HFileProblem = false;
+  m_hFileProblem = false;
 }
 
 void AbstractCFamilyVerifFiles::verifyHFile(const QStringList p_hFilesList)
@@ -16,16 +16,16 @@ void AbstractCFamilyVerifFiles::verifyHFile(const QStringList p_hFilesList)
 
     if(0 == l_verifHFile)
     {
-      m_HFileProblem = false;
+      m_hFileProblem = false;
     }
     else
     {
-      m_HFileProblem = true;
+      m_hFileProblem = true;
     }
   }
 }
 
 bool AbstractCFamilyVerifFiles::hasHFileProblem(void)
 {
-  return m_HFileProblem;
+  return m_hFileProblem;
 }
