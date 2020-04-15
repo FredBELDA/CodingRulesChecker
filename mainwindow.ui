@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>675</width>
-    <height>302</height>
+    <height>340</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>641</width>
-      <height>222</height>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -83,7 +83,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_OpenOutputLogs">
+        <widget class="QPushButton" name="pushButton_openOutputLogs">
          <property name="text">
           <string>Ouvrir</string>
          </property>
@@ -101,7 +101,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkBox_MergeAllReports">
+        <widget class="QCheckBox" name="checkBox_mergeAllReports">
          <property name="text">
           <string/>
          </property>
@@ -110,14 +110,24 @@
       </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_LaunchChecks">
+      <widget class="QPushButton" name="pushButton_launchChecks">
        <property name="text">
         <string>Launch checks</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_Version">
+      <widget class="QProgressBar" name="progressBar_checkRules">
+       <property name="value">
+        <number>24</number>
+       </property>
+       <property name="textVisible">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_version">
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
        </property>
@@ -157,12 +167,20 @@
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
-     <string>Configuration</string>
+     <string>Paramètres</string>
     </property>
     <addaction name="actionParametrage_des_regles_de_codage"/>
+    <addaction name="actionParametrage_des_outils_externes"/>
+   </widget>
+   <widget class="QMenu" name="menuCheckList">
+    <property name="title">
+     <string>CheckList</string>
+    </property>
+    <addaction name="actionOuvrir_le_fichier_checklist"/>
    </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuConfiguration"/>
+   <addaction name="menuCheckList"/>
    <addaction name="menuAide"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
@@ -193,6 +211,16 @@
   <action name="actionParametrage_des_regles_de_codage">
    <property name="text">
     <string>Paramétrage des règles de codage</string>
+   </property>
+  </action>
+  <action name="actionOuvrir_le_fichier_checklist">
+   <property name="text">
+    <string>Ouvrir le fichier checklist</string>
+   </property>
+  </action>
+  <action name="actionParametrage_des_outils_externes">
+   <property name="text">
+    <string>Paramétrage des outils externes</string>
    </property>
   </action>
  </widget>

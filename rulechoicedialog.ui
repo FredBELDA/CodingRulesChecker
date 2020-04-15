@@ -24,7 +24,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label_CommonRules">
+     <widget class="QLabel" name="label_commonRules">
       <property name="text">
        <string>Règles communes :</string>
       </property>
@@ -35,14 +35,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QCheckBox" name="checkBox_AccoladeVerification">
+         <widget class="QCheckBox" name="checkBox_accoladeVerification">
           <property name="text">
            <string>Vérifier les accolades</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_MagicNumberVerification">
+         <widget class="QCheckBox" name="checkBox_magicNumberVerification">
           <property name="text">
            <string>Vérifier les magic numbers</string>
           </property>
@@ -53,14 +53,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QCheckBox" name="checkBox_CamelCaseVerification">
+         <widget class="QCheckBox" name="checkBox_camelCaseVerification">
           <property name="text">
            <string>Vérifier le nommage des variables</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_ConditionVerification">
+         <widget class="QCheckBox" name="checkBox_conditionVerification">
           <property name="text">
            <string>Vérifier l'ordre de déclaration des conditions</string>
           </property>
@@ -71,14 +71,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QCheckBox" name="checkBox_PointerVerification">
+         <widget class="QCheckBox" name="checkBox_pointerVerification">
           <property name="text">
            <string>Vérifier que les pointeurs soient testés</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_OrphanFunctionsVerification">
+         <widget class="QCheckBox" name="checkBox_orphanFunctionsVerification">
           <property name="text">
            <string>Vérifier les fonctions orphelines</string>
           </property>
@@ -89,7 +89,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <widget class="QCheckBox" name="checkBox_ToDoVerification">
+         <widget class="QCheckBox" name="checkBox_toDoVerification">
           <property name="text">
            <string>Vérifier la non présence de ToDo</string>
           </property>
@@ -100,14 +100,14 @@
      </layout>
     </item>
     <item>
-     <widget class="QLabel" name="label_Separator">
+     <widget class="QLabel" name="label_separator">
       <property name="text">
        <string>TextLabel</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="label_SpecificRules">
+     <widget class="QLabel" name="label_specificRules">
       <property name="text">
        <string>Règles spécifiques :</string>
       </property>
@@ -115,8 +115,11 @@
     </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_C">
        <attribute name="title">
@@ -128,14 +131,14 @@
           <x>10</x>
           <y>10</y>
           <width>791</width>
-          <height>121</height>
+          <height>61</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QCheckBox" name="checkBox_HFileVerificationForC">
+            <widget class="QCheckBox" name="checkBox_hFileVerificationForC">
              <property name="text">
               <string>Vérifier la présence du .h associé au .c</string>
              </property>
@@ -153,17 +156,17 @@
        <widget class="QWidget" name="verticalLayoutWidget_3">
         <property name="geometry">
          <rect>
-          <x>9</x>
-          <y>9</y>
-          <width>791</width>
-          <height>121</height>
+          <x>10</x>
+          <y>10</y>
+          <width>801</width>
+          <height>61</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
-            <widget class="QCheckBox" name="checkBox_HFileVerificationForCpp">
+            <widget class="QCheckBox" name="checkBox_hFileVerificationForCpp">
              <property name="text">
               <string>Vérifier la présence du .h associé au .cpp</string>
              </property>
@@ -184,16 +187,16 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_7">
       <item>
-       <widget class="QPushButton" name="pushButton_Valider">
+       <widget class="QPushButton" name="pushButton_valider">
         <property name="text">
-         <string>Valider</string>
+         <string>Enregistrer</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_Annuler">
+       <widget class="QPushButton" name="pushButton_annuler">
         <property name="text">
-         <string>Annuler</string>
+         <string>Quitter</string>
         </property>
        </widget>
       </item>

@@ -64,12 +64,12 @@ void RuleDialog::windowParameter(QWidget *p_widget)
  */
 void RuleDialog::initWidgets(void)
 {
-  ui->pushButton_Valider->setText(VALIDATE);
-  ui->label_Rule->setAlignment(Qt::AlignCenter);
-  ui->label_Rule->setText(m_popupRule);
-  ui->label_Example->setText(m_popupExample);
-  ui->label_Explanation->setAlignment(Qt::AlignCenter);
-  ui->label_Explanation->setText(m_popupExplanation);
+  ui->pushButton_valider->setText(VALIDATE);
+  ui->label_rule->setAlignment(Qt::AlignCenter);
+  ui->label_rule->setText(m_popupRule);
+  ui->label_example->setText(m_popupExample);
+  ui->label_explanation->setAlignment(Qt::AlignCenter);
+  ui->label_explanation->setText(m_popupExplanation);
 }
 
 /**
@@ -77,8 +77,8 @@ void RuleDialog::initWidgets(void)
  */
 void RuleDialog::connectWidgets(void)
 {
-  connect(ui->pushButton_Valider, SIGNAL(clicked()), this, SLOT(accept()));
-  connect(ui->pushButton_Valider, SIGNAL(clicked()), this, SLOT(emitSignal()));
+  connect(ui->pushButton_valider, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(ui->pushButton_valider, SIGNAL(clicked()), this, SLOT(emitSignal()));
 }
 
 /**
@@ -103,10 +103,10 @@ void RuleDialog::applyFontsOnLabels(void)
   l_fontEnonce.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
 
-  ui->label_Rule->setFont(l_fontEnonce);
-  ui->label_Example->setFont(l_fontEnonce);
-  ui->label_Example->setStyleSheet(LABEL_EXAMPLE);
-  ui->label_Explanation->setFont(l_fontEnonce);
+  ui->label_rule->setFont(l_fontEnonce);
+  ui->label_example->setFont(l_fontEnonce);
+  ui->label_example->setStyleSheet(LABEL_EXAMPLE);
+  ui->label_explanation->setFont(l_fontEnonce);
 }
 
 /**
@@ -119,7 +119,7 @@ void RuleDialog::applyFontsOnButtons(void)
   l_fontQPushButton.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontQPushButton.setPointSize(PUSHBUTTON_FONT_SIZE);
 
-  ui->pushButton_Valider->setFont(l_fontQPushButton);
+  ui->pushButton_valider->setFont(l_fontQPushButton);
 }
 
 /**
@@ -130,7 +130,7 @@ void RuleDialog::applyFontsOnButtons(void)
  */
 void RuleDialog::setRule(const QString p_rule)
 {
-  ui->label_Rule->setText(p_rule);
+  ui->label_rule->setText(p_rule);
 }
 
 /**

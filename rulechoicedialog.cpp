@@ -56,9 +56,9 @@ void RuleChoiceDialog::windowParameter(QWidget *p_widget)
  */
 void RuleChoiceDialog::initWidgets(void)
 {
-  ui->label_Separator->setText("");
-  ui->pushButton_Valider->setText(VALIDATE);
-  ui->pushButton_Annuler->setText(CANCEL);
+  ui->label_separator->setText("");
+  ui->pushButton_valider->setText(SAVE);
+  ui->pushButton_annuler->setText(QUIT);
 
   // Force display the first tab
   ui->tabWidget->setCurrentIndex(0);
@@ -69,8 +69,8 @@ void RuleChoiceDialog::initWidgets(void)
  */
 void RuleChoiceDialog::connectWidgets(void)
 {
-  connect(ui->pushButton_Valider, SIGNAL(clicked()), this, SLOT(accept()));
-  connect(ui->pushButton_Annuler, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(ui->pushButton_valider, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(ui->pushButton_annuler, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 /**
@@ -115,12 +115,12 @@ void RuleChoiceDialog::applyFontsOnLabels(void)
   l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
   l_fontEnonce.setBold(true);
 
-  ui->label_CommonRules->setFont(l_fontEnonce);
-  ui->label_SpecificRules->setFont(l_fontEnonce);
-  ui->label_CommonRules->setStyleSheet(LABEL_COLOR);
-  ui->label_SpecificRules->setStyleSheet(LABEL_COLOR);
+  ui->label_commonRules->setFont(l_fontEnonce);
+  ui->label_specificRules->setFont(l_fontEnonce);
+  ui->label_commonRules->setStyleSheet(LABEL_COLOR);
+  ui->label_specificRules->setStyleSheet(LABEL_COLOR);
 
-  ui->label_Separator->setStyleSheet(LABEL_SEPARATOR);
+  ui->label_separator->setStyleSheet(LABEL_SEPARATOR);
 }
 
 /**
@@ -133,12 +133,12 @@ void RuleChoiceDialog::applyFontsOnButtons(void)
   l_fontQPushButton.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontQPushButton.setPointSize(PUSHBUTTON_FONT_SIZE);
 
-  ui->pushButton_Valider->setFont(l_fontQPushButton);
-  ui->pushButton_Annuler->setFont(l_fontQPushButton);
+  ui->pushButton_valider->setFont(l_fontQPushButton);
+  ui->pushButton_annuler->setFont(l_fontQPushButton);
 }
 
 /**
- * @brief RuleChoiceDialog::applyFontsOnLabels
+ * @brief RuleChoiceDialog::applyFontsOnCheckboxes
  * Apply font on all checkboxes for this popup
  */
 void RuleChoiceDialog::applyFontsOnCheckboxes(void)
@@ -147,104 +147,104 @@ void RuleChoiceDialog::applyFontsOnCheckboxes(void)
   l_fontQCheckbox.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontQCheckbox.setPointSize(CHECKBOX_FONT_SIZE);
 
-  ui->checkBox_AccoladeVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_CamelCaseVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_ConditionVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_MagicNumberVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_OrphanFunctionsVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_PointerVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_ToDoVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_accoladeVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_camelCaseVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_conditionVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_magicNumberVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_orphanFunctionsVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_pointerVerification->setFont(l_fontQCheckbox);
+  ui->checkBox_toDoVerification->setFont(l_fontQCheckbox);
 
-  ui->checkBox_HFileVerificationForC->setFont(l_fontQCheckbox);
-  ui->checkBox_HFileVerificationForCpp->setFont(l_fontQCheckbox);
+  ui->checkBox_hFileVerificationForC->setFont(l_fontQCheckbox);
+  ui->checkBox_hFileVerificationForCpp->setFont(l_fontQCheckbox);
 }
 
 bool RuleChoiceDialog::getAccoladeCheckBoxState(void)
 {
-  return ui->checkBox_AccoladeVerification->isChecked();
+  return ui->checkBox_accoladeVerification->isChecked();
 }
 
 void RuleChoiceDialog::setAccoladeCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_AccoladeVerification->setChecked(p_checked);
+  ui->checkBox_accoladeVerification->setChecked(p_checked);
 }
 
 bool RuleChoiceDialog::getMagicNumberCheckBoxState(void)
 {
-  return ui->checkBox_MagicNumberVerification->isChecked();
+  return ui->checkBox_magicNumberVerification->isChecked();
 }
 
 void RuleChoiceDialog::setMagicNumberCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_MagicNumberVerification->setChecked(p_checked);
+  ui->checkBox_magicNumberVerification->setChecked(p_checked);
 }
 
 bool RuleChoiceDialog::getCamelCaseCheckBoxState(void)
 {
-  return ui->checkBox_CamelCaseVerification->isChecked();
+  return ui->checkBox_camelCaseVerification->isChecked();
 }
 
 void RuleChoiceDialog::setCamelCaseCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_CamelCaseVerification->setChecked(p_checked);
+  ui->checkBox_camelCaseVerification->setChecked(p_checked);
 }
 
 bool RuleChoiceDialog::getConditionCheckBoxState(void)
 {
-  return ui->checkBox_ConditionVerification->isChecked();
+  return ui->checkBox_conditionVerification->isChecked();
 }
 
 void RuleChoiceDialog::setConditionCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_ConditionVerification->setChecked(p_checked);
+  ui->checkBox_conditionVerification->setChecked(p_checked);
 }
 
 bool RuleChoiceDialog::getOrphanFunctionCheckBoxState(void)
 {
-  return ui->checkBox_OrphanFunctionsVerification->isChecked();
+  return ui->checkBox_orphanFunctionsVerification->isChecked();
 }
 
 void RuleChoiceDialog::setOrphanFunctionCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_OrphanFunctionsVerification->setChecked(p_checked);
+  ui->checkBox_orphanFunctionsVerification->setChecked(p_checked);
 }
 
 bool RuleChoiceDialog::getPointerCheckBoxState(void)
 {
-  return ui->checkBox_PointerVerification->isChecked();
+  return ui->checkBox_pointerVerification->isChecked();
 }
 
 void RuleChoiceDialog::setPointerCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_PointerVerification->setChecked(p_checked);
+  ui->checkBox_pointerVerification->setChecked(p_checked);
 }
 
 bool RuleChoiceDialog::getToDoCheckBoxState(void)
 {
-  return ui->checkBox_ToDoVerification->isChecked();
+  return ui->checkBox_toDoVerification->isChecked();
 }
 
 void RuleChoiceDialog::setToDoCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_ToDoVerification->setChecked(p_checked);
+  ui->checkBox_toDoVerification->setChecked(p_checked);
 }
 
 bool RuleChoiceDialog::getHFileForCCheckBoxState(void)
 {
-  return ui->checkBox_HFileVerificationForC->isChecked();
+  return ui->checkBox_hFileVerificationForC->isChecked();
 }
 
 void RuleChoiceDialog::setHFileForCCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_HFileVerificationForC->setChecked(p_checked);
+  ui->checkBox_hFileVerificationForC->setChecked(p_checked);
 }
 
 bool RuleChoiceDialog::getHFileForCppCheckBoxState(void)
 {
-  return ui->checkBox_HFileVerificationForCpp->isChecked();
+  return ui->checkBox_hFileVerificationForCpp->isChecked();
 }
 
 void RuleChoiceDialog::setHFileForCppCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_HFileVerificationForCpp->setChecked(p_checked);
+  ui->checkBox_hFileVerificationForCpp->setChecked(p_checked);
 }

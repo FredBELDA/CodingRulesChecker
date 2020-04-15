@@ -24,7 +24,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label_Rule">
+     <widget class="QLabel" name="label_rule">
       <property name="text">
        <string>TextLabel</string>
       </property>
@@ -44,7 +44,7 @@
      </spacer>
     </item>
     <item>
-     <widget class="QLabel" name="label_Example">
+     <widget class="QLabel" name="label_example">
       <property name="text">
        <string>TextLabel</string>
       </property>
@@ -64,14 +64,14 @@
      </spacer>
     </item>
     <item>
-     <widget class="QLabel" name="label_Explanation">
+     <widget class="QLabel" name="label_explanation">
       <property name="text">
        <string>TextLabel</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_Valider">
+     <widget class="QPushButton" name="pushButton_valider">
       <property name="text">
        <string>Valider</string>
       </property>

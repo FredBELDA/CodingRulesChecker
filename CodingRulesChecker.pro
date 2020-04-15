@@ -19,6 +19,7 @@ SOURCES += main.cpp\
     abstractcfamilyveriffiles.cpp \
     cveriffile.cpp \
     cppveriffile.cpp \
+    externaltoolparameterdialog.cpp \
     hveriffile.cpp \
     iniveriffile.cpp \
     javaveriffile.cpp \
@@ -45,6 +46,7 @@ HEADERS  += mainwindow.h \
     commonelements.h \
     cveriffile.h \
     cppveriffile.h \
+    externaltoolparameterdialog.h \
     hveriffile.h \
     iniveriffile.h \
     javaveriffile.h \
@@ -62,6 +64,7 @@ HEADERS  += mainwindow.h \
     verifytodo.h
 
 FORMS    += mainwindow.ui \
+    externaltoolparameterdialog.ui \
     ruledialog.ui \
     aboutdialog.ui \
     rulechoicedialog.ui

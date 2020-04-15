@@ -29,26 +29,10 @@
 #define HEIGHT_MARGING 20
 #define WIDTH_MARGING 20
 
-#define MAINWINDOW_HEIGHT 300
+#define MAINWINDOW_HEIGHT 340
 #define MAINWINDOW_WIDTH 675
 #define MAIN_VERTICAL_LAYOUT_HEIGHT MAINWINDOW_HEIGHT - HEIGHT_MARGING
 #define MAIN_VERTICAL_LAYOUT_WIDTH MAINWINDOW_WIDTH - WIDTH_MARGING
-
-// Popup sizes
-#define ABOUT_POPUP_HEIGHT 190
-#define ABOUT_POPUP_WIDTH 450
-#define ABOUT_POPUP_VERTICAL_LAYOUT_HEIGHT ABOUT_POPUP_HEIGHT - HEIGHT_MARGING
-#define ABOUT_POPUP_VERTICAL_LAYOUT_WIDTH ABOUT_POPUP_WIDTH - WIDTH_MARGING
-
-#define RULE_CHOICE_POPUP_HEIGHT 400
-#define RULE_CHOICE_POPUP_WIDTH 847
-#define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_CHOICE_POPUP_HEIGHT - HEIGHT_MARGING
-#define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_CHOICE_POPUP_WIDTH - WIDTH_MARGING
-
-#define RULE_POPUP_HEIGHT 600
-#define RULE_POPUP_WIDTH 700
-#define RULE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_POPUP_HEIGHT - HEIGHT_MARGING
-#define RULE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_POPUP_WIDTH - WIDTH_MARGING
 
 // Menu Fichier
 #define FILE_MENU "Fichier"
@@ -57,8 +41,13 @@
 #define EXIT "Quitter"
 
 // Menu Configuration
-#define CONFIGURATION_MENU "Configuration"
+#define CONFIGURATION_MENU "Paramètres"
 #define CODING_RULES_PARAMETERS "Paramétrage des règles de codage"
+#define EXTERNAL_TOOL_PARAMETERS "Paramétrage des outils externes"
+
+// Menu CheckList
+#define CHECKLIST_MENU "CheckList"
+#define OPEN_CHECKLIST_FILE "Ouvrir le fichier checklist"
 
 // Menu Aide
 #define HELP_MENU "Aide"
@@ -68,6 +57,11 @@
 #define CONFIG_HMI "ConfigHMI"
 #define INPUT_FOLDER_CONFIGURATION "inputFolder"
 #define REPORT_FOLDER_CONFIGURATION "reportFolder"
+
+#define CONFIG_EXTERNAL_TOOL "ConfigExternalTool"
+#define INPUT_EXCEL_PATH_CONFIGURATION "inputExcelPath"
+#define INPUT_CPP_CHECK_PATH_CONFIGURATION "inputCppCheckPath"
+#define INPUT_CHECK_STYLE_PATH_CONFIGURATION "inputCheckStylePath"
 
 #define CONFIG_RULES "ConfigRules"
 #define VERIFY_ACCOLADE_CONFIGURATION "verifAccolade"
@@ -112,6 +106,8 @@
 // Buttons
 #define VALIDATE "Valider"
 #define CANCEL "Annuler"
+#define SAVE "Enregistrer"
+#define QUIT "Quitter"
 
 // Reports
 #define REPORT_HEADER_FILE "Fichier;Numéro de ligne;ligne;Problème rencontré"
@@ -134,6 +130,11 @@
 #define OUTPUT_FOLDER_DOES_NOT_EXISTS "Le répertoire de logs n'existe pas, il sera créé automatiquement !"
 
 // TODO complete rules contains
+#define RULE_POPUP_HEIGHT 600
+#define RULE_POPUP_WIDTH 700
+#define RULE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_POPUP_HEIGHT - HEIGHT_MARGING
+#define RULE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_POPUP_WIDTH - WIDTH_MARGING
+
 #define ACCOLADE_RULE_POPUP_TITLE "Règle de codage concernant les accolades"
 #define ACCOLADE_RULE_POPUP ""
 #define TODO_RULE_POPUP_TITLE "Règle de codage concernant les ToDo"
@@ -152,7 +153,7 @@ La constante ou le define, a le mérite de porter un nommage\ncompréhensible de
 Est-ce un exigence du client ?\nUne constante arbitiraire ?\nValeur prise sur un coup de tête ?\n\n \
 Définir un define avec #define NB_ELT_TO_PARSE 2 est plus parlant.\n \
 Le relecteur comprendra de quoi vous parlez !\n\n \
-De plus en centralisant vos constantes dans un fichier .h, vous permettra \n \
+De plus en centralisant vos constantes dans un fichier .h, vous permettra\n \
 de gagner du temps lors des modifications de valeurs."
 #define CAMEL_CASE_RULE_POPUP_TITLE "Règle de codage concernant la déclaration de variables en CamelCase"
 #define CAMEL_CASE_RULE_POPUP ""
@@ -215,10 +216,12 @@ de gagner du temps lors des modifications de valeurs."
 
 #define NO_PROBLEM_FOUND "Aucun problème rencontré !"
 
-#define CPP_CHECK_PATH "\"C:/Program Files/Cppcheck/cppcheckgui.exe\""
-#define EXPLORER_CMD "explorer.exe"
-
 // About popup
+#define ABOUT_POPUP_HEIGHT 190
+#define ABOUT_POPUP_WIDTH 450
+#define ABOUT_POPUP_VERTICAL_LAYOUT_HEIGHT ABOUT_POPUP_HEIGHT - HEIGHT_MARGING
+#define ABOUT_POPUP_VERTICAL_LAYOUT_WIDTH ABOUT_POPUP_WIDTH - WIDTH_MARGING
+
 #define ABOUT_POPUP_TITLE "Au sujet de"
 #define ABOUT_POPUP_CONTAINT "CodingRulesChecker " + QString(VERSION) + " du " + \
 QString(RELEASE_DATE) + "\na été déveoppé dans le but d'assurer une conformité des\n \
@@ -227,6 +230,41 @@ projets internes.\n\n \
 Ce projet a été réalisé avec le framework Qt" + QT_VERSION_STR
 
 // Coding rule parameter popup
+#define RULE_CHOICE_POPUP_HEIGHT 400
+#define RULE_CHOICE_POPUP_WIDTH 847
+#define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_CHOICE_POPUP_HEIGHT - HEIGHT_MARGING
+#define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_CHOICE_POPUP_WIDTH - WIDTH_MARGING
+
 #define RULE_CHOICE_POPUP_TITLE "Configuration des règles à analyser"
+
+// Tool parameter popup
+#define EXTERNAL_TOOL_POPUP_HEIGHT 300
+#define EXTERNAL_TOOL_POPUP_WIDTH 400
+#define EXTERNAL_TOOL_POPUP_VERTICAL_LAYOUT_HEIGHT EXTERNAL_TOOL_POPUP_HEIGHT - HEIGHT_MARGING
+#define EXTERNAL_TOOL_POPUP_VERTICAL_LAYOUT_WIDTH EXTERNAL_TOOL_POPUP_WIDTH - WIDTH_MARGING
+
+#define EXTERNAL_TOOL_POPUP_TITLE "Paramétrage des outils externes"
+#define EXCEL_PATH_LABEL "Veuillez renseigner le chemin vers Excel :"
+#define CPP_CHECK_PATH_LABEL "Veuillez renseigner le chemin vers CPPCheck :"
+#define CHECK_STYLE_PATH_LABEL "Veuillez renseigner le chemin vers CheckStyle :"
+
+#define INPUT_EXCEL_PATH "Sélectionner le répertoire ou se trouve Excel"
+#define INPUT_CPP_CHECK_PATH "Sélectionner le répertoire ou se trouve CPPCheck"
+#define INPUT_CHECK_STYLE_PATH "Sélectionner le répertoire ou se trouve CheckSTYLE"
+
+#define EXCEL_PATH_NOT_EXISTS "Le répertoire vers Excel n'existe pas !"
+#define CPP_CHECK_PATH_NOT_EXISTS "Le répertoire vers CppCheck n'existe pas !"
+#define CHECK_STYLE_PATH_NOT_EXISTS "Le répertoire vers CheckStyle n'existe pas !"
+
+// Default path
+#define EXCEL_DEFAULT_PATH "\"C:/Program Files/Microsoft Office/OFFICE11/excel.exe\""
+#define EXCEL_FILTER "Excel application (excel.exe)"
+#define CPP_CHECK_DEFAULT_PATH "\"C:/Program Files/Cppcheck/cppcheckgui.exe\""
+#define CPP_CHECK_FILTER "CppCheck application (cppCheck.exe)"
+//TODO Change path
+#define CHECK_STYLE_DEFAULT_PATH "\"C:/Program Files/Cppcheck/cppcheckgui.exe\""
+#define CHECK_STYLE_FILTER "CheckStyle application (checkStyle.exe)"
+
+#define EXPLORER_CMD "explorer.exe"
 
 #endif // COMMONELEMENTS_H

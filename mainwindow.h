@@ -8,6 +8,7 @@
 
 #include "ruledialog.h"
 #include "rulechoicedialog.h"
+#include "externaltoolparameterdialog.h"
 
 namespace Ui
 {
@@ -36,9 +37,12 @@ public slots:
   void saveConfigurationFile(void);
   void saveConfigurationFileAndQuit(void);
   void manageCodingRules(void);
+  void manageExternalTools(void);
+  void downloadCheckListFile(void);
   void displayAbout(void);
   // slots to determine which popup to display
-  void displayNextRule(const QString p_popupTitle);
+  void couldDisplayFirstRule(const int p_progressBarValue);
+  void couldDisplayNextRule(const QString p_popupTitle);
 
 signals:
   void inputFolderChoiceDone(QString);
@@ -59,6 +63,7 @@ private:
   RuleDialog *m_pointerRuleDialog;
   RuleDialog *m_todoRuleDialog;
   RuleChoiceDialog *m_ruleChoiceDialog;
+  ExternalToolParameterDialog *m_toolParameterDialog;
 
   QStringList m_cFiles;
   QStringList m_cppFiles;
@@ -78,7 +83,9 @@ private:
   bool m_displayMagicNumberRule;
   bool m_displayOrphanFunctionsRule;
   bool m_displayPointerRule;
-  bool m_displayTODORule;
+  bool m_displayToDoRule;
+
+  int m_counterFileChecked;
 
   void initWidgets(void);
   void windowParameter(QMainWindow *p_mainWindow);
@@ -89,12 +96,14 @@ private:
   void applyFontsOnLabels(void);
   void applyFontsOnButtons(void);
   void applyFontsOnLineEdits(void);
+  void incrementProgressBar(void);
 
   void displayFirstRule(void);
   void displayAccoladePopupRule(void);
   void displayCamelCaseRule(void);
   void displayMagicNumberRule(void);
-  void displayTODORule(void);
+  void displayToDoRule(void);
+  void displayPointerRule(void);
   void displayHRule(void);
 
   void launchCppCheck(void);

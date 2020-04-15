@@ -19,8 +19,9 @@ public:
   static QStringList scanForPointerDeclaration(const QString p_line);
   static bool scanForMagicNumber(const QString p_line);
   // Check launcher
-  static void launchCppCheck(const QString p_pathToCheck);
-  static void launchCheckStyle(const QString p_pathToCheck);
+  static void launchCppCheck(const QString p_cppCheckPath, const QString p_pathToCheck);
+  static void launchCheckStyle(const QString p_checkStylePath, const QString p_pathToCheck);
+  static void launchExcel(const QString p_excelPath, const QString p_excelFile);
 };
 
 #endif // UTILS_H

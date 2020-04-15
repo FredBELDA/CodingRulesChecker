@@ -1,6 +1,8 @@
 #ifndef VERIFYTODO_H
 #define VERIFYTODO_H
 
+#include <QFile>
+
 #include "abstractveriffilerules.h"
 
 class VerifyToDo : public AbstractVerifFileRules
@@ -10,5 +12,4 @@ public:
 
   void checkForToDo(void);
 };
-
 #endif // VERIFYTODO_H

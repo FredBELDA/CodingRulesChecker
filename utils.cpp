@@ -40,21 +40,42 @@ QString Utils::extractFileName(const QString p_path)
   return returnValue;
 }
 
-void Utils::launchCppCheck(const QString p_pathToCheck)
+void Utils::launchCppCheck(const QString p_cppCheckPath, const QString p_pathToCheck)
 {
-  QString l_cppCheckQString = QString(CPP_CHECK_PATH);
+  QString l_cppCheckQString = QString(p_cppCheckPath);
   QString l_cppCheckPath = l_cppCheckQString.replace("\"", "");
   QFile l_cppCheckPathFile(formatPath(l_cppCheckPath));
   if(l_cppCheckPathFile.exists())
   {
-    QString l_cppCheck = QString(CPP_CHECK_PATH) + " " + p_pathToCheck;
+    QString l_cppCheck = QString(p_cppCheckPath) + " " + p_pathToCheck;
     system(l_cppCheck.toStdString().c_str());
   }
 }
 
-void Utils::launchCheckStyle(const QString p_pathToCheck)
+void Utils::launchCheckStyle(const QString p_checkStylePath, const QString p_pathToCheck)
 {
-  qDebug() << "Utils::launchCheckStyle " << p_pathToCheck;
+  qDebug() << "Utils::launchCheckStyle => p_checkStylePath = " << p_checkStylePath << " - p_pathToCheck = " << p_pathToCheck;
+  QString l_checkStyleQString = QString(p_checkStylePath);
+  QString l_checkStylePath = l_checkStyleQString.replace("\"", "");
+  QFile l_checkStylePathFile(formatPath(l_checkStylePath));
+  if(l_checkStylePathFile.exists())
+  {
+    QString l_checkStyle = QString(l_checkStylePath) + " " + p_pathToCheck;
+    system(l_checkStyle.toStdString().c_str());
+  }
+}
+
+void Utils::launchExcel(const QString p_excelPath, const QString p_excelFile)
+{
+  qDebug() << "Utils::launchExcel => p_excelPath = " << p_excelPath << " - p_excelFile = " << p_excelFile;
+  QString l_excelQString = QString(p_excelPath);
+  QString l_excelPath = l_excelQString.replace("\"", "");
+  QFile l_excelPathFile(formatPath(l_excelPath));
+  if(l_excelPathFile.exists())
+  {
+    QString l_excel = QString(l_excelPath) + " " + p_excelFile;
+    system(l_excel.toStdString().c_str());
+  }
 }
 
 bool Utils::isComment(const QString p_line)

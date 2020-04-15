@@ -56,9 +56,9 @@ void AboutDialog::windowParameter(QWidget *p_widget)
  */
 void AboutDialog::initWidgets(void)
 {
-  ui->pushButton_Valider->setText(VALIDATE);
-  ui->label_About->setAlignment(Qt::AlignCenter);
-  ui->label_About->setText(ABOUT_POPUP_CONTAINT);
+  ui->pushButton_valider->setText(VALIDATE);
+  ui->label_about->setAlignment(Qt::AlignCenter);
+  ui->label_about->setText(ABOUT_POPUP_CONTAINT);
 }
 
 /**
@@ -66,7 +66,7 @@ void AboutDialog::initWidgets(void)
  */
 void AboutDialog::connectWidgets(void)
 {
-  connect(ui->pushButton_Valider, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(ui->pushButton_valider, SIGNAL(clicked()), this, SLOT(accept()));
 }
 
 /**
@@ -91,7 +91,7 @@ void AboutDialog::applyFontsOnLabels(void)
   l_fontEnonce.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
 
-  ui->label_About->setFont(l_fontEnonce);
+  ui->label_about->setFont(l_fontEnonce);
 }
 
 /**
@@ -104,5 +104,5 @@ void AboutDialog::applyFontsOnButtons(void)
   l_fontQPushButton.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontQPushButton.setPointSize(PUSHBUTTON_FONT_SIZE);
 
-  ui->pushButton_Valider->setFont(l_fontQPushButton);
+  ui->pushButton_valider->setFont(l_fontQPushButton);
 }

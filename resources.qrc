@@ -1,10 +1,13 @@
 <RCC>
+    <qresource prefix="/configuration">
+        <file alias="ConfigFile">config/config.ini</file>
+    </qresource>
     <qresource prefix="/images">
         <file alias="CodingRulesChecker_Logo.png">images/CodingRulesChecker_Logo.png</file>
         <file alias="AKKA_Logo.png">images/AKKA_Logo.png</file>
         <file alias="Thales_Logo.png">images/Thales_Logo.png</file>
     </qresource>
-    <qresource prefix="/configuration">
-        <file alias="ConfigFile">config/config.ini</file>
+    <qresource prefix="/input">
+        <file alias="CheckListFile">input/CheckList.xls</file>
     </qresource>
 </RCC>
