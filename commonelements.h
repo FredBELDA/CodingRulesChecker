@@ -1,8 +1,6 @@
 #ifndef COMMONELEMENTS_H
 #define COMMONELEMENTS_H
 
-#include <QString>
-
 // Version
 #define VERSION "1.0"
 #define RELEASE_DATE "2020/04/11"
@@ -42,7 +40,7 @@
 #define ABOUT_POPUP_VERTICAL_LAYOUT_HEIGHT ABOUT_POPUP_HEIGHT - HEIGHT_MARGING
 #define ABOUT_POPUP_VERTICAL_LAYOUT_WIDTH ABOUT_POPUP_WIDTH - WIDTH_MARGING
 
-#define RULE_CHOICE_POPUP_HEIGHT 390
+#define RULE_CHOICE_POPUP_HEIGHT 400
 #define RULE_CHOICE_POPUP_WIDTH 847
 #define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT RULE_CHOICE_POPUP_HEIGHT - HEIGHT_MARGING
 #define RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH RULE_CHOICE_POPUP_WIDTH - WIDTH_MARGING
@@ -154,8 +152,8 @@ La constante ou le define, a le mérite de porter un nommage\ncompréhensible de
 Est-ce un exigence du client ?\nUne constante arbitiraire ?\nValeur prise sur un coup de tête ?\n\n \
 Définir un define avec #define NB_ELT_TO_PARSE 2 est plus parlant.\n \
 Le relecteur comprendra de quoi vous parlez !\n\n \
-De plus en centralisant vos constantes dans un fichier .h, vous permettra de gagner du temps\n \
-lors des modifications de valeurs."
+De plus en centralisant vos constantes dans un fichier .h, vous permettra \n \
+de gagner du temps lors des modifications de valeurs."
 #define CAMEL_CASE_RULE_POPUP_TITLE "Règle de codage concernant la déclaration de variables en CamelCase"
 #define CAMEL_CASE_RULE_POPUP ""
 #define POINTER_RULE_POPUP_TITLE "Règle de codage concernant les pointeurs"

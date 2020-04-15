@@ -1,7 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
-
-#include <QFile>
+#ifndef VERIFYTODO_H
+#define VERIFYTODO_H
 
 #include "abstractveriffilerules.h"
 
@@ -12,4 +10,5 @@ public:
 
   void checkForToDo(void);
 };
-#endif // UTILS_H
+
+#endif // VERIFYTODO_H
