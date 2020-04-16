@@ -8,6 +8,6 @@
         <file alias="Thales_Logo.png">images/Thales_Logo.png</file>
     </qresource>
     <qresource prefix="/input">
-        <file alias="CheckListFile">input/CheckList.xls</file>
+        <file alias="CheckListFile">input/CheckList.xlsx</file>
     </qresource>
 </RCC>
