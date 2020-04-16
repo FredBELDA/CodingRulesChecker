@@ -203,7 +203,7 @@ void MainWindow::connectWidgets(void)
   QObject::connect(ui->pushButton_openOutputLogs, SIGNAL(clicked()), this, SLOT(openFolder()));
   QObject::connect(ui->lineEdit_inputFolder, SIGNAL(textChanged(QString)), this, SLOT(checkInputFolder(QString)));
   QObject::connect(ui->lineEdit_outputLogs, SIGNAL(textChanged(QString)), this, SLOT(checkOutputFolder(QString)));
-  QObject::connect(ui->progressBar_checkRules, SIGNAL(valueChanged(int)), this, SLOT(couldDisplayFirstRule(int)));
+  QObject::connect(ui->progressBar_checkRules, SIGNAL(valueChanged(int)), this, SLOT(couldDisplayRule(int)));
   // File menu connexion
   QObject::connect(ui->actionOuvrir_la_configuration, SIGNAL(triggered(bool)), this, SLOT(loadConfigurationFile()));
   QObject::connect(ui->actionEnregistrer_la_configuration, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFile()));
@@ -703,7 +703,7 @@ void MainWindow::displayAccoladePopupRule(void)
                                           ACCOLADE_RULE_POPUP);
     if(nullptr != m_accoladeRuleDialog)
     {
-      QObject::connect(m_accoladeRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
+      QObject::connect(m_accoladeRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_accoladeRuleDialog->show();
       // To avoid rule display loop
       m_displayAccoladeRule = false;
@@ -724,7 +724,7 @@ void MainWindow::displayCamelCaseRule(void)
                                            CAMEL_CASE_RULE_POPUP);
     if(nullptr != m_camelCaseRuleDialog)
     {
-      QObject::connect(m_camelCaseRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
+      QObject::connect(m_camelCaseRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_camelCaseRuleDialog->show();
       // To avoid rule display loop
       m_displayCamelCaseRule = false;
@@ -747,7 +747,7 @@ void MainWindow::displayMagicNumberRule(void)
                                              MAGIC_NUMBER_RULE_EXPLANATION);
     if(nullptr != m_magicNumberRuleDialog)
     {
-      QObject::connect(m_magicNumberRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
+      QObject::connect(m_magicNumberRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_magicNumberRuleDialog->show();
       // To avoid rule display loop
       m_displayMagicNumberRule = false;
@@ -768,7 +768,7 @@ void MainWindow::displayToDoRule(void)
                                       TODO_RULE_POPUP);
     if(nullptr != m_todoRuleDialog)
     {
-      QObject::connect(m_todoRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
+      QObject::connect(m_todoRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_todoRuleDialog->show();
       // To avoid rule display loop
       m_displayToDoRule = false;
@@ -789,7 +789,7 @@ void MainWindow::displayPointerRule(void)
                                          POINTER_RULE_POPUP);
     if(nullptr != m_pointerRuleDialog)
     {
-      QObject::connect(m_pointerRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
+      QObject::connect(m_pointerRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_pointerRuleDialog->show();
       // To avoid rule display loop
       m_displayPointerRule = false;
@@ -810,7 +810,7 @@ void MainWindow::displayHRule(void)
                                        H_RULE_POPUP);
     if(nullptr != m_hFileRuleDialog)
     {
-      QObject::connect(m_hFileRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
+      QObject::connect(m_hFileRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_hFileRuleDialog->show();
       // To avoid rule display loop
       m_displayHRule = false;
@@ -825,113 +825,68 @@ void MainWindow::displayHRule(void)
 // TODO add missing rules
 //...
 
-void MainWindow::displayFirstRule(void)
+void MainWindow::displayRule(void)
 {
-  bool l_firstRuleToDisplay = false;
+  bool l_ruleToDisplay = false;
   if(m_displayAccoladeRule)
   {
-    l_firstRuleToDisplay = true;
+    l_ruleToDisplay = true;
     displayAccoladePopupRule();
   }
-  if(!l_firstRuleToDisplay)
+  if(!l_ruleToDisplay)
   {
     if(m_displayCamelCaseRule)
     {
-      l_firstRuleToDisplay = true;
+      l_ruleToDisplay = true;
       displayCamelCaseRule();
     }
   }
-  if(!l_firstRuleToDisplay)
+  if(!l_ruleToDisplay)
   {
     if(m_displayHRule)
     {
-      l_firstRuleToDisplay = true;
+      l_ruleToDisplay = true;
       displayHRule();
     }
   }
-  if(!l_firstRuleToDisplay)
+  if(!l_ruleToDisplay)
   {
     if(m_displayMagicNumberRule)
     {
-      l_firstRuleToDisplay = true;
+      l_ruleToDisplay = true;
       displayMagicNumberRule();
     }
   }
-  if(!l_firstRuleToDisplay)
+  if(!l_ruleToDisplay)
   {
     if(m_displayToDoRule)
     {
-      l_firstRuleToDisplay = true;
+      l_ruleToDisplay = true;
       displayToDoRule();
     }
   }
-  if(!l_firstRuleToDisplay)
+  if(!l_ruleToDisplay)
   {
     if(m_displayPointerRule)
     {
-      l_firstRuleToDisplay = true;
+      l_ruleToDisplay = true;
 
     }
   }
   // TODO Add missing rules
 }
 
-void MainWindow::couldDisplayFirstRule(const int p_progressBarValue)
+void MainWindow::couldDisplayRule(const int p_progressBarValue)
 {
   if(ui->progressBar_checkRules->maximum() == p_progressBarValue)
   {
-    displayFirstRule();
+    displayRule();
   }
 }
 
-void MainWindow::couldDisplayNextRule(const QString p_popupTitle)
+void MainWindow::couldDisplayNextRule(void)
 {
-  qDebug() << "MainWindow::couldDisplayNextRule => p_popupTitle = " << p_popupTitle;
-  bool l_nextRuleToDisplay = false;
-  if(0 == p_popupTitle.compare(ACCOLADE_RULE_POPUP_TITLE))
-  {
-    if(m_displayCamelCaseRule)
-    {
-      l_nextRuleToDisplay = true;
-      displayCamelCaseRule();
-    }
-  }
-  if(!l_nextRuleToDisplay || 0 == p_popupTitle.compare(CAMEL_CASE_RULE_POPUP_TITLE))
-  {
-    if(m_displayHRule)
-    {
-      l_nextRuleToDisplay = true;
-      displayHRule();
-    }
-  }
-  if(!l_nextRuleToDisplay || 0 == p_popupTitle.compare(H_RULE_POPUP_TITLE))
-  {
-    if(m_displayMagicNumberRule)
-    {
-      l_nextRuleToDisplay = true;
-      displayMagicNumberRule();
-    }
-  }
-  if(!l_nextRuleToDisplay || 0 == p_popupTitle.compare(MAGIC_NUMBER_RULE_POPUP_TITLE))
-  {
-    if(m_displayToDoRule)
-    {
-      l_nextRuleToDisplay = true;
-      displayToDoRule();
-    }
-  }
-  // TODO Add missing rules
-  if(!l_nextRuleToDisplay || 0 == p_popupTitle.compare(TODO_RULE_POPUP_TITLE))
-  {
-    if(!m_cFiles.isEmpty() || !m_cppFiles.isEmpty())
-    {
-      launchCppCheck();
-    }
-    if(!m_javaFiles.isEmpty())
-    {
-      launchCheckStyle();
-    }
-  }
+  displayRule();
 }
 
 /**
@@ -1173,14 +1128,27 @@ void MainWindow::downloadCheckListFile(void)
     {
       l_excelPath = EXCEL_DEFAULT_PATH;
     }
-    QFile l_checkListFile(":/input/CheckListFile");
-    if(l_checkListFile.exists())
+    QFile l_excelFile(l_excelPath);
+    if(!l_excelFile.exists())
     {
-      Utils::launchExcel(l_excelPath, l_checkListFile.fileName());
+      l_excelFile.setFileName(LIBREOFFICE_CALC_DEFAULT_PATH);
+      l_excelPath = LIBREOFFICE_CALC_DEFAULT_PATH;
+      if(!l_excelFile.exists())
+      {
+        qDebug() << "tableur non trouvé";
+      }
     }
-    else
+    if(!l_excelPath.isEmpty())
     {
-      qDebug() << "Le fichier Checklist n'existe pas dans " << l_checkListFile.fileName();
+      QFile l_checkListFile(":/input/CheckListFile");
+      if(l_checkListFile.exists())
+      {
+        Utils::launchExcel(l_excelPath, l_checkListFile.fileName());
+      }
+      else
+      {
+        qDebug() << "Le fichier Checklist n'existe pas dans " << l_checkListFile.fileName();
+      }
     }
   }
 }

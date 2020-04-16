@@ -22,6 +22,9 @@ public:
   static void launchCppCheck(const QString p_cppCheckPath, const QString p_pathToCheck);
   static void launchCheckStyle(const QString p_checkStylePath, const QString p_pathToCheck);
   static void launchExcel(const QString p_excelPath, const QString p_excelFile);
+
+private:
+  static void genericLaunchApplication(const QString p_path, const QString p_fileToOpen);
 };
 
 #endif // UTILS_H

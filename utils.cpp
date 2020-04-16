@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QDir>
 #include <QFile>
 #include <QString>
 
@@ -6,42 +7,44 @@
 
 QString Utils::formatPath(const QString p_path)
 {
-  QString returnValue = p_path;
-  if(returnValue.contains("\\"))
+  QString l_returnValue = p_path;
+  if(l_returnValue.contains("\\"))
   {
-    returnValue.replace("\\", "/");
+    l_returnValue.replace("\\", "/");
   }
-  return returnValue;
+  return l_returnValue;
 }
 
 QString Utils::formatPathForCmd(const QString p_path)
 {
-  QString returnValue = p_path;
-  if(returnValue.contains("/"))
+  QString l_returnValue = p_path;
+  if(l_returnValue.contains("/"))
   {
-    returnValue.replace("/", "\\");
+    l_returnValue.replace("/", "\\");
   }
-  return returnValue;
+  return l_returnValue;
 }
 
 QString Utils::extractFileName(const QString p_path)
 {
-  QString returnValue = "";
-  int lastIndexOf = 0;
+  QString l_returnValue = "";
+  int l_lastIndexOf = 0;
   if(p_path.contains("\\"))
   {
-    lastIndexOf = p_path.lastIndexOf("\\");
+    l_lastIndexOf = p_path.lastIndexOf("\\");
   }
   if(p_path.contains("/"))
   {
-    lastIndexOf = p_path.lastIndexOf("/");
+    l_lastIndexOf = p_path.lastIndexOf("/");
   }
-  returnValue = p_path.mid(lastIndexOf + 1);
-  return returnValue;
+  l_returnValue = p_path.mid(l_lastIndexOf + 1);
+  return l_returnValue;
 }
 
 void Utils::launchCppCheck(const QString p_cppCheckPath, const QString p_pathToCheck)
 {
+  genericLaunchApplication(p_cppCheckPath, p_pathToCheck);
+  /*
   QString l_cppCheckQString = QString(p_cppCheckPath);
   QString l_cppCheckPath = l_cppCheckQString.replace("\"", "");
   QFile l_cppCheckPathFile(formatPath(l_cppCheckPath));
@@ -50,10 +53,13 @@ void Utils::launchCppCheck(const QString p_cppCheckPath, const QString p_pathToC
     QString l_cppCheck = QString(p_cppCheckPath) + " " + p_pathToCheck;
     system(l_cppCheck.toStdString().c_str());
   }
+  */
 }
 
 void Utils::launchCheckStyle(const QString p_checkStylePath, const QString p_pathToCheck)
 {
+  genericLaunchApplication(p_checkStylePath, p_pathToCheck);
+  /*
   qDebug() << "Utils::launchCheckStyle => p_checkStylePath = " << p_checkStylePath << " - p_pathToCheck = " << p_pathToCheck;
   QString l_checkStyleQString = QString(p_checkStylePath);
   QString l_checkStylePath = l_checkStyleQString.replace("\"", "");
@@ -63,18 +69,31 @@ void Utils::launchCheckStyle(const QString p_checkStylePath, const QString p_pat
     QString l_checkStyle = QString(l_checkStylePath) + " " + p_pathToCheck;
     system(l_checkStyle.toStdString().c_str());
   }
+  */
 }
 
 void Utils::launchExcel(const QString p_excelPath, const QString p_excelFile)
 {
-  qDebug() << "Utils::launchExcel => p_excelPath = " << p_excelPath << " - p_excelFile = " << p_excelFile;
-  QString l_excelQString = QString(p_excelPath);
-  QString l_excelPath = l_excelQString.replace("\"", "");
-  QFile l_excelPathFile(formatPath(l_excelPath));
-  if(l_excelPathFile.exists())
+  genericLaunchApplication(p_excelPath, p_excelFile);
+}
+
+void Utils::genericLaunchApplication(const QString p_path, const QString p_fileToOpen)
+{
+  qDebug() << "Utils::genericLaunchApplication => p_path = " << p_path << " - p_fileToOpen = " << p_fileToOpen;
+  QString l_qStringFile = QString(p_path);
+  QString l_pathFile = l_qStringFile.replace("\"", "");
+  QFile l_pathQFile(formatPath(l_pathFile));
+  QFileInfo l_infoFile(l_pathQFile);
+  QString l_path = l_infoFile.absolutePath();
+  QString l_exe = l_infoFile.baseName();
+  qDebug() << "l_path = " << l_path << " - l_exe = " << l_exe;
+  if(QDir::setCurrent(l_path))
   {
-    QString l_excel = QString(l_excelPath) + " " + p_excelFile;
-    system(l_excel.toStdString().c_str());
+    system(l_exe.toStdString().c_str());
+  }
+  else
+  {
+    qDebug() << "Not set";
   }
 }
 

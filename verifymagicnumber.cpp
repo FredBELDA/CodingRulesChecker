@@ -37,7 +37,7 @@ void VerifyMagicNumber::checkForMagicNumber(void)
         if(l_hasMagicNumber)
         {
           m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
-                            l_line + FILE_SEPARATOR +
+                            l_line + FILE_SEPARATOR + CRITIC + FILE_SEPARATOR +
                             IS_MAGIC_NUMBER + "\n");
         }
         l_lineNumber += 1;

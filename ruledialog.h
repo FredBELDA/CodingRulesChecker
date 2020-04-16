@@ -26,7 +26,7 @@ public slots:
   void emitSignal(void);
 
 signals:
-  void popupRead(const QString p_ruleRead);
+  void popupRead(void);
 
 private:
   void windowParameter(QWidget *p_widget);

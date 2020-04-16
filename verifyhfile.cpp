@@ -30,7 +30,7 @@ void VerifyHFile::checkForHFile(void)
       }
       if(!l_found)
       {
-        m_todoList.append(m_fileToAnalyse + FILE_SEPARATOR +
+        m_todoList.append(m_fileToAnalyse + FILE_SEPARATOR + CRITIC + FILE_SEPARATOR +
                           DOES_NOT_CONTAINS_H_FILE + "\n");
       }
     }

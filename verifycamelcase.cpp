@@ -105,7 +105,7 @@ void VerifyCamelCase::checkForCamelCase(void)
                           if(!l_firstCharacter.isLower())
                           {
                             m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
-                                              l_variableComplementaryDeclaration + FILE_SEPARATOR +
+                                              l_variableComplementaryDeclaration + FILE_SEPARATOR + CRITIC + FILE_SEPARATOR +
                                               DOES_NOT_RESPECT_CAMEL_CASE_SYNTAX + "\n");
                           }
                         }
@@ -125,13 +125,13 @@ void VerifyCamelCase::checkForCamelCase(void)
                           else
                           {
                             m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
-                                              l_variableName + FILE_SEPARATOR +
+                                              l_variableName + FILE_SEPARATOR + CRITIC + FILE_SEPARATOR +
                                               DOES_NOT_RESPECT_PERIMETER_SYNTAX + "\n");
                           }
                           if(!l_firstCharacter.isLower())
                           {
                             m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
-                                              l_variableName + FILE_SEPARATOR +
+                                              l_variableName + FILE_SEPARATOR + CRITIC + FILE_SEPARATOR +
                                               DOES_NOT_RESPECT_CAMEL_CASE_SYNTAX + "\n");
                           }
                         }
@@ -139,7 +139,7 @@ void VerifyCamelCase::checkForCamelCase(void)
                         {
                           qDebug() << "else : l_variableName = " << l_variableName;
                           m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
-                                            l_variableName + FILE_SEPARATOR +
+                                            l_variableName + FILE_SEPARATOR + CRITIC + FILE_SEPARATOR +
                                             DOES_NOT_RESPECT_CAMEL_CASE_SYNTAX + "\n");
                         }
                       }

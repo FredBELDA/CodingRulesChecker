@@ -139,5 +139,5 @@ void RuleDialog::setRule(const QString p_rule)
  */
 void RuleDialog::emitSignal(void)
 {
-  emit popupRead(this->windowTitle());
+  emit popupRead();
 }

@@ -69,7 +69,7 @@ void VerifyAccolade::checkForAccolade(void)
               if(!l_line.startsWith(SEARCH_FOR_OPENED_ACCOLADE))
               {
                 m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
-                                  l_line + FILE_SEPARATOR +
+                                  l_line + FILE_SEPARATOR + MINOR + FILE_SEPARATOR +
                                   ACCOLADE_IS_NOT_ALONE + "\n");
               }
             }
@@ -103,7 +103,7 @@ void VerifyAccolade::checkForAccolade(void)
               if(! l_line.startsWith(SEARCH_FOR_CLOSED_ACCOLADE))
               {
                 m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
-                                  l_line + FILE_SEPARATOR +
+                                  l_line + FILE_SEPARATOR + MINOR + FILE_SEPARATOR +
                                   ACCOLADE_IS_NOT_ALONE + "\n");
               }
             }

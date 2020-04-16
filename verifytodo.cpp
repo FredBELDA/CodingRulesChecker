@@ -38,7 +38,7 @@ void VerifyToDo::checkForToDo(void)
             )
           {
             m_todoList.append(QString::number(l_lineNumber) + FILE_SEPARATOR +
-                              l_line + FILE_SEPARATOR +
+                              l_line + FILE_SEPARATOR + MAJOR + FILE_SEPARATOR +
                               TODO_MUST_SUPPRESS + "\n");
           }
           l_lineNumber += 1;

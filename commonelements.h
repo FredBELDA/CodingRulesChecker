@@ -110,11 +110,15 @@
 #define QUIT "Quitter"
 
 // Reports
-#define REPORT_HEADER_FILE "Fichier;Numéro de ligne;ligne;Problème rencontré"
+#define REPORT_HEADER_FILE "Fichier;Numéro de ligne;Contenu de la ligne;Criticité;Problème rencontré"
 #define CODEC_FOR_EXCEL_FILE "ISO 8859-1"
 #define NB_MIN_ELTS 2
 #define NB_MAX_DECLARATION_SIZE 8
 #define FILE_SEPARATOR " / "
+
+#define MAJOR "Majeur"
+#define MINOR "Mineur"
+#define CRITIC "Critique"
 
 #define ACCOLADE_FILE_NAME "Accolade.csv"
 #define TODO_FILE_NAME "ToDo.csv"
@@ -137,33 +141,100 @@
 
 #define ACCOLADE_RULE_POPUP_TITLE "Règle de codage concernant les accolades"
 #define ACCOLADE_RULE_POPUP ""
+#define ACCOLADE_RULE_EXAMPLE ""
+#define ACCOLADE_RULE_EXPLANATION ""
 #define TODO_RULE_POPUP_TITLE "Règle de codage concernant les ToDo"
-#define TODO_RULE_POPUP ""
+#define TODO_RULE_POPUP "On peut mettre des ToDo dans le code,\n \
+lorsque l'on développe une fonctionnalité.\n \
+C'est un pense bête, pour revenir dessus plus tard,\n \
+soit à cause d'une fonction à appeler, qui n'existe pas,\n \
+soit à cause d'un point à éclaircir auprès d'un architecte.\n\n \
+Avant de livrer, il faut impérativement faire une passe\n \
+sur le projet, pour vérifier qu'il n'en existe plus."
+#define TODO_RULE_EXAMPLE ""
+#define TODO_RULE_EXPLANATION ""
 #define H_RULE_POPUP_TITLE "Règle de codage concernant les fichiers H"
-#define H_RULE_POPUP ""
+#define H_RULE_POPUP "Chaque fichier .c ou .cpp, doit avoir son fichier .h\n \
+associé. Ce fichier .h permet de définir les prototypes de fonction\n \
+de votre classe ou bibliothèque.\n\n \
+Vous pouvez avoir plus de fichiers .h que de fichiers .c ou .cpp\n \
+Ces fichiers .h peuvent vous permettre de centraliser\n \
+toutes les constantes de votre projet,\n \
+tous vos textes de l'IHM,\n \
+..."
+#define H_RULE_EXAMPLE ""
+#define H_RULE_EXPLANATION ""
 #define MAGIC_NUMBER_RULE_POPUP_TITLE "Règle de codage concernant les Magic Number"
 #define MAGIC_NUMBER_RULE_POPUP "Les magic number sont à proscrire d'un code.\n\n \
 Il vaut mieux créer une constante ou un define dans un fichier .h, et ensuite l'appeler\n \
-La constante ou le define, a le mérite de porter un nommage\ncompréhensible de tout le monde.\n\n"
+La constante ou le define, a le mérite de porter un nommage\n \
+compréhensible de tout le monde.\n\n"
 #define MAGIC_NUMBER_RULE_EXAMPLE "if(i == 2)\n \
 {\n \
   printf(\"%d\", i);\n \
 }"
 #define MAGIC_NUMBER_RULE_EXPLANATION "Que veut dire 2 ? Pourquoi ? \n \
-Est-ce un exigence du client ?\nUne constante arbitiraire ?\nValeur prise sur un coup de tête ?\n\n \
+Est-ce un exigence du client ?\nUne constante arbitraire ?\nValeur prise sur un coup de tête ?\n\n \
 Définir un define avec #define NB_ELT_TO_PARSE 2 est plus parlant.\n \
 Le relecteur comprendra de quoi vous parlez !\n\n \
-De plus en centralisant vos constantes dans un fichier .h, vous permettra\n \
-de gagner du temps lors des modifications de valeurs."
+De plus en centralisant vos constantes dans un seul fichier, vous fera\n \
+gagner du temps lors des modifications de valeurs."
 #define CAMEL_CASE_RULE_POPUP_TITLE "Règle de codage concernant la déclaration de variables en CamelCase"
-#define CAMEL_CASE_RULE_POPUP ""
+#define CAMEL_CASE_RULE_POPUP "Il existe une règle à respecter, pour le nommage de\n \
+vos variables. Cette règle est le camelCase.\n \
+La règle est simple :"
+#define CAMEL_CASE_RULE_EXAMPLE " - Première lettre en minuscule.\n \
+ - Première lettre de chaque mot suivant en majuscule.\n \
+ - Pas d'abréviation. \n \
+StepResult => Pas camelCase\n \
+stepResult => camelCase"
+#define CAMEL_CASE_RULE_EXPLANATION "Si on veut déclarer une variable dite globale à un fichier\n \
+on doit le préfixer d'un \"g_\".\n \
+Pour les paramètres de fonction, on utilise les préfixes pour signaler\n \
+si la variable est considérée comme un entrée ou une sortie.\n \
+  int toto(int i_aa, int i_bb, char *o_cc)\n \
+    \"i_\" = paramètre d'entrée de la fonction.\n \
+    \"o_\" = paramètre de sortie de la fonction.\n \
+    \"io_\" = paramètre d'entrée et de sortie de la fonction.\n \
+  une variable nommée \"o_\" ou \"io_\" sera forcément un pointeur.\n \
+  la variable \"o_\" sera mise à jour par la fonction.\n \
+Si on déclare une variable dans une classe, elle est dite membre\n \
+à la classe, on doit la préfixer d'un \"m_\".\n \
+Si on déclare une variable dans une fonction, elle est dite locale\n \
+à la fonction, on doit la préfixer d'un \"l_\"."
 #define POINTER_RULE_POPUP_TITLE "Règle de codage concernant les pointeurs"
-#define POINTER_RULE_POPUP ""
+#define POINTER_RULE_POPUP "Un pointeur est avant tout une zone mémoire de votre système.\n \
+Vous devez allouer de la mémoire, pour stocker votre pointeur.\n \
+Le problème des systèmes multiservices, c'est qu'on ne maitrise pas\n \
+les autres systèmes, et ce qu'ils font sur la mémoire.\n \
+Il pourrait très bien effacer une partie de la mémoir\n \
+que vous venez d'allouer. Votre pointeur se retrouverait verrolé.\n \
+Ou plus vicieux, toute la zone allouée a été écrasée, ou pas instancié\n \
+(oubli de faire un new). Du coup au moment d'utiliser votre pointeur,\n \
+vous allez faire crasher le système, car votre objet n'existera pas, ou sera\n \
+verrolé."
+#define POINTER_RULE_EXAMPLE "Toto* m_test = new Toto();\n \
+Au moment ou j'utilise la variable m_test, je la vérifie.\n \
+if(nullptr != m_test)\n \
+{\n \
+  ...\n \
+}"
+#define POINTER_RULE_EXPLANATION "Je ne sais pas si mon pointeur a été écrasé par quelqu'un entre\n \
+mon instanciation (avec le new), et le moment, ou je vais l'utiliser.\n \
+Par conséquent, à chaque fois, que je vais devoir interagir avec lui,\n \
+je le teste avant."
 #define ORPHAN_FUNCTIONS_RULE_POPUP_TITLE "Règle de codage concernant les fonctions orphelines"
 #define ORPHAN_FUNCTIONS_RULE_POPUP ""
+#define ORPHAN_FUNCTIONS_RULE_EXAMPLE ""
+#define ORPHAN_FUNCTIONS_RULE_EXPLANATION ""
 #define CONDITIONS_RULE_POPUP_TITLE "Règle de codage concernant les conditions"
+#define CONDITIONS_RULE_POPUP ""
+#define CONDITIONS_RULE_EXAMPLE ""
+#define CONDITIONS_RULE_EXPLANATION ""
 #define DEFAULT_RULE_POPUP_TITLE "Règle par défaut : non gérée !"
 #define DEFAULT_RULE_POPUP ""
+#define DEFAULT_RULE_EXAMPLE ""
+#define DEFAULT_RULE_EXPLANATION ""
 
 #define SEARCH_FOR_TODO "todo"
 #define SEARCH_FOR_TODO_SECOND "to do"
@@ -257,8 +328,9 @@ Ce projet a été réalisé avec le framework Qt" + QT_VERSION_STR
 #define CHECK_STYLE_PATH_NOT_EXISTS "Le répertoire vers CheckStyle n'existe pas !"
 
 // Default path
-#define EXCEL_DEFAULT_PATH "\"C:/Program Files/Microsoft Office/OFFICE11/excel.exe\""
+#define EXCEL_DEFAULT_PATH "\"C:/Program Files/Microsoft Office/OFFICE11/EXCEL.exe\""
 #define EXCEL_FILTER "Excel application (excel.exe)"
+#define LIBREOFFICE_CALC_DEFAULT_PATH "\"H:/Program Files/LibreOffice/program/scalc.exe\""
 #define CPP_CHECK_DEFAULT_PATH "\"C:/Program Files/Cppcheck/cppcheckgui.exe\""
 #define CPP_CHECK_FILTER "CppCheck application (cppCheck.exe)"
 //TODO Change path

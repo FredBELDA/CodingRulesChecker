@@ -41,8 +41,8 @@ public slots:
   void downloadCheckListFile(void);
   void displayAbout(void);
   // slots to determine which popup to display
-  void couldDisplayFirstRule(const int p_progressBarValue);
-  void couldDisplayNextRule(const QString p_popupTitle);
+  void couldDisplayRule(const int p_progressBarValue);
+  void couldDisplayNextRule(void);
 
 signals:
   void inputFolderChoiceDone(QString);
@@ -98,7 +98,7 @@ private:
   void applyFontsOnLineEdits(void);
   void incrementProgressBar(void);
 
-  void displayFirstRule(void);
+  void displayRule(void);
   void displayAccoladePopupRule(void);
   void displayCamelCaseRule(void);
   void displayMagicNumberRule(void);
