@@ -700,7 +700,9 @@ void MainWindow::displayAccoladePopupRule(void)
   {
     m_accoladeRuleDialog = new RuleDialog(this,
                                           ACCOLADE_RULE_POPUP_TITLE,
-                                          ACCOLADE_RULE_POPUP);
+                                          ACCOLADE_RULE_POPUP,
+                                          ACCOLADE_RULE_EXAMPLE,
+                                          ACCOLADE_RULE_EXPLANATION);
     if(nullptr != m_accoladeRuleDialog)
     {
       QObject::connect(m_accoladeRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
@@ -721,7 +723,9 @@ void MainWindow::displayCamelCaseRule(void)
   {
     m_camelCaseRuleDialog = new RuleDialog(this,
                                            CAMEL_CASE_RULE_POPUP_TITLE,
-                                           CAMEL_CASE_RULE_POPUP);
+                                           CAMEL_CASE_RULE_POPUP,
+                                           CAMEL_CASE_RULE_EXAMPLE,
+                                           CAMEL_CASE_RULE_EXPLANATION);
     if(nullptr != m_camelCaseRuleDialog)
     {
       QObject::connect(m_camelCaseRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
@@ -765,7 +769,9 @@ void MainWindow::displayToDoRule(void)
   {
     m_todoRuleDialog = new RuleDialog(this,
                                       TODO_RULE_POPUP_TITLE,
-                                      TODO_RULE_POPUP);
+                                      TODO_RULE_POPUP,
+                                      TODO_RULE_EXAMPLE,
+                                      TODO_RULE_EXPLANATION);
     if(nullptr != m_todoRuleDialog)
     {
       QObject::connect(m_todoRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
@@ -786,7 +792,9 @@ void MainWindow::displayPointerRule(void)
   {
     m_pointerRuleDialog = new RuleDialog(this,
                                          POINTER_RULE_POPUP_TITLE,
-                                         POINTER_RULE_POPUP);
+                                         POINTER_RULE_POPUP,
+                                         POINTER_RULE_EXAMPLE,
+                                         POINTER_RULE_EXPLANATION);
     if(nullptr != m_pointerRuleDialog)
     {
       QObject::connect(m_pointerRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
@@ -807,7 +815,9 @@ void MainWindow::displayHRule(void)
   {
     m_hFileRuleDialog = new RuleDialog(this,
                                        H_RULE_POPUP_TITLE,
-                                       H_RULE_POPUP);
+                                       H_RULE_POPUP,
+                                       H_RULE_EXAMPLE,
+                                       H_RULE_EXPLANATION);
     if(nullptr != m_hFileRuleDialog)
     {
       QObject::connect(m_hFileRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
