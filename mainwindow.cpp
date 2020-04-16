@@ -703,7 +703,7 @@ void MainWindow::displayAccoladePopupRule(void)
                                           ACCOLADE_RULE_POPUP);
     if(nullptr != m_accoladeRuleDialog)
     {
-      QObject::connect(m_accoladeRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
+      QObject::connect(m_accoladeRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
       m_accoladeRuleDialog->show();
       // To avoid rule display loop
       m_displayAccoladeRule = false;
@@ -724,7 +724,7 @@ void MainWindow::displayCamelCaseRule(void)
                                            CAMEL_CASE_RULE_POPUP);
     if(nullptr != m_camelCaseRuleDialog)
     {
-      QObject::connect(m_camelCaseRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
+      QObject::connect(m_camelCaseRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
       m_camelCaseRuleDialog->show();
       // To avoid rule display loop
       m_displayCamelCaseRule = false;
@@ -747,7 +747,7 @@ void MainWindow::displayMagicNumberRule(void)
                                              MAGIC_NUMBER_RULE_EXPLANATION);
     if(nullptr != m_magicNumberRuleDialog)
     {
-      QObject::connect(m_magicNumberRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
+      QObject::connect(m_magicNumberRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
       m_magicNumberRuleDialog->show();
       // To avoid rule display loop
       m_displayMagicNumberRule = false;
@@ -768,7 +768,7 @@ void MainWindow::displayToDoRule(void)
                                       TODO_RULE_POPUP);
     if(nullptr != m_todoRuleDialog)
     {
-      QObject::connect(m_todoRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
+      QObject::connect(m_todoRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
       m_todoRuleDialog->show();
       // To avoid rule display loop
       m_displayToDoRule = false;
@@ -789,7 +789,7 @@ void MainWindow::displayPointerRule(void)
                                          POINTER_RULE_POPUP);
     if(nullptr != m_pointerRuleDialog)
     {
-      QObject::connect(m_pointerRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
+      QObject::connect(m_pointerRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
       m_pointerRuleDialog->show();
       // To avoid rule display loop
       m_displayPointerRule = false;
@@ -810,7 +810,7 @@ void MainWindow::displayHRule(void)
                                        H_RULE_POPUP);
     if(nullptr != m_hFileRuleDialog)
     {
-      QObject::connect(m_hFileRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(displayNextRule(QString)));
+      QObject::connect(m_hFileRuleDialog, SIGNAL(popupRead(QString)), this, SLOT(couldDisplayNextRule(QString)));
       m_hFileRuleDialog->show();
       // To avoid rule display loop
       m_displayHRule = false;
