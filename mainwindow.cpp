@@ -1150,14 +1150,22 @@ void MainWindow::downloadCheckListFile(void)
     }
     if(!l_excelPath.isEmpty())
     {
-      QFile l_checkListFile(":/input/CheckListFile");
+      QString l_excelFilePath = CHECKLIST_PATH;
+      QFile l_checkListFile(l_excelFilePath);
+      // We check absolute path works
+      if(!l_checkListFile.exists())
+      {
+        l_excelFilePath = l_excelFilePath.prepend(Utils::formatPath(QCoreApplication::applicationDirPath()));
+      }
+      // Otherwise we add the complete path before
+      l_checkListFile.setFileName(l_excelFilePath);
       if(l_checkListFile.exists())
       {
         Utils::launchExcel(l_excelPath, l_checkListFile.fileName());
       }
       else
       {
-        qDebug() << "Le fichier Checklist n'existe pas dans " << l_checkListFile.fileName();
+        qDebug() << "MainWindow::downloadCheckListFile => l_checkListFile doe not exist" << l_checkListFile.fileName();
       }
     }
   }

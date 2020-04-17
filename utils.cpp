@@ -1,3 +1,4 @@
+#include <QCoreApplication>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
@@ -81,11 +82,15 @@ void Utils::genericLaunchApplication(const QString p_path, const QString p_fileT
 {
   qDebug() << "Utils::genericLaunchApplication => p_path = " << p_path << " - p_fileToOpen = " << p_fileToOpen;
   QString l_qStringFile = QString(p_path);
+  QString l_qStringFileToOpen = QString(p_fileToOpen);
   QString l_pathFile = l_qStringFile.replace("\"", "");
   QFile l_pathQFile(formatPath(l_pathFile));
+  QFile l_fileToOpen(l_qStringFileToOpen);
   QFileInfo l_infoFile(l_pathQFile);
   QString l_path = l_infoFile.absolutePath();
   QString l_exe = l_infoFile.baseName();
+  l_exe = l_exe.append(" ");
+  l_exe = l_exe.append(l_qStringFileToOpen);
   qDebug() << "l_path = " << l_path << " - l_exe = " << l_exe;
   if(QDir::setCurrent(l_path))
   {
@@ -93,7 +98,7 @@ void Utils::genericLaunchApplication(const QString p_path, const QString p_fileT
   }
   else
   {
-    qDebug() << "Not set";
+    qDebug() << "Utils::genericLaunchApplication => QDir::setCurrent not set";
   }
 }
 

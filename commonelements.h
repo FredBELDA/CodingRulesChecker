@@ -327,6 +327,9 @@ Ce projet a été réalisé avec le framework Qt" + QT_VERSION_STR
 #define CPP_CHECK_PATH_NOT_EXISTS "Le répertoire vers CppCheck n'existe pas !"
 #define CHECK_STYLE_PATH_NOT_EXISTS "Le répertoire vers CheckStyle n'existe pas !"
 
+// Path to doc
+#define CHECKLIST_PATH "/input/CheckList.xlsx"
+
 // Default path
 #define EXCEL_DEFAULT_PATH "\"C:/Program Files/Microsoft Office/OFFICE11/EXCEL.exe\""
 #define EXCEL_FILTER "Excel application (excel.exe)"
