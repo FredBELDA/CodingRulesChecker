@@ -1,4 +1,3 @@
-#include <QCoreApplication>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
@@ -106,6 +105,28 @@ bool Utils::isComment(const QString p_line)
 {
   bool l_returnValue = false;
   if(p_line.startsWith("/*") || p_line.startsWith("*") || p_line.endsWith("*/") || p_line.startsWith("//"))
+  {
+    l_returnValue = true;
+  }
+
+  return l_returnValue;
+}
+
+bool Utils::isConstant(const QString p_line)
+{
+  bool l_returnValue = false;
+  if(p_line.startsWith("const"))
+  {
+    l_returnValue = true;
+  }
+
+  return l_returnValue;
+}
+
+bool Utils::isDefine(const QString p_line)
+{
+  bool l_returnValue = false;
+  if(p_line.startsWith("#define"))
   {
     l_returnValue = true;
   }
@@ -253,5 +274,16 @@ bool Utils::scanForMagicNumber(const QString p_line)
     }
   }
 
+  return l_returnValue;
+}
+
+QString Utils::scanForDefineDeclaration(const QString p_line)
+{
+  QString l_returnValue = "";
+  QStringList l_variables = p_line.split(SEARCH_FOR_SPACE);
+  if(NB_DEFINE_CONSTANT_ELTS == l_variables.size())
+  {
+    l_returnValue = l_variables.at(1);
+  }
   return l_returnValue;
 }

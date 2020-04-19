@@ -113,6 +113,7 @@
 #define REPORT_HEADER_FILE "Fichier;Numéro de ligne;Contenu de la ligne;Criticité;Problème rencontré"
 #define CODEC_FOR_EXCEL_FILE "ISO 8859-1"
 #define NB_MIN_ELTS 2
+#define NB_DEFINE_CONSTANT_ELTS 3
 #define NB_MAX_DECLARATION_SIZE 8
 #define FILE_SEPARATOR " / "
 
@@ -333,7 +334,7 @@ Ce projet a été réalisé avec le framework Qt" + QT_VERSION_STR
 // Default path
 #define EXCEL_DEFAULT_PATH "\"C:/Program Files/Microsoft Office/OFFICE11/EXCEL.exe\""
 #define EXCEL_FILTER "Excel application (excel.exe)"
-#define LIBREOFFICE_CALC_DEFAULT_PATH "\"H:/Program Files/LibreOffice/program/scalc.exe\""
+#define LIBREOFFICE_CALC_DEFAULT_PATH "\"C:/Program Files/LibreOffice/program/scalc.exe\""
 #define CPP_CHECK_DEFAULT_PATH "\"C:/Program Files/Cppcheck/cppcheckgui.exe\""
 #define CPP_CHECK_FILTER "CppCheck application (cppCheck.exe)"
 //TODO Change path

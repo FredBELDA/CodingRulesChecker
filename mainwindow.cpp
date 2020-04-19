@@ -230,6 +230,8 @@ void MainWindow::initVariables(void)
   m_otherFiles.clear();
 
   m_pointerDeclaration.clear();
+  m_functionDeclaration.clear();
+  m_defineDeclaration.clear();
 
   m_displayAccoladeRule = false;
   m_displayCamelCaseRule = false;
@@ -468,6 +470,16 @@ void MainWindow::checkFiles(void)
           if(!l_pointerDeclaration.isEmpty())
           {
             m_pointerDeclaration.append(l_pointerDeclaration);
+          }
+          QStringList l_functionDeclaration = l_hVerifFile->getFunctionDeclarationList();
+          if(!l_functionDeclaration.isEmpty())
+          {
+            m_functionDeclaration.append(l_functionDeclaration);
+          }
+          QStringList l_defineDeclaration = l_hVerifFile->getDefineDeclarationList();
+          if(!l_defineDeclaration.isEmpty())
+          {
+            m_defineDeclaration.append(l_defineDeclaration);
           }
         }
         else
