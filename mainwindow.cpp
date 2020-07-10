@@ -641,7 +641,13 @@ void MainWindow::launchCommonCheck(AbstractVerifFiles *p_verifFile)
     // Set a boolean to display the popup if rule is not respected
     m_displayToDoRule |= p_verifFile->hasToDoProblem();
   }
-  // TODO FBE : Add pointer check
+  if(m_ruleChoiceDialog->getPointerCheckBoxState())
+  {
+    // Check for Pointers problem into code
+    p_verifFile->verifyPointers(m_pointerDeclaration);
+    // Set a boolean to display the popup if rule is not respected
+    m_displayPointerRule |= p_verifFile->hasPointersProblem();
+  }
 }
 
 /**
