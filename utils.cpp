@@ -2,6 +2,7 @@
 #include <QDir>
 #include <QFile>
 #include <QString>
+#include <QRegularExpression>
 
 #include "utils.h"
 
@@ -163,6 +164,35 @@ bool Utils::isDigit(const QString p_line)
   return l_ok;
 }
 
+
+bool Utils::isPointerTest(const QString p_line)
+{
+    // return True if p_line contain an if and a pointer test such as null, nullptr or 0.
+    QRegularExpression l_regexNullPointer(REGEX_FOR_POINTERS);
+    return p_line.contains(IF_INSTRUCTION) && p_line.toLower().contains(l_regexNullPointer);
+}
+
+bool Utils::isVariableDeclaration(const QString p_line)
+{
+    QRegularExpression l_regexFundamentalTypes(REGEX_FOR_FUNDAMENTAL_TYPE);
+    bool l_resRegexType = p_line.toLower().contains(l_regexFundamentalTypes);
+    bool l_resUpper = p_line.at(0).isUpper();
+    return l_resRegexType || l_resUpper;
+}
+
+bool Utils::isPointerInit(const QString p_line)
+{
+   bool res = false;
+   QRegularExpression l_regexNullPointer(REGEX_FOR_POINTERS);
+   if(p_line.toLower().contains(SEARCH_FOR_NEW) || p_line.toLower().contains(l_regexNullPointer))
+   {
+       qDebug() << "isPointerInit: " << p_line;
+       res = true;
+   }
+   return res;
+}
+
+
 QStringList Utils::scanForVariableDeclaration(const QString p_line)
 {
   QStringList l_returnValue;
@@ -206,12 +236,14 @@ QStringList Utils::scanForVariableDeclaration(const QString p_line)
 
 QStringList Utils::scanForPointerDeclaration(const QString p_line)
 {
+
   QStringList l_returnValue;
   bool l_isDeclaration = false;
   bool l_isPointer = false;
   QStringList l_variables = p_line.split(SEARCH_FOR_SPACE);
   if(!l_variables.isEmpty())
   {
+
     foreach(QString l_variableName, l_variables)
     {
       // We check one element of line is a declaration
@@ -224,7 +256,9 @@ QStringList Utils::scanForPointerDeclaration(const QString p_line)
          (l_variableName.contains(CHAR_DECLARATION))  ||
          (l_variableName.contains(LONG_DECLARATION))  ||
          // For Qt object
+         (l_variableName.at(0).isUpper()) ||
          (l_variableName.startsWith("Q") && l_variableName.at(1).isUpper())
+         //
         )
       {
         l_isDeclaration = true;
@@ -286,4 +320,48 @@ QString Utils::scanForDefineDeclaration(const QString p_line)
     l_returnValue = l_variables.at(1);
   }
   return l_returnValue;
+}
+
+QStringList Utils::getPointerDeclarationList(QFile * p_file)
+{
+    qDebug() << "Utils::GetPointerDecclarationList" ;
+    QStringList l_returnValue = QStringList();
+    QTextStream l_in(p_file);
+    QString l_line;
+    while(! l_in.atEnd())
+    {
+        l_line = l_in.readLine();
+        l_line = l_line.trimmed();
+        l_line = l_line.simplified();
+        // Filter lines to exclude comment and functions declaration
+        if(!Utils::isComment(l_line) &&
+           !l_line.contains(SEARCH_FOR_OPENED_PARENTHESIS) &&
+           !l_line.contains(SEARCH_FOR_CLOSED_PARENTHESIS) &&
+           !Utils::isDefine(l_line) &&
+           !l_line.isEmpty() )
+        {
+
+          QStringList l_declaration = Utils::scanForPointerDeclaration(l_line);
+          if(!l_declaration.isEmpty())
+          {
+            QStringList l_variable = l_line.split(SEARCH_FOR_EQUALS);
+            QStringList l_names = l_variable.at(0).split(SEARCH_FOR_COMMA);
+
+            if(!l_names.isEmpty())
+            {
+              //int *var1, *var2, var3 => int *var1, *var2
+              QStringList l_variablesName = l_names.filter(POINTER_DECLARATION);
+              qDebug() << "l_variablesName: " << l_variablesName;
+              foreach(QString l_variableName, l_variablesName)
+              {
+                  QString l_pointerName = l_variableName.split(POINTER_DECLARATION).at(1);
+                  l_pointerName = l_pointerName.replace(SEARCH_FOR_SEMICOLON, "");
+                  l_pointerName = l_pointerName.trimmed();
+                  l_returnValue.append(l_pointerName);
+              }
+            }
+          }
+        }
+    }
+    return l_returnValue;
 }

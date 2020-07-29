@@ -7,6 +7,8 @@ class CVerifFile : public AbstractCFamilyVerifFiles
 {
 public:
   CVerifFile(const QString p_fileToAnalyse, const QString p_outputLogsPath);
+
+  QStringList getPointerDeclarationList(void);
 };
 
 #endif // CVERIFFILE_H

@@ -4,6 +4,7 @@
 #include "verifymagicnumber.h"
 #include "verifycamelcase.h"
 #include "verifypointer.h"
+#include "verifyconditions.h"
 
 AbstractVerifFiles::AbstractVerifFiles()
 {
@@ -92,6 +93,8 @@ void AbstractVerifFiles::verifyToDo(void)
 
 void AbstractVerifFiles::verifyPointers(const QStringList p_pointerDeclaration)
 {
+  qDebug() << "verifyPointers";
+
   if(!p_pointerDeclaration.isEmpty())
   {
     VerifyPointer *l_verifPointer = new VerifyPointer(m_fileToAnalyse, m_outputLogsPath);
@@ -108,6 +111,26 @@ void AbstractVerifFiles::verifyPointers(const QStringList p_pointerDeclaration)
       {
         m_pointersProblem = true;
       }
+    }
+  }
+}
+
+void AbstractVerifFiles::verifyConditions(void)
+{
+  qDebug() << "verifyConditions";
+  VerifyConditions *l_verifConditions = new VerifyConditions(m_fileToAnalyse, m_outputLogsPath);
+  if(nullptr != l_verifConditions)
+  {
+    l_verifConditions->checkForConditions();
+    l_verifConditions->generateReport();
+
+    if(0 == l_verifConditions->getNbError())
+    {
+      m_conditionsProblem = false;
+    }
+    else
+    {
+      m_conditionsProblem = true;
     }
   }
 }
@@ -135,4 +158,9 @@ bool AbstractVerifFiles::hasToDoProblem(void)
 bool AbstractVerifFiles::hasPointersProblem(void)
 {
   return m_pointersProblem;
+}
+
+bool AbstractVerifFiles::hasConditionsProblem(void)
+{
+  return m_conditionsProblem;
 }

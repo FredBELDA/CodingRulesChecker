@@ -14,6 +14,7 @@ HVerifFile::HVerifFile(const QString p_fileToAnalyse, const QString p_outputLogs
 
 QStringList HVerifFile::getPointerDeclarationList(void)
 {
+  qDebug() << "HVerifFile::GetPointerDecclarationList" ;
   QStringList l_returnValue = QStringList();
   if(!m_fileToAnalyse.isEmpty())
   {
@@ -24,35 +25,7 @@ QStringList HVerifFile::getPointerDeclarationList(void)
     }
     else
     {
-      QTextStream l_in(&l_file);
-      QString l_line;
-      while(! l_in.atEnd())
-      {
-          l_line = l_in.readLine();
-          l_line = l_line.trimmed();
-          l_line = l_line.simplified();
-          // Filter lines to exclude comment and functions declaration
-          if(!Utils::isComment(l_line) &&
-             !l_line.contains(SEARCH_FOR_OPENED_PARENTHESIS) &&
-             !l_line.contains(SEARCH_FOR_CLOSED_PARENTHESIS)
-             )
-          {
-            QStringList l_declaration = Utils::scanForPointerDeclaration(l_line);
-            if(!l_declaration.isEmpty())
-            {
-              // We keep only the name declaration
-              QStringList l_names = l_line.split(POINTER_DECLARATION);
-              if(!l_names.isEmpty())
-              {
-                // We keep the declaration
-                // char* l_params; => variable name = l_params; => Suppress ";"
-                QString l_variableName = l_names.at(1);
-                l_variableName = l_variableName.replace(SEARCH_FOR_SEMICOLON, "");
-                l_returnValue.append(l_variableName);
-              }
-            }
-          }
-      }
+      l_returnValue = Utils::getPointerDeclarationList(&l_file);
     }
     l_file.close();
   }
@@ -60,7 +33,7 @@ QStringList HVerifFile::getPointerDeclarationList(void)
   {
     qDebug() << "m_reportFileName is empty !";
   }
-
+  qDebug() << "HVerifFile l_returnValue: " << l_returnValue;
   return l_returnValue;
 }
 
