@@ -10,7 +10,6 @@
 #include <QTextStream>
 
 #include "abstractveriffiles.h"
-
 #include "cveriffile.h"
 #include "cppveriffile.h"
 #include "hveriffile.h"
@@ -185,7 +184,7 @@ void MainWindow::initWidgets(void)
     ui->label_version->setText(l_version);
     ui->label_version->setAlignment(Qt::AlignRight);
 
-    ui->progressBar_checkRules->setValue(0);
+    initQProgressBar();
   }
   // Création de la popup RuleChoiceDialog
   m_ruleChoiceDialog = new RuleChoiceDialog(this);
@@ -228,7 +227,7 @@ void MainWindow::connectWidgets(void)
   }
 }
 
-void MainWindow::initVariables(void)
+void MainWindow::initQStringList(void)
 {
   m_cFiles.clear();
   m_cppFiles.clear();
@@ -240,6 +239,17 @@ void MainWindow::initVariables(void)
   m_pointerDeclaration.clear();
   m_functionDeclaration.clear();
   m_defineDeclaration.clear();
+}
+
+void MainWindow::initQProgressBar(void)
+{
+  m_counterFileChecked = 0;
+  ui->progressBar_checkRules->setValue(0);
+}
+
+void MainWindow::initVariables(void)
+{
+  initQStringList();
 
   m_displayAccoladeRule = false;
   m_displayCamelCaseRule = false;
@@ -258,8 +268,6 @@ void MainWindow::initVariables(void)
   m_orphanFunctionsRuleDialog = nullptr;
   m_pointerRuleDialog = nullptr;
   m_todoRuleDialog = nullptr;
-
-  m_counterFileChecked = 0;
 
   checkOutputFolder(ui->lineEdit_outputLogs->text());
 }
@@ -345,6 +353,8 @@ void MainWindow::fillOutputLogs(void)
  */
 void MainWindow::parseFolder(void)
 {
+  initQStringList();
+  initQProgressBar();
   if(nullptr != ui)
   {
     QStringList l_fileList;

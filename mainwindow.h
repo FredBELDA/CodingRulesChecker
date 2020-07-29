@@ -92,6 +92,8 @@ private:
   void initWidgets(void);
   void windowParameter(QMainWindow *p_mainWindow);
   void connectWidgets(void);
+  void initQStringList(void);
+  void initQProgressBar(void);
   void initVariables(void);
   void applyStyle(void);
   void applyFontsOnMenu(void);

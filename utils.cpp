@@ -319,7 +319,6 @@ QString Utils::scanForDefineDeclaration(const QString p_line)
 
 QStringList Utils::getPointerDeclarationList(QFile * p_file)
 {
-  qDebug() << "Utils::GetPointerDecclarationList" ;
   QStringList l_returnValue = QStringList();
   QTextStream l_in(p_file);
   QString l_line;

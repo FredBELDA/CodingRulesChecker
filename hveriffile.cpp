@@ -14,10 +14,12 @@ HVerifFile::HVerifFile(const QString p_fileToAnalyse, const QString p_outputLogs
 
 QStringList HVerifFile::getPointerDeclarationList(void)
 {
+  qDebug() << "HVerifFile::getPointerDeclarationList" ;
   QStringList l_returnValue = QStringList();
   if(!m_fileToAnalyse.isEmpty())
   {
     QFile l_file(m_fileToAnalyse);
+    qDebug() << l_file.exists();
     if(!l_file.open(QFile::ReadOnly | QFile::Text))
     {
       qDebug() << CANNOT_OPENED_FILE << l_file.fileName() << FOR_READING;
