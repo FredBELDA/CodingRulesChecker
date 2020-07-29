@@ -15,12 +15,15 @@ public:
   void verifyToDo(void);
   void verifyPointers(const QStringList p_pointerDeclaration);
 
+  void verifyConditions(void);
+
   bool hasAccoladeProblem(void);
   bool hasMagicNumberProblem(void);
   bool hasCamelCaseProblem(void);
   bool hasToDoProblem(void);
   bool hasPointersProblem(void);
 
+  bool hasConditionsProblem(void);
 protected:
   QString m_fileToAnalyse;
   QString m_outputLogsPath;
@@ -30,6 +33,7 @@ protected:
   bool m_camelCaseProblem;
   bool m_todoProblem;
   bool m_pointersProblem;
+  bool m_conditionsProblem;
 };
 
 #endif // ABSTRACTVERIFFILES_H

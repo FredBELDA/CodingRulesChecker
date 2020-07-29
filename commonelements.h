@@ -251,6 +251,7 @@ je le teste avant."
 #define SEARCH_FOR_CLOSED_ACCOLADE "}"
 #define SEARCH_FOR_INFERIOR "<"
 #define SEARCH_FOR_SUPERIOR ">"
+#define SEARCH_FOR_NEW "new"
 
 #define FOR_INSTRUCTION "for"
 #define WHILE_INSTRUCTION "while"
@@ -273,6 +274,15 @@ je le teste avant."
 #define OFSTREAM_DECLARATION "ofstream"
 #define POINTER_DECLARATION "*"
 
+#define NULLPOINTER_DECLARATION "nullptr"
+#define NULL_DECLARATION "null"
+#define ZERO_POINTER 0
+
+#define REGEX_FOR_POINTERS "0|null|nullptr"
+#define REGEX_FOR_FUNDAMENTAL_TYPE "^(bool|char|short|int|uint|long|unsigned|double|float)"
+
+
+
 #define FALSE_VALUE "false"
 #define TRUE_VALUE "true"
 
@@ -285,6 +295,7 @@ je le teste avant."
 #define ACCOLADE_IS_NOT_ALONE "L'accolade ne se trouve pas tout seul sur une ligne : Veuillez faire un retour charriot !"
 #define TODO_MUST_SUPPRESS "Les TODO doivent être enlever du code !"
 #define IS_MAGIC_NUMBER "Est un magic number, il faut le remplacer par un define ou un enum !"
+#define POINTER_IS_NOT_TESTED "Le pointeur n'est pas entouré d'un block if !"
 
 #define NO_PROBLEM_FOUND "Aucun problème rencontré !"
 
