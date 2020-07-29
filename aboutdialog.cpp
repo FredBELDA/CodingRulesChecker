@@ -38,11 +38,14 @@ void AboutDialog::windowParameter(QWidget *p_widget)
     p_widget->resize(ABOUT_POPUP_WIDTH, ABOUT_POPUP_HEIGHT);
     p_widget->setFixedSize(QSize(ABOUT_POPUP_WIDTH, ABOUT_POPUP_HEIGHT));
 
-    ui->verticalLayout->setGeometry(QRect(X_SHIFT,
-                                          Y_SHIFT,
-                                          ABOUT_POPUP_VERTICAL_LAYOUT_WIDTH,
-                                          ABOUT_POPUP_VERTICAL_LAYOUT_HEIGHT)
-                                    );
+    if(nullptr != ui)
+    {
+      ui->verticalLayout->setGeometry(QRect(X_SHIFT,
+                                            Y_SHIFT,
+                                            ABOUT_POPUP_VERTICAL_LAYOUT_WIDTH,
+                                            ABOUT_POPUP_VERTICAL_LAYOUT_HEIGHT)
+                                      );
+    }
   }
   else
   {
@@ -56,9 +59,12 @@ void AboutDialog::windowParameter(QWidget *p_widget)
  */
 void AboutDialog::initWidgets(void)
 {
-  ui->pushButton_valider->setText(VALIDATE);
-  ui->label_about->setAlignment(Qt::AlignCenter);
-  ui->label_about->setText(ABOUT_POPUP_CONTAINT);
+  if(nullptr != ui)
+  {
+    ui->pushButton_valider->setText(VALIDATE);
+    ui->label_about->setAlignment(Qt::AlignCenter);
+    ui->label_about->setText(ABOUT_POPUP_CONTAINT);
+  }
 }
 
 /**
@@ -66,7 +72,10 @@ void AboutDialog::initWidgets(void)
  */
 void AboutDialog::connectWidgets(void)
 {
-  connect(ui->pushButton_valider, SIGNAL(clicked()), this, SLOT(accept()));
+  if(nullptr != ui)
+  {
+    connect(ui->pushButton_valider, SIGNAL(clicked()), this, SLOT(accept()));
+  }
 }
 
 /**
@@ -91,7 +100,10 @@ void AboutDialog::applyFontsOnLabels(void)
   l_fontEnonce.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
 
-  ui->label_about->setFont(l_fontEnonce);
+  if(nullptr != ui)
+  {
+    ui->label_about->setFont(l_fontEnonce);
+  }
 }
 
 /**
@@ -104,5 +116,8 @@ void AboutDialog::applyFontsOnButtons(void)
   l_fontQPushButton.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontQPushButton.setPointSize(PUSHBUTTON_FONT_SIZE);
 
-  ui->pushButton_valider->setFont(l_fontQPushButton);
+  if(nullptr != ui)
+  {
+    ui->pushButton_valider->setFont(l_fontQPushButton);
+  }
 }

@@ -112,11 +112,14 @@ void MainWindow::windowParameter(QMainWindow *p_mainWindow)
     p_mainWindow->resize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
     p_mainWindow->setFixedSize(QSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT));
 
-    ui->verticalLayoutWidget->setGeometry(QRect(X_SHIFT,
-                                                Y_SHIFT,
-                                                MAIN_VERTICAL_LAYOUT_WIDTH,
-                                                MAIN_VERTICAL_LAYOUT_HEIGHT)
-                                          );
+    if(nullptr != ui)
+    {
+      ui->verticalLayoutWidget->setGeometry(QRect(X_SHIFT,
+                                                  Y_SHIFT,
+                                                  MAIN_VERTICAL_LAYOUT_WIDTH,
+                                                  MAIN_VERTICAL_LAYOUT_HEIGHT)
+                                            );
+    }
   }
   else
   {
@@ -135,53 +138,55 @@ void MainWindow::initWidgets(void)
   QString l_version = "V ";
   l_version.append(VERSION);
 
-  // Initialisation des textes du menu
-  ui->menuFichier->setTitle(FILE_MENU);
-  ui->actionOuvrir_la_configuration->setText(OPEN_CONFIGURATION_FILE);
-  ui->actionEnregistrer_la_configuration->setText(SAVE_CONFIGURATION_FILE);
-  ui->actionQuitter->setText(EXIT);
+  if(nullptr != ui)
+  {
+    // Initialisation des textes du menu
+    ui->menuFichier->setTitle(FILE_MENU);
+    ui->actionOuvrir_la_configuration->setText(OPEN_CONFIGURATION_FILE);
+    ui->actionEnregistrer_la_configuration->setText(SAVE_CONFIGURATION_FILE);
+    ui->actionQuitter->setText(EXIT);
 
-  ui->menuConfiguration->setTitle(CONFIGURATION_MENU);
-  ui->actionParametrage_des_regles_de_codage->setText(CODING_RULES_PARAMETERS);
-  ui->actionParametrage_des_outils_externes->setText(EXTERNAL_TOOL_PARAMETERS);
+    ui->menuConfiguration->setTitle(CONFIGURATION_MENU);
+    ui->actionParametrage_des_regles_de_codage->setText(CODING_RULES_PARAMETERS);
+    ui->actionParametrage_des_outils_externes->setText(EXTERNAL_TOOL_PARAMETERS);
 
-  ui->menuCheckList->setTitle(CHECKLIST_MENU);
-  ui->actionOuvrir_le_fichier_checklist->setText(OPEN_CHECKLIST_FILE);
+    ui->menuCheckList->setTitle(CHECKLIST_MENU);
+    ui->actionOuvrir_le_fichier_checklist->setText(OPEN_CHECKLIST_FILE);
 
-  ui->menuAide->setTitle(HELP_MENU);
-  ui->actionA_propos->setText(ABOUT);
+    ui->menuAide->setTitle(HELP_MENU);
+    ui->actionA_propos->setText(ABOUT);
 
-  // Initialisation de la fenêtre principale
-  ui->label_inputPath->setText(INPUT_LABEL_TEXT);
-  ui->label_outputLogs->setText(OUTPUT_LABEL_TEXT);
-  ui->label_mergeAllReports->setText(CHECKBOX_MERGE_REPORTS);
-  ui->label_logoAKKA->setText("");
-  ui->label_logoThales->setText("");
-  QPixmap l_logo_AKKA(":/images/AKKA_Logo.png");
-  int l_logo_AKKA_Width = ui->label_logoAKKA->width();
-  int l_logo_AKKA_Height = ui->label_logoAKKA->height();
-  ui->label_logoAKKA->setPixmap(l_logo_AKKA.scaled(l_logo_AKKA_Width,
-                                                   l_logo_AKKA_Height,
-                                                   Qt::KeepAspectRatio)
-                                );
-  ui->label_logoAKKA->setAlignment(Qt::AlignCenter);
-  QPixmap l_logo_Thales(":/images/Thales_Logo.png");
-  int l_logo_Thales_Width = ui->label_logoThales->width();
-  int l_logo_Thales_Height = ui->label_logoThales->height();
-  ui->label_logoThales->setPixmap(l_logo_Thales.scaled(l_logo_Thales_Width,
-                                                       l_logo_Thales_Height,
-                                                       Qt::KeepAspectRatio)
+    // Initialisation de la fenêtre principale
+    ui->label_inputPath->setText(INPUT_LABEL_TEXT);
+    ui->label_outputLogs->setText(OUTPUT_LABEL_TEXT);
+    ui->label_mergeAllReports->setText(CHECKBOX_MERGE_REPORTS);
+    ui->label_logoAKKA->setText("");
+    ui->label_logoThales->setText("");
+    QPixmap l_logo_AKKA(":/images/AKKA_Logo.png");
+    int l_logo_AKKA_Width = ui->label_logoAKKA->width();
+    int l_logo_AKKA_Height = ui->label_logoAKKA->height();
+    ui->label_logoAKKA->setPixmap(l_logo_AKKA.scaled(l_logo_AKKA_Width,
+                                                     l_logo_AKKA_Height,
+                                                     Qt::KeepAspectRatio)
                                   );
-  ui->label_logoThales->setAlignment(Qt::AlignCenter);
-  ui->pushButton_browseInputFolder->setText(BROWSE_FOLDER);
-  ui->pushButton_browserOutputLogs->setText(BROWSE_FOLDER);
-  ui->pushButton_launchChecks->setText(LAUNCH_CHECK);
+    ui->label_logoAKKA->setAlignment(Qt::AlignCenter);
+    QPixmap l_logo_Thales(":/images/Thales_Logo.png");
+    int l_logo_Thales_Width = ui->label_logoThales->width();
+    int l_logo_Thales_Height = ui->label_logoThales->height();
+    ui->label_logoThales->setPixmap(l_logo_Thales.scaled(l_logo_Thales_Width,
+                                                         l_logo_Thales_Height,
+                                                         Qt::KeepAspectRatio)
+                                    );
+    ui->label_logoThales->setAlignment(Qt::AlignCenter);
+    ui->pushButton_browseInputFolder->setText(BROWSE_FOLDER);
+    ui->pushButton_browserOutputLogs->setText(BROWSE_FOLDER);
+    ui->pushButton_launchChecks->setText(LAUNCH_CHECK);
 
-  ui->label_version->setText(l_version);
-  ui->label_version->setAlignment(Qt::AlignRight);
+    ui->label_version->setText(l_version);
+    ui->label_version->setAlignment(Qt::AlignRight);
 
-  ui->progressBar_checkRules->setValue(0);
-
+    ui->progressBar_checkRules->setValue(0);
+  }
   // Création de la popup RuleChoiceDialog
   m_ruleChoiceDialog = new RuleChoiceDialog(this);
   // Création de la popup ExternalToolParameterDialog
@@ -196,28 +201,31 @@ void MainWindow::initWidgets(void)
  */
 void MainWindow::connectWidgets(void)
 {
-  // Widget connexion
-  QObject::connect(ui->pushButton_browseInputFolder, SIGNAL(clicked()), this, SLOT(fillInputFolder()));
-  QObject::connect(ui->pushButton_browserOutputLogs, SIGNAL(clicked()), this, SLOT(fillOutputLogs()));
-  QObject::connect(ui->pushButton_launchChecks, SIGNAL(clicked()), this, SLOT(parseFolder()));
-  QObject::connect(ui->pushButton_openOutputLogs, SIGNAL(clicked()), this, SLOT(openFolder()));
-  QObject::connect(ui->lineEdit_inputFolder, SIGNAL(textChanged(QString)), this, SLOT(checkInputFolder(QString)));
-  QObject::connect(ui->lineEdit_outputLogs, SIGNAL(textChanged(QString)), this, SLOT(checkOutputFolder(QString)));
-  QObject::connect(ui->progressBar_checkRules, SIGNAL(valueChanged(int)), this, SLOT(couldDisplayRule(int)));
-  // File menu connexion
-  QObject::connect(ui->actionOuvrir_la_configuration, SIGNAL(triggered(bool)), this, SLOT(loadConfigurationFile()));
-  QObject::connect(ui->actionEnregistrer_la_configuration, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFile()));
-  QObject::connect(ui->actionQuitter, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFileAndQuit()));
-  // Configuration menu connexion
-  QObject::connect(ui->actionParametrage_des_regles_de_codage, SIGNAL(triggered(bool)), this, SLOT(manageCodingRules()));
-  QObject::connect(ui->actionParametrage_des_outils_externes, SIGNAL(triggered(bool)), this, SLOT(manageExternalTools()));
-  // CheckList menu connexion
-  QObject::connect(ui->actionOuvrir_le_fichier_checklist, SIGNAL(triggered(bool)), this, SLOT(downloadCheckListFile()));
-  // Help menu connexion
-  QObject::connect(ui->actionA_propos, SIGNAL(triggered(bool)), this, SLOT(displayAbout()));
-  // Signal connexion
-  QObject::connect(this, SIGNAL(filesListed(QStringList)), this, SLOT(sortFiles(QStringList)));
-  QObject::connect(this, SIGNAL(launchCheckFiles()), this, SLOT(checkFiles()));
+  if(nullptr != ui)
+  {
+    // Widget connexion
+    connect(ui->pushButton_browseInputFolder, SIGNAL(clicked()), this, SLOT(fillInputFolder()));
+    connect(ui->pushButton_browserOutputLogs, SIGNAL(clicked()), this, SLOT(fillOutputLogs()));
+    connect(ui->pushButton_launchChecks, SIGNAL(clicked()), this, SLOT(parseFolder()));
+    connect(ui->pushButton_openOutputLogs, SIGNAL(clicked()), this, SLOT(openFolder()));
+    connect(ui->lineEdit_inputFolder, SIGNAL(textChanged(QString)), this, SLOT(checkInputFolder(QString)));
+    connect(ui->lineEdit_outputLogs, SIGNAL(textChanged(QString)), this, SLOT(checkOutputFolder(QString)));
+    connect(ui->progressBar_checkRules, SIGNAL(valueChanged(int)), this, SLOT(couldDisplayRule(int)));
+    // File menu connexion
+    connect(ui->actionOuvrir_la_configuration, SIGNAL(triggered(bool)), this, SLOT(loadConfigurationFile()));
+    connect(ui->actionEnregistrer_la_configuration, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFile()));
+    connect(ui->actionQuitter, SIGNAL(triggered(bool)), this, SLOT(saveConfigurationFileAndQuit()));
+    // Configuration menu connexion
+    connect(ui->actionParametrage_des_regles_de_codage, SIGNAL(triggered(bool)), this, SLOT(manageCodingRules()));
+    connect(ui->actionParametrage_des_outils_externes, SIGNAL(triggered(bool)), this, SLOT(manageExternalTools()));
+    // CheckList menu connexion
+    connect(ui->actionOuvrir_le_fichier_checklist, SIGNAL(triggered(bool)), this, SLOT(downloadCheckListFile()));
+    // Help menu connexion
+    connect(ui->actionA_propos, SIGNAL(triggered(bool)), this, SLOT(displayAbout()));
+    // Signal connexion
+    connect(this, SIGNAL(filesListed(QStringList)), this, SLOT(sortFiles(QStringList)));
+    connect(this, SIGNAL(launchCheckFiles()), this, SLOT(checkFiles()));
+  }
 }
 
 void MainWindow::initVariables(void)
@@ -283,19 +291,22 @@ void MainWindow::fillInputFolder(void)
   QFileDialog l_dialog;
   QString l_path = "";
 
-  l_dialog.setViewMode(QFileDialog::Detail);
-  l_path = QFileDialog::getExistingDirectory(this,
-                                             INPUT_FOLDER_TO_CHECK,
-                                             ui->lineEdit_inputFolder->text().isEmpty() ? QDir::currentPath() : ui->lineEdit_inputFolder->text(),
-                                             QFileDialog::ShowDirsOnly
-                                             );
-
-  if(0 < l_path)
+  if(nullptr != ui)
   {
-    ui->lineEdit_inputFolder->setText(l_path);
-    QString l_formatedOutputFolder = Utils::formatPath(l_path + QDir::separator() + LOGS_FOLDER + QDir::separator()
-                                                       + QDate::currentDate().toString("yyyyMMdd") + QDir::separator());
-    ui->lineEdit_outputLogs->setText(l_formatedOutputFolder);
+    l_dialog.setViewMode(QFileDialog::Detail);
+    l_path = QFileDialog::getExistingDirectory(this,
+                                               INPUT_FOLDER_TO_CHECK,
+                                               ui->lineEdit_inputFolder->text().isEmpty() ? QDir::currentPath() : ui->lineEdit_inputFolder->text(),
+                                               QFileDialog::ShowDirsOnly
+                                               );
+
+    if(0 < l_path)
+    {
+      ui->lineEdit_inputFolder->setText(l_path);
+      QString l_formatedOutputFolder = Utils::formatPath(l_path + QDir::separator() + LOGS_FOLDER + QDir::separator()
+                                                         + QDate::currentDate().toString("yyyyMMdd") + QDir::separator());
+      ui->lineEdit_outputLogs->setText(l_formatedOutputFolder);
+    }
   }
 }
 
@@ -310,16 +321,19 @@ void MainWindow::fillOutputLogs(void)
   QFileDialog l_dialog;
   QString l_path = "";
 
-  l_dialog.setViewMode(QFileDialog::Detail);
-  l_path = QFileDialog::getExistingDirectory(this,
-                                             OUTPUT_FOLDER_TO_CHECK,
-                                             ui->lineEdit_outputLogs->text().isEmpty() ? QDir::currentPath() : ui->lineEdit_outputLogs->text(),
-                                             QFileDialog::ShowDirsOnly
-                                             );
-
-  if(0 < l_path)
+  if(nullptr != ui)
   {
-    ui->lineEdit_outputLogs->setText(l_path);
+    l_dialog.setViewMode(QFileDialog::Detail);
+    l_path = QFileDialog::getExistingDirectory(this,
+                                               OUTPUT_FOLDER_TO_CHECK,
+                                               ui->lineEdit_outputLogs->text().isEmpty() ? QDir::currentPath() : ui->lineEdit_outputLogs->text(),
+                                               QFileDialog::ShowDirsOnly
+                                               );
+
+    if(0 < l_path)
+    {
+      ui->lineEdit_outputLogs->setText(l_path);
+    }
   }
 }
 
@@ -331,14 +345,17 @@ void MainWindow::fillOutputLogs(void)
  */
 void MainWindow::parseFolder(void)
 {
-  QStringList l_fileList;
-  const QString l_inputFolder = ui->lineEdit_inputFolder->text();
-  QDirIterator l_dirIterator(l_inputFolder, QDir::Files);
-  while(l_dirIterator.hasNext())
+  if(nullptr != ui)
   {
-    l_fileList.append(l_dirIterator.next());
+    QStringList l_fileList;
+    const QString l_inputFolder = ui->lineEdit_inputFolder->text();
+    QDirIterator l_dirIterator(l_inputFolder, QDir::Files);
+    while(l_dirIterator.hasNext())
+    {
+      l_fileList.append(l_dirIterator.next());
+    }
+    emit filesListed(l_fileList);
   }
-  emit filesListed(l_fileList);
 }
 
 /**
@@ -349,8 +366,11 @@ void MainWindow::parseFolder(void)
  */
 void MainWindow::openFolder(void)
 {
-  QString l_explorer = QString(EXPLORER_CMD) + " " + Utils::formatPathForCmd(ui->lineEdit_outputLogs->text());
-  system(l_explorer.toStdString().c_str());
+  if(nullptr != ui)
+  {
+    QString l_explorer = QString(EXPLORER_CMD) + " " + Utils::formatPathForCmd(ui->lineEdit_outputLogs->text());
+    system(l_explorer.toStdString().c_str());
+  }
 }
 
 /**
@@ -391,63 +411,62 @@ void MainWindow::sortFiles(QStringList p_list)
     }
   }
 
-  // Put maximum value to progressBar
-  ui->progressBar_checkRules->setMinimum(0);
-  qDebug() << "max value for progressbar = " << (m_cppFiles.size() + m_cFiles.size() + m_hFiles.size() + m_javaFiles.size() + m_iniFiles.size());
-  ui->progressBar_checkRules->setMaximum(m_cppFiles.size() + m_cFiles.size() +
-                                         m_hFiles.size() + m_javaFiles.size() +
-                                         m_iniFiles.size()
-                                         );
-
-  // Create output folder to store reports
-  QString l_outputFolderPath = ui->lineEdit_outputLogs->text();
-  QDir l_reportFolder(l_outputFolderPath);
-  if(!l_reportFolder.exists())
+  if(nullptr != ui)
   {
-    if(!l_reportFolder.mkpath(l_outputFolderPath))
+    // Put maximum value to progressBar
+    ui->progressBar_checkRules->setMinimum(0);
+    qDebug() << "max value for progressbar = " << (m_cppFiles.size() + m_cFiles.size() + m_hFiles.size() + m_javaFiles.size() + m_iniFiles.size());
+    ui->progressBar_checkRules->setMaximum(m_cppFiles.size() + m_cFiles.size() +
+                                           m_hFiles.size() + m_javaFiles.size() +
+                                           m_iniFiles.size()
+                                           );
+
+    // Create output folder to store reports
+    QString l_outputFolderPath = ui->lineEdit_outputLogs->text();
+    QDir l_reportFolder(l_outputFolderPath);
+    if(!l_reportFolder.exists())
     {
-      qDebug() << CANNOT_CREATE_FOLDER << l_outputFolderPath;
+      if(!l_reportFolder.mkpath(l_outputFolderPath))
+      {
+        qDebug() << CANNOT_CREATE_FOLDER << l_outputFolderPath;
+      }
+      else
+      {
+        l_folderCreated = true;
+      }
     }
     else
     {
       l_folderCreated = true;
     }
-  }
-  else
-  {
-    l_folderCreated = true;
-  }
 
-  if(l_folderCreated)
-  {
-    // Verify checkbox to create a global report
-    if(ui->checkBox_mergeAllReports->isChecked())
+    if(l_folderCreated)
     {
-      // We create the global report
-      QString l_reportName = ui->lineEdit_outputLogs->text() + GLOBAL_REPORT_NAME;
-      m_mergedReport = new QFile(l_reportName);
-      if(nullptr != m_mergedReport)
+      // Verify checkbox to create a global report
+      if(ui->checkBox_mergeAllReports->isChecked())
       {
-          if(!m_mergedReport->open(QFile::WriteOnly | QFile::Text))
-          {
-            qDebug() << CANNOT_OPENED_FILE << m_mergedReport->fileName() << FOR_WRITING;
-          }
-          else
-          {
-            // QTextStream object creation from QFile object
-            QTextStream l_flux(m_mergedReport);
-            // We fix codec before writting
-            l_flux.setCodec(CODEC_FOR_EXCEL_FILE);
-            // Write info into file
-            QString l_currentDate = QDate::currentDate().toString("dd/MM/yyyy");
-            l_flux << GENERATED_REPORT << l_currentDate << endl;
-            l_flux << NUMBER_OF_FILES_FOUND << ui->lineEdit_inputFolder->text()
-                   << " : " << p_list.size() << endl;
-          }
+        // We create the global report
+        QString l_reportName = ui->lineEdit_outputLogs->text() + GLOBAL_REPORT_NAME;
+        m_mergedReport = new QFile(l_reportName);
+        if(!m_mergedReport->open(QFile::WriteOnly | QFile::Text))
+        {
+          qDebug() << CANNOT_OPENED_FILE << m_mergedReport->fileName() << FOR_WRITING;
+        }
+        else
+        {
+          // QTextStream object creation from QFile object
+          QTextStream l_flux(m_mergedReport);
+          // We fix codec before writting
+          l_flux.setCodec(CODEC_FOR_EXCEL_FILE);
+          // Write info into file
+          QString l_currentDate = QDate::currentDate().toString("dd/MM/yyyy");
+          l_flux << GENERATED_REPORT << l_currentDate << endl;
+          l_flux << NUMBER_OF_FILES_FOUND << ui->lineEdit_inputFolder->text()
+                 << " : " << p_list.size() << endl;
+        }
       }
-
+      emit launchCheckFiles();
     }
-    emit launchCheckFiles();
   }
 }
 
@@ -459,7 +478,7 @@ void MainWindow::sortFiles(QStringList p_list)
  */
 void MainWindow::checkFiles(void)
 {
-  if(nullptr != m_ruleChoiceDialog)
+  if(nullptr != m_ruleChoiceDialog && nullptr != ui)
   {
     // Launch cppCheck if c or cpp files
     if(!m_cFiles.isEmpty() || !m_cppFiles.isEmpty())
@@ -511,14 +530,7 @@ void MainWindow::checkFiles(void)
         }
         if(m_ruleChoiceDialog->getPointerCheckBoxState())
         {
-          //TODO Quand checkbox alors trouver les pointeurs du fichier C.
-
-          QStringList l_cPointerDeclaration = l_cVerifFile->getPointerDeclarationList();
-          if(!l_cPointerDeclaration.isEmpty())
-          {
-            m_pointerDeclaration.append(l_cPointerDeclaration);
-          }
-          // Check for Pointers problem into code
+          // Check for TODO problem into code
           l_cVerifFile->verifyPointers(m_pointerDeclaration);
           // Set a boolean to display the popup if rule is not respected
           m_displayPointerRule |= l_cVerifFile->hasPointersProblem();
@@ -659,13 +671,6 @@ void MainWindow::launchCommonCheck(AbstractVerifFiles *p_verifFile)
     // Set a boolean to display the popup if rule is not respected
     m_displayPointerRule |= p_verifFile->hasPointersProblem();
   }
-  if(m_ruleChoiceDialog->getConditionCheckBoxState())
-  {
-    // Check for Pointers problem into code
-    p_verifFile->verifyConditions();
-    // Set a boolean to display the popup if rule is not respected
-    m_displayPointerRule |= p_verifFile->hasConditionsProblem();
-  }
 }
 
 /**
@@ -677,21 +682,24 @@ void MainWindow::launchCommonCheck(AbstractVerifFiles *p_verifFile)
  */
 void MainWindow::checkInputFolder(const QString p_inputFolder)
 {
-  QPalette l_palette = ui->lineEdit_inputFolder->palette();
-  QDir l_inputFolder(p_inputFolder);
-  if(l_inputFolder.exists())
+  if(nullptr != ui)
   {
-    l_palette.setColor(QPalette::Text, QColor(0,0,0));
-    ui->lineEdit_inputFolder->setToolTip("");
-    ui->pushButton_launchChecks->setEnabled(true);
+    QPalette l_palette = ui->lineEdit_inputFolder->palette();
+    QDir l_inputFolder(p_inputFolder);
+    if(l_inputFolder.exists())
+    {
+      l_palette.setColor(QPalette::Text, QColor(0,0,0));
+      ui->lineEdit_inputFolder->setToolTip("");
+      ui->pushButton_launchChecks->setEnabled(true);
+    }
+    else
+    {
+      l_palette.setColor(QPalette::Text, QColor(255,0,0));
+      ui->lineEdit_inputFolder->setToolTip(INPUT_FOLDER_DOES_NOT_EXISTS);
+      ui->pushButton_launchChecks->setEnabled(false);
+    }
+    ui->lineEdit_inputFolder->setPalette(l_palette);
   }
-  else
-  {
-    l_palette.setColor(QPalette::Text, QColor(255,0,0));
-    ui->lineEdit_inputFolder->setToolTip(INPUT_FOLDER_DOES_NOT_EXISTS);
-    ui->pushButton_launchChecks->setEnabled(false);
-  }
-  ui->lineEdit_inputFolder->setPalette(l_palette);
 }
 
 /**
@@ -702,31 +710,34 @@ void MainWindow::checkInputFolder(const QString p_inputFolder)
  */
 void MainWindow::checkOutputFolder(const QString p_outputFolder)
 {
-  QPalette l_palette = ui->lineEdit_outputLogs->palette();
-  if(p_outputFolder.isEmpty())
+  if(nullptr != ui)
   {
-    ui->pushButton_openOutputLogs->setEnabled(false);
-    ui->pushButton_launchChecks->setEnabled(false);
-    l_palette.setColor(QPalette::Text, QColor(255,0,0));
-  }
-  else
-  {
-    QDir l_outputFolder(p_outputFolder);
-    ui->pushButton_launchChecks->setEnabled(true);
-    if(l_outputFolder.exists())
+    QPalette l_palette = ui->lineEdit_outputLogs->palette();
+    if(p_outputFolder.isEmpty())
     {
-      ui->pushButton_openOutputLogs->setEnabled(true);
-      l_palette.setColor(QPalette::Text, QColor(0,0,0));
-      ui->lineEdit_outputLogs->setToolTip("");
+      ui->pushButton_openOutputLogs->setEnabled(false);
+      ui->pushButton_launchChecks->setEnabled(false);
+      l_palette.setColor(QPalette::Text, QColor(255,0,0));
     }
     else
     {
-      ui->pushButton_openOutputLogs->setEnabled(false);
-      l_palette.setColor(QPalette::Text, QColor(255,0,0));
-      ui->lineEdit_outputLogs->setToolTip(OUTPUT_FOLDER_DOES_NOT_EXISTS);
+      QDir l_outputFolder(p_outputFolder);
+      ui->pushButton_launchChecks->setEnabled(true);
+      if(l_outputFolder.exists())
+      {
+        ui->pushButton_openOutputLogs->setEnabled(true);
+        l_palette.setColor(QPalette::Text, QColor(0,0,0));
+        ui->lineEdit_outputLogs->setToolTip("");
+      }
+      else
+      {
+        ui->pushButton_openOutputLogs->setEnabled(false);
+        l_palette.setColor(QPalette::Text, QColor(255,0,0));
+        ui->lineEdit_outputLogs->setToolTip(OUTPUT_FOLDER_DOES_NOT_EXISTS);
+      }
     }
+    ui->lineEdit_outputLogs->setPalette(l_palette);
   }
-  ui->lineEdit_outputLogs->setPalette(l_palette);
 }
 
 void MainWindow::displayAccoladePopupRule(void)
@@ -741,7 +752,7 @@ void MainWindow::displayAccoladePopupRule(void)
                                           ACCOLADE_RULE_EXPLANATION);
     if(nullptr != m_accoladeRuleDialog)
     {
-      QObject::connect(m_accoladeRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
+      connect(m_accoladeRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_accoladeRuleDialog->show();
       // To avoid rule display loop
       m_displayAccoladeRule = false;
@@ -764,7 +775,7 @@ void MainWindow::displayCamelCaseRule(void)
                                            CAMEL_CASE_RULE_EXPLANATION);
     if(nullptr != m_camelCaseRuleDialog)
     {
-      QObject::connect(m_camelCaseRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
+      connect(m_camelCaseRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_camelCaseRuleDialog->show();
       // To avoid rule display loop
       m_displayCamelCaseRule = false;
@@ -787,7 +798,7 @@ void MainWindow::displayMagicNumberRule(void)
                                              MAGIC_NUMBER_RULE_EXPLANATION);
     if(nullptr != m_magicNumberRuleDialog)
     {
-      QObject::connect(m_magicNumberRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
+      connect(m_magicNumberRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_magicNumberRuleDialog->show();
       // To avoid rule display loop
       m_displayMagicNumberRule = false;
@@ -810,7 +821,7 @@ void MainWindow::displayToDoRule(void)
                                       TODO_RULE_EXPLANATION);
     if(nullptr != m_todoRuleDialog)
     {
-      QObject::connect(m_todoRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
+      connect(m_todoRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_todoRuleDialog->show();
       // To avoid rule display loop
       m_displayToDoRule = false;
@@ -833,7 +844,7 @@ void MainWindow::displayPointerRule(void)
                                          POINTER_RULE_EXPLANATION);
     if(nullptr != m_pointerRuleDialog)
     {
-      QObject::connect(m_pointerRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
+      connect(m_pointerRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_pointerRuleDialog->show();
       // To avoid rule display loop
       m_displayPointerRule = false;
@@ -856,7 +867,7 @@ void MainWindow::displayHRule(void)
                                        H_RULE_EXPLANATION);
     if(nullptr != m_hFileRuleDialog)
     {
-      QObject::connect(m_hFileRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
+      connect(m_hFileRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
       m_hFileRuleDialog->show();
       // To avoid rule display loop
       m_displayHRule = false;
@@ -924,9 +935,12 @@ void MainWindow::displayRule(void)
 
 void MainWindow::couldDisplayRule(const int p_progressBarValue)
 {
-  if(ui->progressBar_checkRules->maximum() == p_progressBarValue)
+  if(nullptr != ui)
   {
-    displayRule();
+    if(ui->progressBar_checkRules->maximum() == p_progressBarValue)
+    {
+      displayRule();
+    }
   }
 }
 
@@ -941,7 +955,7 @@ void MainWindow::couldDisplayNextRule(void)
  */
 void MainWindow::launchCppCheck(void)
 {
-  if(nullptr != m_toolParameterDialog)
+  if(nullptr != ui && nullptr != m_toolParameterDialog)
   {
     QString l_cppCheckPath = m_toolParameterDialog->getCPPCheckPath();
     if(l_cppCheckPath.isEmpty())
@@ -958,7 +972,7 @@ void MainWindow::launchCppCheck(void)
  */
 void MainWindow::launchCheckStyle(void)
 {
-  if(nullptr != m_toolParameterDialog)
+  if(nullptr != ui && nullptr != m_toolParameterDialog)
   {
     QString l_checkStylePath = m_toolParameterDialog->getCheckStylePath();
     if(l_checkStylePath.isEmpty())
@@ -988,73 +1002,76 @@ void MainWindow::displayAbout(void)
  */
 void MainWindow::loadConfigurationFile(void)
 {
-  //QSettings l_settings(":/ConfigFile.ini", QSettings::IniFormat);
-  QSettings l_settings("config/config.ini", QSettings::IniFormat);
-  l_settings.beginGroup(CONFIG_HMI);
-  QString l_inputFolder = l_settings.value(INPUT_FOLDER_CONFIGURATION).toString();
-  if(!l_inputFolder.isEmpty())
+  if(nullptr != ui)
   {
-    ui->lineEdit_inputFolder->setText(l_inputFolder);
-  }
-  QString l_outputLogsFolder = l_settings.value(REPORT_FOLDER_CONFIGURATION).toString();
-  if(!l_outputLogsFolder.isEmpty())
-  {
-    ui->lineEdit_outputLogs->setText(l_outputLogsFolder);
-  }
-  l_settings.endGroup();
-
-  // External tools configuration
-  l_settings.beginGroup(CONFIG_EXTERNAL_TOOL);
-  QString l_excelPath = l_settings.value(INPUT_EXCEL_PATH_CONFIGURATION).toString();
-  QString l_cppCheckPath = l_settings.value(INPUT_CPP_CHECK_PATH_CONFIGURATION).toString();
-  QString l_checkStylePath = l_settings.value(INPUT_CHECK_STYLE_PATH_CONFIGURATION).toString();
-  if(nullptr != m_toolParameterDialog)
-  {
-    if(!l_excelPath.isEmpty())
+    //QSettings l_settings(":/ConfigFile.ini", QSettings::IniFormat);
+    QSettings l_settings("config/config.ini", QSettings::IniFormat);
+    l_settings.beginGroup(CONFIG_HMI);
+    QString l_inputFolder = l_settings.value(INPUT_FOLDER_CONFIGURATION).toString();
+    if(!l_inputFolder.isEmpty())
     {
-      m_toolParameterDialog->setExcelPath(l_excelPath);
+      ui->lineEdit_inputFolder->setText(l_inputFolder);
     }
-    if(!l_cppCheckPath.isEmpty())
+    QString l_outputLogsFolder = l_settings.value(REPORT_FOLDER_CONFIGURATION).toString();
+    if(!l_outputLogsFolder.isEmpty())
     {
-      m_toolParameterDialog->setCPPCheckPath(l_cppCheckPath);
+      ui->lineEdit_outputLogs->setText(l_outputLogsFolder);
     }
-    if(!l_checkStylePath.isEmpty())
+    l_settings.endGroup();
+
+    // External tools configuration
+    l_settings.beginGroup(CONFIG_EXTERNAL_TOOL);
+    QString l_excelPath = l_settings.value(INPUT_EXCEL_PATH_CONFIGURATION).toString();
+    QString l_cppCheckPath = l_settings.value(INPUT_CPP_CHECK_PATH_CONFIGURATION).toString();
+    QString l_checkStylePath = l_settings.value(INPUT_CHECK_STYLE_PATH_CONFIGURATION).toString();
+    if(nullptr != m_toolParameterDialog)
     {
-      m_toolParameterDialog->setCheckStylePath(l_checkStylePath);
+      if(!l_excelPath.isEmpty())
+      {
+        m_toolParameterDialog->setExcelPath(l_excelPath);
+      }
+      if(!l_cppCheckPath.isEmpty())
+      {
+        m_toolParameterDialog->setCPPCheckPath(l_cppCheckPath);
+      }
+      if(!l_checkStylePath.isEmpty())
+      {
+        m_toolParameterDialog->setCheckStylePath(l_checkStylePath);
+      }
     }
+    l_settings.endGroup();
+
+    l_settings.beginGroup(CONFIG_RULES);
+    // Common rules
+    bool l_accoladeCheckBoxState = l_settings.value(VERIFY_ACCOLADE_CONFIGURATION).toBool();
+    bool l_magicNumberCheckBoxState = l_settings.value(VERIFY_MAGIC_NUMBER_CONFIGURATION).toBool();
+    bool l_camelCaseCheckBoxState = l_settings.value(VERIFY_CAMEL_CASE_CONFIGURATION).toBool();
+    bool l_conditionCheckBoxState = l_settings.value(VERIFY_CONDITION_CONFIGURATION).toBool();
+    bool l_orphanFunctionCheckBoxState = l_settings.value(VERIFY_ORPHAN_FUNCTION_CONFIGURATION).toBool();
+    bool l_pointerCheckBoxState = l_settings.value(VERIFY_POINTER_CONFIGURATION).toBool();
+    bool l_toDoCheckBoxState = l_settings.value(VERIFY_TODO_CONFIGURATION).toBool();
+
+    // C specific rules
+    bool l_hFileForCCheckBoxState = l_settings.value(VERIFY_H_FILE_FOR_C).toBool();
+
+    // Cpp specific rules
+    bool l_hFileForCppCheckBoxState = l_settings.value(VERIFY_H_FILE_FOR_CPP).toBool();
+    if(nullptr != m_ruleChoiceDialog)
+    {
+      m_ruleChoiceDialog->setAccoladeCheckBoxState(l_accoladeCheckBoxState);
+      m_ruleChoiceDialog->setMagicNumberCheckBoxState(l_magicNumberCheckBoxState);
+      m_ruleChoiceDialog->setCamelCaseCheckBoxState(l_camelCaseCheckBoxState);
+      m_ruleChoiceDialog->setConditionCheckBoxState(l_conditionCheckBoxState);
+      m_ruleChoiceDialog->setOrphanFunctionCheckBoxState(l_orphanFunctionCheckBoxState);
+      m_ruleChoiceDialog->setPointerCheckBoxState(l_pointerCheckBoxState);
+      m_ruleChoiceDialog->setToDoCheckBoxState(l_toDoCheckBoxState);
+
+      m_ruleChoiceDialog->setHFileForCCheckBoxState(l_hFileForCCheckBoxState);
+
+      m_ruleChoiceDialog->setHFileForCppCheckBoxState(l_hFileForCppCheckBoxState);
+    }
+    l_settings.endGroup();
   }
-  l_settings.endGroup();
-
-  l_settings.beginGroup(CONFIG_RULES);
-  // Common rules
-  bool l_accoladeCheckBoxState = l_settings.value(VERIFY_ACCOLADE_CONFIGURATION).toBool();
-  bool l_magicNumberCheckBoxState = l_settings.value(VERIFY_MAGIC_NUMBER_CONFIGURATION).toBool();
-  bool l_camelCaseCheckBoxState = l_settings.value(VERIFY_CAMEL_CASE_CONFIGURATION).toBool();
-  bool l_conditionCheckBoxState = l_settings.value(VERIFY_CONDITION_CONFIGURATION).toBool();
-  bool l_orphanFunctionCheckBoxState = l_settings.value(VERIFY_ORPHAN_FUNCTION_CONFIGURATION).toBool();
-  bool l_pointerCheckBoxState = l_settings.value(VERIFY_POINTER_CONFIGURATION).toBool();
-  bool l_toDoCheckBoxState = l_settings.value(VERIFY_TODO_CONFIGURATION).toBool();
-
-  // C specific rules
-  bool l_hFileForCCheckBoxState = l_settings.value(VERIFY_H_FILE_FOR_C).toBool();
-
-  // Cpp specific rules
-  bool l_hFileForCppCheckBoxState = l_settings.value(VERIFY_H_FILE_FOR_CPP).toBool();
-  if(nullptr != m_ruleChoiceDialog)
-  {
-    m_ruleChoiceDialog->setAccoladeCheckBoxState(l_accoladeCheckBoxState);
-    m_ruleChoiceDialog->setMagicNumberCheckBoxState(l_magicNumberCheckBoxState);
-    m_ruleChoiceDialog->setCamelCaseCheckBoxState(l_camelCaseCheckBoxState);
-    m_ruleChoiceDialog->setConditionCheckBoxState(l_conditionCheckBoxState);
-    m_ruleChoiceDialog->setOrphanFunctionCheckBoxState(l_orphanFunctionCheckBoxState);
-    m_ruleChoiceDialog->setPointerCheckBoxState(l_pointerCheckBoxState);
-    m_ruleChoiceDialog->setToDoCheckBoxState(l_toDoCheckBoxState);
-
-    m_ruleChoiceDialog->setHFileForCCheckBoxState(l_hFileForCCheckBoxState);
-
-    m_ruleChoiceDialog->setHFileForCppCheckBoxState(l_hFileForCppCheckBoxState);
-  }
-  l_settings.endGroup();
 }
 
 /**
@@ -1063,47 +1080,50 @@ void MainWindow::loadConfigurationFile(void)
  */
 void MainWindow::saveConfigurationFile(void)
 {
-  if(!ui->lineEdit_inputFolder->text().isEmpty())
+  if(nullptr != ui)
   {
-    QSettings l_settings("config/config.ini", QSettings::IniFormat);
-    l_settings.beginGroup(CONFIG_HMI);
-    l_settings.setValue(INPUT_FOLDER_CONFIGURATION, ui->lineEdit_inputFolder->text());
-    l_settings.setValue(REPORT_FOLDER_CONFIGURATION, ui->lineEdit_outputLogs->text());
-    l_settings.endGroup();
-
-    // External tools configuration
-    l_settings.beginGroup(CONFIG_EXTERNAL_TOOL);
-    if(nullptr != m_toolParameterDialog)
+    if(!ui->lineEdit_inputFolder->text().isEmpty())
     {
-      l_settings.setValue(INPUT_EXCEL_PATH_CONFIGURATION, m_toolParameterDialog->getExcelPath());
-      l_settings.setValue(INPUT_CPP_CHECK_PATH_CONFIGURATION, m_toolParameterDialog->getCPPCheckPath());
-      l_settings.setValue(INPUT_CHECK_STYLE_PATH_CONFIGURATION, m_toolParameterDialog->getCheckStylePath());
-    }
-    l_settings.endGroup();
+      QSettings l_settings("config/config.ini", QSettings::IniFormat);
+      l_settings.beginGroup(CONFIG_HMI);
+      l_settings.setValue(INPUT_FOLDER_CONFIGURATION, ui->lineEdit_inputFolder->text());
+      l_settings.setValue(REPORT_FOLDER_CONFIGURATION, ui->lineEdit_outputLogs->text());
+      l_settings.endGroup();
 
-    l_settings.beginGroup(CONFIG_RULES);
-    if(nullptr != m_ruleChoiceDialog)
-    {
-      // Common rules
-      l_settings.setValue(VERIFY_ACCOLADE_CONFIGURATION, m_ruleChoiceDialog->getAccoladeCheckBoxState());
-      l_settings.setValue(VERIFY_MAGIC_NUMBER_CONFIGURATION, m_ruleChoiceDialog->getMagicNumberCheckBoxState());
-      l_settings.setValue(VERIFY_CAMEL_CASE_CONFIGURATION, m_ruleChoiceDialog->getCamelCaseCheckBoxState());
-      l_settings.setValue(VERIFY_CONDITION_CONFIGURATION, m_ruleChoiceDialog->getConditionCheckBoxState());
-      l_settings.setValue(VERIFY_ORPHAN_FUNCTION_CONFIGURATION, m_ruleChoiceDialog->getOrphanFunctionCheckBoxState());
-      l_settings.setValue(VERIFY_POINTER_CONFIGURATION, m_ruleChoiceDialog->getPointerCheckBoxState());
-      l_settings.setValue(VERIFY_TODO_CONFIGURATION, m_ruleChoiceDialog->getToDoCheckBoxState());
+      // External tools configuration
+      l_settings.beginGroup(CONFIG_EXTERNAL_TOOL);
+      if(nullptr != m_toolParameterDialog)
+      {
+        l_settings.setValue(INPUT_EXCEL_PATH_CONFIGURATION, m_toolParameterDialog->getExcelPath());
+        l_settings.setValue(INPUT_CPP_CHECK_PATH_CONFIGURATION, m_toolParameterDialog->getCPPCheckPath());
+        l_settings.setValue(INPUT_CHECK_STYLE_PATH_CONFIGURATION, m_toolParameterDialog->getCheckStylePath());
+      }
+      l_settings.endGroup();
 
-      // C specific rules
-      l_settings.setValue(VERIFY_H_FILE_FOR_C, m_ruleChoiceDialog->getHFileForCCheckBoxState());
+      l_settings.beginGroup(CONFIG_RULES);
+      if(nullptr != m_ruleChoiceDialog)
+      {
+        // Common rules
+        l_settings.setValue(VERIFY_ACCOLADE_CONFIGURATION, m_ruleChoiceDialog->getAccoladeCheckBoxState());
+        l_settings.setValue(VERIFY_MAGIC_NUMBER_CONFIGURATION, m_ruleChoiceDialog->getMagicNumberCheckBoxState());
+        l_settings.setValue(VERIFY_CAMEL_CASE_CONFIGURATION, m_ruleChoiceDialog->getCamelCaseCheckBoxState());
+        l_settings.setValue(VERIFY_CONDITION_CONFIGURATION, m_ruleChoiceDialog->getConditionCheckBoxState());
+        l_settings.setValue(VERIFY_ORPHAN_FUNCTION_CONFIGURATION, m_ruleChoiceDialog->getOrphanFunctionCheckBoxState());
+        l_settings.setValue(VERIFY_POINTER_CONFIGURATION, m_ruleChoiceDialog->getPointerCheckBoxState());
+        l_settings.setValue(VERIFY_TODO_CONFIGURATION, m_ruleChoiceDialog->getToDoCheckBoxState());
 
-      // Cpp specific rules
-      l_settings.setValue(VERIFY_H_FILE_FOR_CPP, m_ruleChoiceDialog->getHFileForCppCheckBoxState());
+        // C specific rules
+        l_settings.setValue(VERIFY_H_FILE_FOR_C, m_ruleChoiceDialog->getHFileForCCheckBoxState());
+
+        // Cpp specific rules
+        l_settings.setValue(VERIFY_H_FILE_FOR_CPP, m_ruleChoiceDialog->getHFileForCppCheckBoxState());
+      }
+      else
+      {
+        qDebug() << "m_ruleChoiceDialog is null !";
+      }
+      l_settings.endGroup();
     }
-    else
-    {
-      qDebug() << "m_ruleChoiceDialog is null !";
-    }
-    l_settings.endGroup();
   }
 }
 
@@ -1217,14 +1237,17 @@ void MainWindow::applyFontsOnMenu(void)
   l_fontMenu.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontMenu.setPointSize(MENU_FONT_SIZE);
 
-  ui->menuFichier->setFont(l_fontMenu);
-  ui->menuConfiguration->setFont(l_fontMenu);
-  ui->menuAide->setFont(l_fontMenu);
-  ui->actionEnregistrer_la_configuration->setFont(l_fontMenu);
-  ui->actionOuvrir_la_configuration->setFont(l_fontMenu);
-  ui->actionQuitter->setFont(l_fontMenu);
-  ui->actionParametrage_des_regles_de_codage->setFont(l_fontMenu);
-  ui->actionA_propos->setFont(l_fontMenu);
+  if(nullptr != ui)
+  {
+    ui->menuFichier->setFont(l_fontMenu);
+    ui->menuConfiguration->setFont(l_fontMenu);
+    ui->menuAide->setFont(l_fontMenu);
+    ui->actionEnregistrer_la_configuration->setFont(l_fontMenu);
+    ui->actionOuvrir_la_configuration->setFont(l_fontMenu);
+    ui->actionQuitter->setFont(l_fontMenu);
+    ui->actionParametrage_des_regles_de_codage->setFont(l_fontMenu);
+    ui->actionA_propos->setFont(l_fontMenu);
+  }
 }
 
 /**
@@ -1238,12 +1261,15 @@ void MainWindow::applyFontsOnLabels(void)
   l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
   l_fontEnonce.setBold(true);
 
-  ui->label_inputPath->setFont(l_fontEnonce);
-  ui->label_outputLogs->setFont(l_fontEnonce);
-  ui->label_mergeAllReports->setFont(l_fontEnonce);
-  ui->label_inputPath->setStyleSheet(LABEL_COLOR);
-  ui->label_outputLogs->setStyleSheet(LABEL_COLOR);
-  ui->label_mergeAllReports->setStyleSheet(LABEL_COLOR);
+  if(nullptr != ui)
+  {
+    ui->label_inputPath->setFont(l_fontEnonce);
+    ui->label_outputLogs->setFont(l_fontEnonce);
+    ui->label_mergeAllReports->setFont(l_fontEnonce);
+    ui->label_inputPath->setStyleSheet(LABEL_COLOR);
+    ui->label_outputLogs->setStyleSheet(LABEL_COLOR);
+    ui->label_mergeAllReports->setStyleSheet(LABEL_COLOR);
+  }
 }
 
 /**
@@ -1256,10 +1282,13 @@ void MainWindow::applyFontsOnButtons(void)
   l_fontQPushButton.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontQPushButton.setPointSize(PUSHBUTTON_FONT_SIZE);
 
-  ui->pushButton_browseInputFolder->setFont(l_fontQPushButton);
-  ui->pushButton_browserOutputLogs->setFont(l_fontQPushButton);
-  ui->pushButton_openOutputLogs->setFont(l_fontQPushButton);
-  ui->pushButton_launchChecks->setFont(l_fontQPushButton);
+  if(nullptr != ui)
+  {
+    ui->pushButton_browseInputFolder->setFont(l_fontQPushButton);
+    ui->pushButton_browserOutputLogs->setFont(l_fontQPushButton);
+    ui->pushButton_openOutputLogs->setFont(l_fontQPushButton);
+    ui->pushButton_launchChecks->setFont(l_fontQPushButton);
+  }
 }
 
 /**
@@ -1272,8 +1301,11 @@ void MainWindow::applyFontsOnLineEdits(void)
   l_fontQLineEdit.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontQLineEdit.setPointSize(LINEEDIT_FONT_SIZE);
 
-  ui->lineEdit_inputFolder->setFont(l_fontQLineEdit);
-  ui->lineEdit_outputLogs->setFont(l_fontQLineEdit);
+  if(nullptr != ui)
+  {
+    ui->lineEdit_inputFolder->setFont(l_fontQLineEdit);
+    ui->lineEdit_outputLogs->setFont(l_fontQLineEdit);
+  }
 }
 
 /**
@@ -1283,5 +1315,8 @@ void MainWindow::applyFontsOnLineEdits(void)
 void MainWindow::incrementProgressBar(void)
 {
   m_counterFileChecked = m_counterFileChecked + 1;
-  ui->progressBar_checkRules->setValue(m_counterFileChecked);
+  if(nullptr != ui)
+  {
+    ui->progressBar_checkRules->setValue(m_counterFileChecked);
+  }
 }

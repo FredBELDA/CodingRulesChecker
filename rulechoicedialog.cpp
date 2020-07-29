@@ -38,11 +38,14 @@ void RuleChoiceDialog::windowParameter(QWidget *p_widget)
     p_widget->resize(RULE_CHOICE_POPUP_WIDTH, RULE_CHOICE_POPUP_HEIGHT);
     p_widget->setFixedSize(QSize(RULE_CHOICE_POPUP_WIDTH, RULE_CHOICE_POPUP_HEIGHT));
 
-    ui->verticalLayout->setGeometry(QRect(X_SHIFT,
-                                          Y_SHIFT,
-                                          RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH,
-                                          RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT)
-                                    );
+    if(nullptr != ui)
+    {
+      ui->verticalLayout->setGeometry(QRect(X_SHIFT,
+                                            Y_SHIFT,
+                                            RULE_CHOICE_POPUP_VERTICAL_LAYOUT_WIDTH,
+                                            RULE_CHOICE_POPUP_VERTICAL_LAYOUT_HEIGHT)
+                                      );
+    }
   }
   else
   {
@@ -56,12 +59,15 @@ void RuleChoiceDialog::windowParameter(QWidget *p_widget)
  */
 void RuleChoiceDialog::initWidgets(void)
 {
-  ui->label_separator->setText("");
-  ui->pushButton_valider->setText(SAVE);
-  ui->pushButton_annuler->setText(QUIT);
+  if(nullptr != ui)
+  {
+    ui->label_separator->setText("");
+    ui->pushButton_valider->setText(SAVE);
+    ui->pushButton_annuler->setText(QUIT);
 
-  // Force display the first tab
-  ui->tabWidget->setCurrentIndex(0);
+    // Force display the first tab
+    ui->tabWidget->setCurrentIndex(0);
+  }
 }
 
 /**
@@ -69,8 +75,11 @@ void RuleChoiceDialog::initWidgets(void)
  */
 void RuleChoiceDialog::connectWidgets(void)
 {
-  connect(ui->pushButton_valider, SIGNAL(clicked()), this, SLOT(accept()));
-  connect(ui->pushButton_annuler, SIGNAL(clicked()), this, SLOT(reject()));
+  if(nullptr != ui)
+  {
+    connect(ui->pushButton_valider, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(ui->pushButton_annuler, SIGNAL(clicked()), this, SLOT(reject()));
+  }
 }
 
 /**
@@ -99,9 +108,12 @@ void RuleChoiceDialog::applyFontsOnTabs(void)
   l_fontTab.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontTab.setPointSize(TAB_FONT_SIZE);
 
-  ui->tab_C->setFont(l_fontTab);
-  ui->tab_Cpp->setFont(l_fontTab);
-  ui->tab_Java->setFont(l_fontTab);
+  if(nullptr != ui)
+  {
+    ui->tab_C->setFont(l_fontTab);
+    ui->tab_Cpp->setFont(l_fontTab);
+    ui->tab_Java->setFont(l_fontTab);
+  }
 }
 
 /**
@@ -115,12 +127,15 @@ void RuleChoiceDialog::applyFontsOnLabels(void)
   l_fontEnonce.setPointSize(ENONCE_FONT_SIZE);
   l_fontEnonce.setBold(true);
 
-  ui->label_commonRules->setFont(l_fontEnonce);
-  ui->label_specificRules->setFont(l_fontEnonce);
-  ui->label_commonRules->setStyleSheet(LABEL_COLOR);
-  ui->label_specificRules->setStyleSheet(LABEL_COLOR);
+  if(nullptr != ui)
+  {
+    ui->label_commonRules->setFont(l_fontEnonce);
+    ui->label_specificRules->setFont(l_fontEnonce);
+    ui->label_commonRules->setStyleSheet(LABEL_COLOR);
+    ui->label_specificRules->setStyleSheet(LABEL_COLOR);
 
-  ui->label_separator->setStyleSheet(LABEL_SEPARATOR);
+    ui->label_separator->setStyleSheet(LABEL_SEPARATOR);
+  }
 }
 
 /**
@@ -133,8 +148,11 @@ void RuleChoiceDialog::applyFontsOnButtons(void)
   l_fontQPushButton.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontQPushButton.setPointSize(PUSHBUTTON_FONT_SIZE);
 
-  ui->pushButton_valider->setFont(l_fontQPushButton);
-  ui->pushButton_annuler->setFont(l_fontQPushButton);
+  if(nullptr != ui)
+  {
+    ui->pushButton_valider->setFont(l_fontQPushButton);
+    ui->pushButton_annuler->setFont(l_fontQPushButton);
+  }
 }
 
 /**
@@ -147,104 +165,179 @@ void RuleChoiceDialog::applyFontsOnCheckboxes(void)
   l_fontQCheckbox.setFamily(QStringLiteral(FONT_DECLARATION));
   l_fontQCheckbox.setPointSize(CHECKBOX_FONT_SIZE);
 
-  ui->checkBox_accoladeVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_camelCaseVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_conditionVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_magicNumberVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_orphanFunctionsVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_pointerVerification->setFont(l_fontQCheckbox);
-  ui->checkBox_toDoVerification->setFont(l_fontQCheckbox);
+  if(nullptr != ui)
+  {
+    ui->checkBox_accoladeVerification->setFont(l_fontQCheckbox);
+    ui->checkBox_camelCaseVerification->setFont(l_fontQCheckbox);
+    ui->checkBox_conditionVerification->setFont(l_fontQCheckbox);
+    ui->checkBox_magicNumberVerification->setFont(l_fontQCheckbox);
+    ui->checkBox_orphanFunctionsVerification->setFont(l_fontQCheckbox);
+    ui->checkBox_pointerVerification->setFont(l_fontQCheckbox);
+    ui->checkBox_toDoVerification->setFont(l_fontQCheckbox);
 
-  ui->checkBox_hFileVerificationForC->setFont(l_fontQCheckbox);
-  ui->checkBox_hFileVerificationForCpp->setFont(l_fontQCheckbox);
+    ui->checkBox_hFileVerificationForC->setFont(l_fontQCheckbox);
+    ui->checkBox_hFileVerificationForCpp->setFont(l_fontQCheckbox);
+  }
 }
 
 bool RuleChoiceDialog::getAccoladeCheckBoxState(void)
 {
-  return ui->checkBox_accoladeVerification->isChecked();
+  bool l_returnValue = false;
+  if(nullptr != ui)
+  {
+    l_returnValue = ui->checkBox_accoladeVerification->isChecked();
+  }
+  return l_returnValue;
 }
 
 void RuleChoiceDialog::setAccoladeCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_accoladeVerification->setChecked(p_checked);
+  if(nullptr != ui)
+  {
+    ui->checkBox_accoladeVerification->setChecked(p_checked);
+  }
 }
 
 bool RuleChoiceDialog::getMagicNumberCheckBoxState(void)
 {
-  return ui->checkBox_magicNumberVerification->isChecked();
+  bool l_returnValue = false;
+  if(nullptr != ui)
+  {
+    l_returnValue = ui->checkBox_magicNumberVerification->isChecked();
+  }
+  return l_returnValue;
 }
 
 void RuleChoiceDialog::setMagicNumberCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_magicNumberVerification->setChecked(p_checked);
+  if(nullptr != ui)
+  {
+    ui->checkBox_magicNumberVerification->setChecked(p_checked);
+  }
 }
 
 bool RuleChoiceDialog::getCamelCaseCheckBoxState(void)
 {
-  return ui->checkBox_camelCaseVerification->isChecked();
+  bool l_returnValue = false;
+  if(nullptr != ui)
+  {
+    l_returnValue = ui->checkBox_camelCaseVerification->isChecked();
+  }
+  return l_returnValue;
 }
 
 void RuleChoiceDialog::setCamelCaseCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_camelCaseVerification->setChecked(p_checked);
+  if(nullptr != ui)
+  {
+    ui->checkBox_camelCaseVerification->setChecked(p_checked);
+  }
 }
 
 bool RuleChoiceDialog::getConditionCheckBoxState(void)
 {
-  return ui->checkBox_conditionVerification->isChecked();
+  bool l_returnValue = false;
+  if(nullptr != ui)
+  {
+    l_returnValue = ui->checkBox_conditionVerification->isChecked();
+  }
+  return l_returnValue;
 }
 
 void RuleChoiceDialog::setConditionCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_conditionVerification->setChecked(p_checked);
+  if(nullptr != ui)
+  {
+    ui->checkBox_conditionVerification->setChecked(p_checked);
+  }
 }
 
 bool RuleChoiceDialog::getOrphanFunctionCheckBoxState(void)
 {
-  return ui->checkBox_orphanFunctionsVerification->isChecked();
+  bool l_returnValue = false;
+  if(nullptr != ui)
+  {
+    l_returnValue = ui->checkBox_orphanFunctionsVerification->isChecked();
+  }
+  return l_returnValue;
 }
 
 void RuleChoiceDialog::setOrphanFunctionCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_orphanFunctionsVerification->setChecked(p_checked);
+  if(nullptr != ui)
+  {
+    ui->checkBox_orphanFunctionsVerification->setChecked(p_checked);
+  }
 }
 
 bool RuleChoiceDialog::getPointerCheckBoxState(void)
 {
-  return ui->checkBox_pointerVerification->isChecked();
+  bool l_returnValue = false;
+  if(nullptr != ui)
+  {
+    l_returnValue = ui->checkBox_pointerVerification->isChecked();
+  }
+  return l_returnValue;
 }
 
 void RuleChoiceDialog::setPointerCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_pointerVerification->setChecked(p_checked);
+  if(nullptr != ui)
+  {
+    ui->checkBox_pointerVerification->setChecked(p_checked);
+  }
 }
 
 bool RuleChoiceDialog::getToDoCheckBoxState(void)
 {
-  return ui->checkBox_toDoVerification->isChecked();
+  bool l_returnValue = false;
+  if(nullptr != ui)
+  {
+    l_returnValue = ui->checkBox_toDoVerification->isChecked();
+  }
+  return l_returnValue;
 }
 
 void RuleChoiceDialog::setToDoCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_toDoVerification->setChecked(p_checked);
+  if(nullptr != ui)
+  {
+    ui->checkBox_toDoVerification->setChecked(p_checked);
+  }
 }
 
 bool RuleChoiceDialog::getHFileForCCheckBoxState(void)
 {
-  return ui->checkBox_hFileVerificationForC->isChecked();
+  bool l_returnValue = false;
+  if(nullptr != ui)
+  {
+    l_returnValue = ui->checkBox_hFileVerificationForC->isChecked();
+  }
+  return l_returnValue;
 }
 
 void RuleChoiceDialog::setHFileForCCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_hFileVerificationForC->setChecked(p_checked);
+  if(nullptr != ui)
+  {
+    ui->checkBox_hFileVerificationForC->setChecked(p_checked);
+  }
 }
 
 bool RuleChoiceDialog::getHFileForCppCheckBoxState(void)
 {
-  return ui->checkBox_hFileVerificationForCpp->isChecked();
+  bool l_returnValue = false;
+  if(nullptr != ui)
+  {
+    l_returnValue = ui->checkBox_hFileVerificationForCpp->isChecked();
+  }
+  return l_returnValue;
 }
 
 void RuleChoiceDialog::setHFileForCppCheckBoxState(const bool p_checked)
 {
-  ui->checkBox_hFileVerificationForCpp->setChecked(p_checked);
+  if(nullptr != ui)
+  {
+    ui->checkBox_hFileVerificationForCpp->setChecked(p_checked);
+  }
 }
