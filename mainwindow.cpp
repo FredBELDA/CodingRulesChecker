@@ -448,21 +448,24 @@ void MainWindow::sortFiles(QStringList p_list)
         // We create the global report
         QString l_reportName = ui->lineEdit_outputLogs->text() + GLOBAL_REPORT_NAME;
         m_mergedReport = new QFile(l_reportName);
-        if(!m_mergedReport->open(QFile::WriteOnly | QFile::Text))
+        if(nullptr != m_mergedReport)
         {
-          qDebug() << CANNOT_OPENED_FILE << m_mergedReport->fileName() << FOR_WRITING;
-        }
-        else
-        {
-          // QTextStream object creation from QFile object
-          QTextStream l_flux(m_mergedReport);
-          // We fix codec before writting
-          l_flux.setCodec(CODEC_FOR_EXCEL_FILE);
-          // Write info into file
-          QString l_currentDate = QDate::currentDate().toString("dd/MM/yyyy");
-          l_flux << GENERATED_REPORT << l_currentDate << endl;
-          l_flux << NUMBER_OF_FILES_FOUND << ui->lineEdit_inputFolder->text()
-                 << " : " << p_list.size() << endl;
+          if(!m_mergedReport->open(QFile::WriteOnly | QFile::Text))
+          {
+            qDebug() << CANNOT_OPENED_FILE << m_mergedReport->fileName() << FOR_WRITING;
+          }
+          else
+          {
+            // QTextStream object creation from QFile object
+            QTextStream l_flux(m_mergedReport);
+            // We fix codec before writting
+            l_flux.setCodec(CODEC_FOR_EXCEL_FILE);
+            // Write info into file
+            QString l_currentDate = QDate::currentDate().toString("dd/MM/yyyy");
+            l_flux << GENERATED_REPORT << l_currentDate << endl;
+            l_flux << NUMBER_OF_FILES_FOUND << ui->lineEdit_inputFolder->text()
+                   << " : " << p_list.size() << endl;
+          }
         }
       }
       emit launchCheckFiles();
@@ -530,7 +533,12 @@ void MainWindow::checkFiles(void)
         }
         if(m_ruleChoiceDialog->getPointerCheckBoxState())
         {
-          // Check for TODO problem into code
+          QStringList l_cPointerDeclaration = l_cVerifFile->getPointerDeclarationList();
+          if(!l_cPointerDeclaration.isEmpty())
+          {
+            m_pointerDeclaration.append(l_cPointerDeclaration);
+          }
+          // Check for Pointers problem into code
           l_cVerifFile->verifyPointers(m_pointerDeclaration);
           // Set a boolean to display the popup if rule is not respected
           m_displayPointerRule |= l_cVerifFile->hasPointersProblem();
@@ -670,6 +678,13 @@ void MainWindow::launchCommonCheck(AbstractVerifFiles *p_verifFile)
     p_verifFile->verifyPointers(m_pointerDeclaration);
     // Set a boolean to display the popup if rule is not respected
     m_displayPointerRule |= p_verifFile->hasPointersProblem();
+  }
+  if(m_ruleChoiceDialog->getConditionCheckBoxState())
+  {
+    // Check for Pointers problem into code
+    p_verifFile->verifyConditions();
+    // Set a boolean to display the popup if rule is not respected
+    m_displayConditionsRule |= p_verifFile->hasConditionsProblem();
   }
 }
 

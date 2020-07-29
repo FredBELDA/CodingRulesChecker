@@ -34,29 +34,26 @@ void VerifyConditions::checkForConditions(void)
           // Replace all spaces by one space ('\t', '\n', '\v', '\f', '\r', and ' ')
           // Example : "QDir    l_currentSRSWorkspace" => "QDir l_currentSRSWorkspace"
           l_line = l_line.simplified();
-
           if(l_parenthesisCounter > 0)
           {
-              l_conditionsStatements[l_conditionsStatements.size()-1].append(l_line);
-
-              l_parenthesisCounter = l_line.count(SEARCH_FOR_OPENED_PARENTHESIS) -
-                      l_line.count(SEARCH_FOR_CLOSED_PARENTHESIS);
-              if(-1 == l_parenthesisCounter)
-              {
-                  l_parenthesisCounter = 0;
-              }
+            l_conditionsStatements[l_conditionsStatements.size()-1].append(l_line);
+            l_parenthesisCounter = l_line.count(SEARCH_FOR_OPENED_PARENTHESIS) -
+                                  l_line.count(SEARCH_FOR_CLOSED_PARENTHESIS);
+            if(-1 == l_parenthesisCounter)
+            {
+              l_parenthesisCounter = 0;
+            }
           }
           qDebug() <<  "l_conditionsStatements: " << l_conditionsStatements;
           if(l_line.contains(IF_INSTRUCTION) || l_line.contains(ELIF_INSTRUCTION) || l_line.contains(WHILE_INSTRUCTION))
           {
-              l_parenthesisCounter = l_line.count(SEARCH_FOR_OPENED_PARENTHESIS) -
-                      l_line.count(SEARCH_FOR_CLOSED_PARENTHESIS);
+            l_parenthesisCounter = l_line.count(SEARCH_FOR_OPENED_PARENTHESIS) -
+                                   l_line.count(SEARCH_FOR_CLOSED_PARENTHESIS);
 
-              //todo il faut tester les fins de lignes si elle contiennent assez de () et qu'elles ne finissent pas par | ou &
-              l_conditionsStatements.append(l_line);
+            //TODO il faut tester les fins de lignes si elle contiennent assez de () et qu'elles ne finissent pas par | ou &
+            l_conditionsStatements.append(l_line);
             qDebug() << "l_line: " << l_line;
             qDebug() << "l_parenthesisCounter: " << l_parenthesisCounter;
-
           }
           if(l_line.contains(FOR_INSTRUCTION))
           {

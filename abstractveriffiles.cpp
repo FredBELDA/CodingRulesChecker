@@ -93,8 +93,6 @@ void AbstractVerifFiles::verifyToDo(void)
 
 void AbstractVerifFiles::verifyPointers(const QStringList p_pointerDeclaration)
 {
-  qDebug() << "verifyPointers";
-
   if(!p_pointerDeclaration.isEmpty())
   {
     VerifyPointer *l_verifPointer = new VerifyPointer(m_fileToAnalyse, m_outputLogsPath);
@@ -117,7 +115,6 @@ void AbstractVerifFiles::verifyPointers(const QStringList p_pointerDeclaration)
 
 void AbstractVerifFiles::verifyConditions(void)
 {
-  qDebug() << "verifyConditions";
   VerifyConditions *l_verifConditions = new VerifyConditions(m_fileToAnalyse, m_outputLogsPath);
   if(nullptr != l_verifConditions)
   {

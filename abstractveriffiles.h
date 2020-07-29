@@ -14,7 +14,6 @@ public:
   void verifyCamelCase(void);
   void verifyToDo(void);
   void verifyPointers(const QStringList p_pointerDeclaration);
-
   void verifyConditions(void);
 
   bool hasAccoladeProblem(void);
@@ -22,8 +21,8 @@ public:
   bool hasCamelCaseProblem(void);
   bool hasToDoProblem(void);
   bool hasPointersProblem(void);
-
   bool hasConditionsProblem(void);
+
 protected:
   QString m_fileToAnalyse;
   QString m_outputLogsPath;

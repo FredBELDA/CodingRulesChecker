@@ -1,9 +1,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <QFile>
 #include <QString>
 #include <QStringList>
-#include <QFile>
 
 #include "commonelements.h"
 
@@ -25,7 +25,6 @@ public:
   static QStringList scanForPointerDeclaration(const QString p_line);
   static bool scanForMagicNumber(const QString p_line);
   static QString scanForDefineDeclaration(const QString p_line);
-
   static QStringList getPointerDeclarationList(QFile * p_file);
   // Check launcher
   static void launchCppCheck(const QString p_cppCheckPath, const QString p_pathToCheck);

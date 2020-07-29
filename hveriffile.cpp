@@ -14,7 +14,6 @@ HVerifFile::HVerifFile(const QString p_fileToAnalyse, const QString p_outputLogs
 
 QStringList HVerifFile::getPointerDeclarationList(void)
 {
-  qDebug() << "HVerifFile::GetPointerDecclarationList" ;
   QStringList l_returnValue = QStringList();
   if(!m_fileToAnalyse.isEmpty())
   {
@@ -33,7 +32,7 @@ QStringList HVerifFile::getPointerDeclarationList(void)
   {
     qDebug() << "m_reportFileName is empty !";
   }
-  qDebug() << "HVerifFile l_returnValue: " << l_returnValue;
+
   return l_returnValue;
 }
 
