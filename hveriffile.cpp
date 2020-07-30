@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QDir>
 #include <QFile>
 #include <QTextStream>
 
@@ -18,15 +19,15 @@ QStringList HVerifFile::getPointerDeclarationList(void)
   QStringList l_returnValue = QStringList();
   if(!m_fileToAnalyse.isEmpty())
   {
-    QFile l_file(m_fileToAnalyse);
-    qDebug() << l_file.exists();
-    if(!l_file.open(QFile::ReadOnly | QFile::Text))
+    QString l_fromNativeSeparators = QDir::fromNativeSeparators(m_fileToAnalyse);
+    QFile l_file(l_fromNativeSeparators);
+    if(!l_file.exists())
     {
       qDebug() << CANNOT_OPENED_FILE << l_file.fileName() << FOR_READING;
     }
     else
     {
-      l_returnValue = Utils::getPointerDeclarationList(&l_file);
+      l_returnValue = Utils::getPointerDeclarationList(l_file);
     }
     l_file.close();
   }

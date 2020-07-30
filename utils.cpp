@@ -317,41 +317,48 @@ QString Utils::scanForDefineDeclaration(const QString p_line)
   return l_returnValue;
 }
 
-QStringList Utils::getPointerDeclarationList(QFile * p_file)
+QStringList Utils::getPointerDeclarationList(QFile & p_file)
 {
   QStringList l_returnValue = QStringList();
-  QTextStream l_in(p_file);
+  QTextStream l_in(&p_file);
   QString l_line;
-  while(! l_in.atEnd())
+  if(!p_file.open(QFile::ReadOnly | QFile::Text))
   {
-    l_line = l_in.readLine();
-    l_line = l_line.trimmed();
-    l_line = l_line.simplified();
-    // Filter lines to exclude comment and functions declaration
-    if(!Utils::isComment(l_line) &&
-       !l_line.contains(SEARCH_FOR_OPENED_PARENTHESIS) &&
-       !l_line.contains(SEARCH_FOR_CLOSED_PARENTHESIS) &&
-       !Utils::isDefine(l_line) &&
-       !l_line.isEmpty()
-       )
+    qDebug() << CANNOT_OPENED_FILE << p_file.fileName() << FOR_READING;
+  }
+  else
+  {
+    while(! l_in.atEnd())
     {
-      QStringList l_declaration = Utils::scanForPointerDeclaration(l_line);
-      if(!l_declaration.isEmpty())
+      l_line = l_in.readLine();
+      l_line = l_line.trimmed();
+      l_line = l_line.simplified();
+      // Filter lines to exclude comment and functions declaration
+      if(!Utils::isComment(l_line) &&
+         !l_line.contains(SEARCH_FOR_OPENED_PARENTHESIS) &&
+         !l_line.contains(SEARCH_FOR_CLOSED_PARENTHESIS) &&
+         !Utils::isDefine(l_line) &&
+         !l_line.isEmpty()
+         )
       {
-        QStringList l_variable = l_line.split(SEARCH_FOR_EQUALS);
-        QStringList l_names = l_variable.at(0).split(SEARCH_FOR_COMMA);
-
-        if(!l_names.isEmpty())
+        QStringList l_declaration = Utils::scanForPointerDeclaration(l_line);
+        if(!l_declaration.isEmpty())
         {
-          //int *var1, *var2, var3 => int *var1, *var2
-          QStringList l_variablesName = l_names.filter(POINTER_DECLARATION);
-          qDebug() << "l_variablesName: " << l_variablesName;
-          foreach(QString l_variableName, l_variablesName)
+          QStringList l_variable = l_line.split(SEARCH_FOR_EQUALS);
+          QStringList l_names = l_variable.at(0).split(SEARCH_FOR_COMMA);
+
+          if(!l_names.isEmpty())
           {
-            QString l_pointerName = l_variableName.split(POINTER_DECLARATION).at(1);
-            l_pointerName = l_pointerName.replace(SEARCH_FOR_SEMICOLON, "");
-            l_pointerName = l_pointerName.trimmed();
-            l_returnValue.append(l_pointerName);
+            //int *var1, *var2, var3 => int *var1, *var2
+            QStringList l_variablesName = l_names.filter(POINTER_DECLARATION);
+            qDebug() << "l_variablesName: " << l_variablesName;
+            foreach(QString l_variableName, l_variablesName)
+            {
+              QString l_pointerName = l_variableName.split(POINTER_DECLARATION).at(1);
+              l_pointerName = l_pointerName.replace(SEARCH_FOR_SEMICOLON, "");
+              l_pointerName = l_pointerName.trimmed();
+              l_returnValue.append(l_pointerName);
+            }
           }
         }
       }

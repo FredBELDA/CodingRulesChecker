@@ -17,14 +17,13 @@ QStringList CVerifFile::getPointerDeclarationList(void)
   if(!m_fileToAnalyse.isEmpty())
   {
     QFile l_file(m_fileToAnalyse);
-    qDebug() << l_file.exists();
-    if(!l_file.open(QFile::ReadOnly | QFile::Text))
+    if(!l_file.exists())
     {
       qDebug() << CANNOT_OPENED_FILE << l_file.fileName() << FOR_READING;
     }
     else
     {
-      l_returnValue = Utils::getPointerDeclarationList(&l_file);
+      l_returnValue = Utils::getPointerDeclarationList(l_file);
     }
     l_file.close();
   }
