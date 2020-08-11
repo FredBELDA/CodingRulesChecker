@@ -41,10 +41,15 @@ QStringList HVerifFile::getPointerDeclarationList(void)
 
 QStringList HVerifFile::getFunctionDeclarationList(void)
 {
+  qDebug() << "HVerifFile::getFunctionDeclarationList";
   QStringList l_returnValue = QStringList();
   if(!m_fileToAnalyse.isEmpty())
   {
     QFile l_file(m_fileToAnalyse);
+    if(m_fileToAnalyse.endsWith("abstractverficonfigfiles.h"))
+    {
+        qDebug() << "titi";
+    }
     if(!l_file.open(QFile::ReadOnly | QFile::Text))
     {
       qDebug() << CANNOT_OPENED_FILE << l_file.fileName() << FOR_READING;
@@ -64,7 +69,10 @@ QStringList HVerifFile::getFunctionDeclarationList(void)
              l_line.contains(SEARCH_FOR_CLOSED_PARENTHESIS)
              )
           {
-            QStringList l_declaration = Utils::scanForVariableDeclaration(l_line);
+            qDebug() << "l_line: " << l_line;
+            Utils::scanForFunctionDeclaration(l_line);
+            QStringList l_declaration;
+            //qDebug() << "l_declaration: " << l_declaration;
             if(!l_declaration.isEmpty())
             {
               l_returnValue.append(l_line);

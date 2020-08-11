@@ -26,6 +26,10 @@ public:
   static bool scanForMagicNumber(const QString p_line);
   static QString scanForDefineDeclaration(const QString p_line);
   static QStringList getPointerDeclarationList(QFile &p_file);
+  static QStringList splitConditions(const QStringList p_stringList);
+  static QStringList cleanSplitedConditons(const QStringList p_stringList);
+
+  static QString scanForFunctionDeclaration(const QString p_line);
   // Check launcher
   static void launchCppCheck(const QString p_cppCheckPath, const QString p_pathToCheck);
   static void launchCheckStyle(const QString p_checkStylePath, const QString p_pathToCheck);

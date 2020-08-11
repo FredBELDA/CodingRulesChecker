@@ -1,0 +1,89 @@
+Fichier;Numéro de ligne;Contenu de la ligne;Criticité;Problème rencontré
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/commonelements.h;151;soit Ã cause d'une fonction Ã appeler, qui n'existe pas,\n \;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/commonelements.h;188;- PremiÃ¨re lettre de chaque mot suivant en majuscule.\n \;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.h;39;void saveConfigurationFileAndQuit(void);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.h;39;void saveConfigurationFileAndQuit(void);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/aboutdialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/aboutdialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/aboutdialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/aboutdialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/aboutdialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/aboutdialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/aboutdialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/aboutdialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/aboutdialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/aboutdialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/externaltoolparameterdialog.cpp;13;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/externaltoolparameterdialog.cpp;13;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/externaltoolparameterdialog.cpp;13;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/externaltoolparameterdialog.cpp;13;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/externaltoolparameterdialog.cpp;13;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/externaltoolparameterdialog.cpp;13;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/externaltoolparameterdialog.cpp;13;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/externaltoolparameterdialog.cpp;13;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/externaltoolparameterdialog.cpp;13;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/externaltoolparameterdialog.cpp;13;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;30;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;30;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;30;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;30;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;30;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;273;checkOutputFolder(ui->lineEdit_outputLogs->text());;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;273;checkOutputFolder(ui->lineEdit_outputLogs->text());;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;273;checkOutputFolder(ui->lineEdit_outputLogs->text());;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;273;checkOutputFolder(ui->lineEdit_outputLogs->text());;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;273;checkOutputFolder(ui->lineEdit_outputLogs->text());;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;654;m_mergedReport->close();;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;668;if(m_ruleChoiceDialog->getAccoladeCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;675;if(m_ruleChoiceDialog->getCamelCaseCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;682;if(m_ruleChoiceDialog->getMagicNumberCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;689;if(m_ruleChoiceDialog->getToDoCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;696;if(m_ruleChoiceDialog->getPointerCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;703;if(m_ruleChoiceDialog->getConditionCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;1170;void MainWindow::saveConfigurationFileAndQuit(void);Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;1170;void MainWindow::saveConfigurationFileAndQuit(void);Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;1170;void MainWindow::saveConfigurationFileAndQuit(void);Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;1170;void MainWindow::saveConfigurationFileAndQuit(void);Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;1170;void MainWindow::saveConfigurationFileAndQuit(void);Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;30;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;30;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;30;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;30;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;30;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;273;checkOutputFolder(ui->lineEdit_outputLogs->text());;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;273;checkOutputFolder(ui->lineEdit_outputLogs->text());;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;273;checkOutputFolder(ui->lineEdit_outputLogs->text());;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;273;checkOutputFolder(ui->lineEdit_outputLogs->text());;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;273;checkOutputFolder(ui->lineEdit_outputLogs->text());;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;654;m_mergedReport->close();;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;668;if(m_ruleChoiceDialog->getAccoladeCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;675;if(m_ruleChoiceDialog->getCamelCaseCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;682;if(m_ruleChoiceDialog->getMagicNumberCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;689;if(m_ruleChoiceDialog->getToDoCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;696;if(m_ruleChoiceDialog->getPointerCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;703;if(m_ruleChoiceDialog->getConditionCheckBoxState());Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;1170;void MainWindow::saveConfigurationFileAndQuit(void);Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;1170;void MainWindow::saveConfigurationFileAndQuit(void);Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;1170;void MainWindow::saveConfigurationFileAndQuit(void);Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;1170;void MainWindow::saveConfigurationFileAndQuit(void);Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;1170;void MainWindow::saveConfigurationFileAndQuit(void);Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/rulechoicedialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/rulechoicedialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/rulechoicedialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/rulechoicedialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/rulechoicedialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/rulechoicedialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/rulechoicedialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/rulechoicedialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/rulechoicedialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/rulechoicedialog.cpp;11;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/ruledialog.cpp;19;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/ruledialog.cpp;19;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/ruledialog.cpp;19;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/ruledialog.cpp;19;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/ruledialog.cpp;19;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/ruledialog.cpp;19;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/ruledialog.cpp;19;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/ruledialog.cpp;19;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/ruledialog.cpp;19;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !
+D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/ruledialog.cpp;19;ui->setupUi(this);;Majeur;Le pointeur n'est pas entouré d'un block if !

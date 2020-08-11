@@ -223,6 +223,7 @@ void MainWindow::connectWidgets(void)
     connect(ui->actionA_propos, SIGNAL(triggered(bool)), this, SLOT(displayAbout()));
     // Signal connexion
     connect(this, SIGNAL(filesListed(QStringList)), this, SLOT(sortFiles(QStringList)));
+    connect(ui->checkBox_deleteCsvFile, SIGNAL(stateChanged(int)), this, SLOT(deleteCsvFiles(int)));
     connect(this, SIGNAL(launchCheckFiles()), this, SLOT(checkFiles()));
   }
 }
@@ -483,6 +484,16 @@ void MainWindow::sortFiles(QStringList p_list)
   }
 }
 
+
+
+void MainWindow::deleteCsvFiles(int p_state)
+{
+    qDebug() << "MainWindow::deleteCsvFiles: " << p_state;
+    if(Qt::Checked == p_state)
+    {
+        //TODO Delete Fichiers
+    }
+}
 /**
  * \brief Launch check on files.
  *
@@ -512,6 +523,7 @@ void MainWindow::checkFiles(void)
           {
             m_functionDeclaration.append(l_functionDeclaration);
           }
+          qDebug() << "m_functionDeclaration: " << m_functionDeclaration;
           QStringList l_defineDeclaration = l_hVerifFile->getDefineDeclarationList();
           if(!l_defineDeclaration.isEmpty())
           {
@@ -904,6 +916,29 @@ void MainWindow::displayHRule(void)
   }
 }
 
+
+void MainWindow::displayConditionsRule(void)
+{
+    if(m_displayConditionsRule)
+    {
+      m_conditionsRuleDialog = new RuleDialog(this,
+                                         CONDITIONS_RULE_POPUP_TITLE,
+                                         CONDITIONS_RULE_POPUP,
+                                         CONDITIONS_RULE_EXAMPLE,
+                                         CONDITIONS_RULE_EXPLANATION);
+      if(nullptr != m_conditionsRuleDialog)
+      {
+        connect(m_conditionsRuleDialog, SIGNAL(popupRead()), this, SLOT(couldDisplayNextRule()));
+        m_conditionsRuleDialog->show();
+        // To avoid rule display loop
+        m_displayConditionsRule = false;
+      }
+      else
+      {
+        qDebug() << "MainWindow::displayConditionsRule => m_conditionsRuleDialog is null !";
+      }
+    }
+}
 // TODO add missing rules
 //...
 
@@ -952,7 +987,16 @@ void MainWindow::displayRule(void)
     if(m_displayPointerRule)
     {
       l_ruleToDisplay = true;
+      displayPointerRule();
+    }
+  }
 
+  if(!l_ruleToDisplay)
+  {
+    if(m_displayConditionsRule)
+    {
+      l_ruleToDisplay = true;
+      displayConditionsRule();
     }
   }
   // TODO Add missing rules
