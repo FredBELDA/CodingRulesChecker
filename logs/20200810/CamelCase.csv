@@ -1,9 +1,0 @@
-Fichier;Numéro de ligne;Contenu de la ligne;Criticité;Problème rencontré
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;165;l_logo_AKKA_Width;Critique;Ne repect pas la synthaxe camelCase !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;166;l_logo_AKKA_Height;Critique;Ne repect pas la synthaxe camelCase !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;173;l_logo_Thales_Width;Critique;Ne repect pas la synthaxe camelCase !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;174;l_logo_Thales_Height;Critique;Ne repect pas la synthaxe camelCase !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;565;|;Critique;Ne repect pas la synthaxe camelCase !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;595;|;Critique;Ne repect pas la synthaxe camelCase !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;701;|;Critique;Ne repect pas la synthaxe camelCase !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/utils.cpp;270;>;Critique;Ne repect pas la synthaxe camelCase !
