@@ -1,9 +1,0 @@
-Fichier;Numéro de ligne;Contenu de la ligne;Criticité;Problème rencontré
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/commonelements.h;137;// TODO complete rules contains;Majeur;Les TODO doivent être enlever du code !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/commonelements.h;347;// Path to doc;Majeur;Les TODO doivent être enlever du code !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/commonelements.h;356;//TODO Change path;Majeur;Les TODO doivent être enlever du code !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;494;//TODO Delete Fichiers;Majeur;Les TODO doivent être enlever du code !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;592;// Check for TODO problem into code;Majeur;Les TODO doivent être enlever du code !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;691;// Check for TODO problem into code;Majeur;Les TODO doivent être enlever du code !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;918;// TODO add missing rules;Majeur;Les TODO doivent être enlever du code !
-D:/Akka/CodingRulesChecker-V3/CodingRulesChecker-V3/mainwindow.cpp;969;// TODO Add missing rules;Majeur;Les TODO doivent être enlever du code !
