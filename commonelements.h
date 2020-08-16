@@ -226,12 +226,24 @@ Par conséquent, à chaque fois, que je vais devoir interagir avec lui,\n \
 je le teste avant."
 #define ORPHAN_FUNCTIONS_RULE_POPUP_TITLE "Règle de codage concernant les fonctions orphelines"
 #define ORPHAN_FUNCTIONS_RULE_POPUP ""
+
 #define ORPHAN_FUNCTIONS_RULE_EXAMPLE ""
 #define ORPHAN_FUNCTIONS_RULE_EXPLANATION ""
 #define CONDITIONS_RULE_POPUP_TITLE "Règle de codage concernant les conditions"
-#define CONDITIONS_RULE_POPUP ""
-#define CONDITIONS_RULE_EXAMPLE ""
-#define CONDITIONS_RULE_EXPLANATION ""
+#define CONDITIONS_RULE_POPUP "Les conditions sont importantes dans votre code. \n \
+Attention tout de même à l'ordre dans lequel vous les tester.\n \
+En effet une faute de frappe sur un test d'égalité et votre  \n \
+variable se retrouve ré-affecté. \n \
+Pour eviter cela il faut donc inverser votre test d'égalité, \n \
+ce qui ne changera rien au comportement \
+inital."
+#define CONDITIONS_RULE_EXAMPLE "if(l_variable = 0) \n \
+ici on prend le risque d'une erreur de frappe et donc d'affecter 0  \n à notre variable. \n \
+la bonne pratique est donc d'inverser 0 et l_variable. \n \
+if(0 == l_variable)"
+#define CONDITIONS_RULE_EXPLANATION "En faisant cela, si une erreur de frappe est présente, le compilateur \n \
+nous le signalera automatiquement et \n \
+provoquera une erreur plus facilement detectable."
 #define DEFAULT_RULE_POPUP_TITLE "Règle par défaut : non gérée !"
 #define DEFAULT_RULE_POPUP ""
 #define DEFAULT_RULE_EXAMPLE ""
@@ -252,6 +264,9 @@ je le teste avant."
 #define SEARCH_FOR_INFERIOR "<"
 #define SEARCH_FOR_SUPERIOR ">"
 #define SEARCH_FOR_NEW "new"
+#define SEARCH_FOR_OR "||"
+#define SEARCH_FOR_AND "&&"
+#define SEARCH_FOR_EQUALS_TEST "=="
 
 #define FOR_INSTRUCTION "for"
 #define WHILE_INSTRUCTION "while"
@@ -280,6 +295,11 @@ je le teste avant."
 
 #define REGEX_FOR_POINTERS "0|null|nullptr"
 #define REGEX_FOR_FUNDAMENTAL_TYPE "^(bool|char|short|int|uint|long|unsigned|double|float)"
+#define REGEX_FOR_EQUALS "==|="
+#define REGEX_FOR_INSTRUCTIONS "^(if|while|for|else if)"
+#define REGEX_FOR_CONDITIONS "<|>|!|>=|<="
+
+#define SEARCH_FOR_DESTRUCTOR "~"
 
 #define FALSE_VALUE "false"
 #define TRUE_VALUE "true"
@@ -296,6 +316,8 @@ je le teste avant."
 
 #define NO_PROBLEM_FOUND "Aucun problème rencontré !"
 #define POINTER_IS_NOT_TESTED "Le pointeur n'est pas entouré d'un block if !"
+#define WRONG_CONDITION_ORDER "Attention la condition n'est pas dans l'ordre CONST == var."
+#define POSSIBLE_CONDITION_ERROR "Attention vous assigner peut-être une variable dans une instruction."
 
 // About popup
 #define ABOUT_POPUP_HEIGHT 190

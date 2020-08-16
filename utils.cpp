@@ -267,7 +267,7 @@ QStringList Utils::scanForPointerDeclaration(const QString p_line)
     }
     if(l_isPointer && l_isDeclaration)
     {
-      qDebug() << "Utils::scanForPointerDeclaration => p_line = " << p_line;
+      //qDebug() << "Utils::scanForPointerDeclaration => p_line = " << p_line;
       l_returnValue.append(p_line);
     }
   }
@@ -351,7 +351,7 @@ QStringList Utils::getPointerDeclarationList(QFile & p_file)
           {
             //int *var1, *var2, var3 => int *var1, *var2
             QStringList l_variablesName = l_names.filter(POINTER_DECLARATION);
-            qDebug() << "l_variablesName: " << l_variablesName;
+            //qDebug() << "l_variablesName: " << l_variablesName;
             foreach(QString l_variableName, l_variablesName)
             {
               QString l_pointerName = l_variableName.split(POINTER_DECLARATION).at(1);
@@ -365,4 +365,71 @@ QStringList Utils::getPointerDeclarationList(QFile & p_file)
     }
   }
   return l_returnValue;
+}
+
+
+QStringList Utils::splitConditions(const QStringList p_stringList)
+{
+    QStringList l_splitedCondition;
+
+    foreach(QString conditionLine, p_stringList)
+    {
+         QStringList orSplit = conditionLine.split(SEARCH_FOR_OR);
+        foreach(QString orCondition, orSplit)
+        {
+            l_splitedCondition.append(orCondition.split(SEARCH_FOR_AND));
+        }
+    }
+    return l_splitedCondition;
+}
+
+QStringList Utils::cleanSplitedConditons(const QStringList p_stringList)
+{
+    QStringList l_equalConditions = p_stringList.filter(QRegExp(REGEX_FOR_EQUALS));
+
+    l_equalConditions.replaceInStrings(QRegExp(REGEX_FOR_INSTRUCTIONS), "");
+
+    l_equalConditions.replaceInStrings(SEARCH_FOR_OPENED_PARENTHESIS, "");
+    l_equalConditions.replaceInStrings(SEARCH_FOR_CLOSED_PARENTHESIS, "");
+
+    l_equalConditions.replaceInStrings(SEARCH_FOR_SPACE, "");
+
+    return l_equalConditions;
+
+}
+
+QString Utils::scanForFunctionDeclaration(const QString p_line)
+{
+    QString l_returnValue = "";
+    qDebug() << "Utils::scanForFunctionDeclaration";
+    qDebug() << "p_line: " << p_line;
+    if(p_line.contains("static"))
+    {
+        l_returnValue = p_line.split(SEARCH_FOR_SPACE).at(NB_MIN_ELTS);
+        l_returnValue = l_returnValue.split(SEARCH_FOR_OPENED_PARENTHESIS).at(0);
+
+    }
+    else if(p_line.contains("explicit"))
+    {
+        qDebug() << "EXPLICIT: " << p_line;
+    }
+    else
+    {
+        //qDebug() << "p_line: " << p_line;
+        if(!p_line.startsWith(SEARCH_FOR_DESTRUCTOR))
+        {
+
+            if(p_line.split(SEARCH_FOR_SPACE).size() < NB_MIN_ELTS)
+            {
+                l_returnValue = p_line;
+            }
+            else
+            {
+                l_returnValue = p_line.split(SEARCH_FOR_SPACE).at(1);
+                qDebug() << "not static: " << p_line;
+            }
+         }
+
+    }
+    return l_returnValue;
 }

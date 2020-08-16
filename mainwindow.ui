@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>675</width>
-    <height>340</height>
+    <width>757</width>
+    <height>403</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>641</width>
-      <height>241</height>
+      <height>278</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -110,6 +110,24 @@
       </layout>
      </item>
      <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_deleteCsvFile">
+         <property name="text">
+          <string>Supprimer tous les rapports ?</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_deleteCsvFile">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_launchChecks">
        <property name="text">
         <string>Launch checks</string>
@@ -147,8 +165,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>675</width>
-     <height>21</height>
+     <width>757</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">

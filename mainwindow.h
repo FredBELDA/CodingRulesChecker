@@ -32,6 +32,7 @@ public slots:
   void checkFiles(void);
   void checkInputFolder(const QString p_inputFolder);
   void checkOutputFolder(const QString p_outputFolder);
+  void deleteCsvFiles(int p_state);
   // slots for menubar
   void loadConfigurationFile(void);
   void saveConfigurationFile(void);
@@ -109,6 +110,7 @@ private:
   void displayToDoRule(void);
   void displayPointerRule(void);
   void displayHRule(void);
+  void displayConditionsRule(void);
 
   void launchCppCheck(void);
   void launchCheckStyle(void);
