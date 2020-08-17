@@ -5,6 +5,7 @@
 #include "verifycamelcase.h"
 #include "verifypointer.h"
 #include "verifyconditions.h"
+#include "verifyorphanfunctions.h"
 
 AbstractVerifFiles::AbstractVerifFiles()
 {
@@ -132,6 +133,25 @@ void AbstractVerifFiles::verifyConditions(void)
   }
 }
 
+void AbstractVerifFiles::verifyOrphanFunctions(QMap<QString, int> p_functionsMap)
+{
+        VerifyOrphanFunctions *l_verifOrphanFunctions = new VerifyOrphanFunctions(m_fileToAnalyse, m_outputLogsPath);
+    if(nullptr != l_verifOrphanFunctions)
+    {
+      l_verifOrphanFunctions->checkForOrphanFunctions(p_functionsMap);
+      l_verifOrphanFunctions->generateReport();
+
+      if(0 == l_verifOrphanFunctions->getNbError())
+      {
+        m_orphanFunctionsProblem = false;
+      }
+      else
+      {
+        m_orphanFunctionsProblem = true;
+      }
+    }
+}
+
 bool AbstractVerifFiles::hasAccoladeProblem(void)
 {
   return m_accoladeProblemNumber;
@@ -160,4 +180,9 @@ bool AbstractVerifFiles::hasPointersProblem(void)
 bool AbstractVerifFiles::hasConditionsProblem(void)
 {
   return m_conditionsProblem;
+}
+
+bool AbstractVerifFiles::hasOrphanFunctionsProblem(void)
+{
+    return m_orphanFunctionsProblem;
 }

@@ -74,7 +74,7 @@ private:
   QStringList m_otherFiles;
 
   QStringList m_pointerDeclaration;
-  QStringList m_functionDeclaration;
+  QMap<QString, int> m_functionDeclaration;
   QStringList m_defineDeclaration;
 
   QFile *m_mergedReport;

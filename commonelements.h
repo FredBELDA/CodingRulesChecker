@@ -267,6 +267,10 @@ provoquera une erreur plus facilement detectable."
 #define SEARCH_FOR_OR "||"
 #define SEARCH_FOR_AND "&&"
 #define SEARCH_FOR_EQUALS_TEST "=="
+#define SEARCH_FOR_DESTRUCTOR "~"
+#define SEARCH_FOR_EXPLICIT "explicit"
+#define SEARCH_FOR_STATIC "static"
+#define SEARCH_FOR_METHOD "::"
 
 #define FOR_INSTRUCTION "for"
 #define WHILE_INSTRUCTION "while"
@@ -294,12 +298,12 @@ provoquera une erreur plus facilement detectable."
 #define ZERO_POINTER 0
 
 #define REGEX_FOR_POINTERS "0|null|nullptr"
-#define REGEX_FOR_FUNDAMENTAL_TYPE "^(bool|char|short|int|uint|long|unsigned|double|float)"
+#define REGEX_FOR_FUNDAMENTAL_TYPE "^(void|bool|char|short|int|uint|long|unsigned|double|float)"
 #define REGEX_FOR_EQUALS "==|="
 #define REGEX_FOR_INSTRUCTIONS "^(if|while|for|else if)"
 #define REGEX_FOR_CONDITIONS "<|>|!|>=|<="
 
-#define SEARCH_FOR_DESTRUCTOR "~"
+
 
 #define FALSE_VALUE "false"
 #define TRUE_VALUE "true"

@@ -8,7 +8,7 @@ class VerifyOrphanFunctions : public AbstractVerifFileRules
 public:
   VerifyOrphanFunctions(const QString p_fileToAnalyse, const QString p_outputLogsPath);
 
-  void checkForOrphanFunctions(void);
+  void checkForOrphanFunctions(QMap<QString, int>);
 };
 
 #endif // VERIFYORPHANFUNCTIONS_H

@@ -401,35 +401,40 @@ QStringList Utils::cleanSplitedConditons(const QStringList p_stringList)
 QString Utils::scanForFunctionDeclaration(const QString p_line)
 {
     QString l_returnValue = "";
-    qDebug() << "Utils::scanForFunctionDeclaration";
-    qDebug() << "p_line: " << p_line;
-    if(p_line.contains("static"))
+    qDebug() << "Utils::scanForFunctionDeclaration: " << p_line;
+    if(p_line.toLower().contains(SEARCH_FOR_STATIC))
     {
         l_returnValue = p_line.split(SEARCH_FOR_SPACE).at(NB_MIN_ELTS);
-        l_returnValue = l_returnValue.split(SEARCH_FOR_OPENED_PARENTHESIS).at(0);
-
     }
-    else if(p_line.contains("explicit"))
+    else if(p_line.toLower().contains(SEARCH_FOR_EXPLICIT))
     {
         qDebug() << "EXPLICIT: " << p_line;
+        l_returnValue = p_line.split(SEARCH_FOR_SPACE).at(1);
     }
     else
     {
-        //qDebug() << "p_line: " << p_line;
+       qDebug() << "Not Static or Explicit";
         if(!p_line.startsWith(SEARCH_FOR_DESTRUCTOR))
         {
 
             if(p_line.split(SEARCH_FOR_SPACE).size() < NB_MIN_ELTS)
             {
+                qDebug() << "Constructor: " << p_line;
                 l_returnValue = p_line;
             }
             else
             {
+                qDebug() << "Function: " << p_line;
                 l_returnValue = p_line.split(SEARCH_FOR_SPACE).at(1);
-                qDebug() << "not static: " << p_line;
             }
          }
+        else
+        {
+            qDebug() << "Destructor: " << p_line;
+             l_returnValue = p_line;
+        }
 
     }
+    l_returnValue = l_returnValue.split(SEARCH_FOR_OPENED_PARENTHESIS).at(0);
     return l_returnValue;
 }

@@ -521,7 +521,10 @@ void MainWindow::checkFiles(void)
           QStringList l_functionDeclaration = l_hVerifFile->getFunctionDeclarationList();
           if(!l_functionDeclaration.isEmpty())
           {
-            m_functionDeclaration.append(l_functionDeclaration);
+            foreach(QString l_function, l_functionDeclaration)
+            {
+                m_functionDeclaration.insert(l_function, 1);
+            }
           }
           qDebug() << "m_functionDeclaration: " << m_functionDeclaration;
           QStringList l_defineDeclaration = l_hVerifFile->getDefineDeclarationList();
@@ -595,6 +598,13 @@ void MainWindow::checkFiles(void)
           // Set a boolean to display the popup if rule is not respected
           m_displayPointerRule |= l_cppVerifFile->hasPointersProblem();
         }
+        if(m_ruleChoiceDialog->getOrphanFunctionCheckBoxState())
+        {
+            l_cppVerifFile->verifyOrphanFunctions(m_functionDeclaration);
+            // Set a boolean to display the popup if rule is not respected
+            m_displayOrphanFunctionsRule |= l_cppVerifFile->hasOrphanFunctionsProblem();
+        }
+
       }
       else
       {
@@ -708,6 +718,8 @@ void MainWindow::launchCommonCheck(AbstractVerifFiles *p_verifFile)
     // Set a boolean to display the popup if rule is not respected
     m_displayConditionsRule |= p_verifFile->hasConditionsProblem();
   }
+
+
 }
 
 /**
