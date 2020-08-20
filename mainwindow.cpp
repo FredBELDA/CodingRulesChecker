@@ -521,7 +521,10 @@ void MainWindow::checkFiles(void)
           QStringList l_functionDeclaration = l_hVerifFile->getFunctionDeclarationList();
           if(!l_functionDeclaration.isEmpty())
           {
-            m_functionDeclaration.append(l_functionDeclaration);
+            foreach(QString l_function, l_functionDeclaration)
+            {
+                m_functionDeclaration.insert(l_function, 1);
+            }
           }
           qDebug() << "m_functionDeclaration: " << m_functionDeclaration;
           QStringList l_defineDeclaration = l_hVerifFile->getDefineDeclarationList();
@@ -574,10 +577,10 @@ void MainWindow::checkFiles(void)
       // Increment progressBar
       incrementProgressBar();
     }
-
+    CppVerifFile *l_cppVerifFile = nullptr;
     foreach (QString l_cppFile, m_cppFiles)
     {
-      CppVerifFile *l_cppVerifFile = new CppVerifFile(l_cppFile, ui->lineEdit_outputLogs->text());
+      l_cppVerifFile = new CppVerifFile(l_cppFile, ui->lineEdit_outputLogs->text());
       if(nullptr != l_cppVerifFile)
       {
         launchCommonCheck(l_cppVerifFile);
@@ -595,6 +598,13 @@ void MainWindow::checkFiles(void)
           // Set a boolean to display the popup if rule is not respected
           m_displayPointerRule |= l_cppVerifFile->hasPointersProblem();
         }
+        if(m_ruleChoiceDialog->getOrphanFunctionCheckBoxState())
+        {
+
+            m_functionDeclaration = l_cppVerifFile->verifyOrphanFunctions(m_functionDeclaration);
+
+        }
+
       }
       else
       {
@@ -603,6 +613,16 @@ void MainWindow::checkFiles(void)
 
       // Increment progressBar
       incrementProgressBar();
+    }
+    if(!m_cppFiles.isEmpty() && !m_functionDeclaration.isEmpty() && nullptr != l_cppVerifFile)
+    {
+
+        // Set a boolean to display the popup if rule is not respected
+        qDebug() << "TEST DE RAPPORT";
+        qDebug() << "m_functionDeclaration: " << m_functionDeclaration;
+        l_cppVerifFile->functionsTodoList(m_functionDeclaration);
+        m_displayOrphanFunctionsRule |= l_cppVerifFile->hasOrphanFunctionsProblem();
+        // function de verifyOrphan qui mets à jours m_todoList;
     }
 
     foreach (QString l_javaFile, m_javaFiles)
@@ -708,6 +728,8 @@ void MainWindow::launchCommonCheck(AbstractVerifFiles *p_verifFile)
     // Set a boolean to display the popup if rule is not respected
     m_displayConditionsRule |= p_verifFile->hasConditionsProblem();
   }
+
+
 }
 
 /**
